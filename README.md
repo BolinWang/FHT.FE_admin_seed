@@ -1,1 +1,1 @@
-# vue-admin-seed
+# FT_admin-seed
