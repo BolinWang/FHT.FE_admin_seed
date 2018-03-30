@@ -1,26 +1,31 @@
 <template>
   <ul class="previewItems">
-    <li class="preview-item" v-for="(item, index) in list" :key="index"
-      @mouseenter="handleMouseenter(item,index)"
-      @mouseleave="handleMouseleave(item,index)">
-      <img class="preview-img img-center" v-lazy="item.src">
-      <span class="preview-item-actions" :style="{opacity: item.opacityVal}">
-        <span class="preview-item__item-preview" @click="handlePreview(index)">
-          <i class="el-icon-zoom-in"></i>
-        </span>
-      <span v-if="deleteFlag == 'delete' && !item.isnoPic" class="preview-item__item-delete" @click="handleDelete(index,item)">
-          <i class="el-icon-delete"></i>
-        </span>
-      </span>
-    </li>
+    <draggable v-model="list" :options="dragOptions" class="dragItems" @end="handleEmit">
+      <transition-group>
+        <li class="preview-item" v-for="(item, index) in list" :key="index"
+          @mouseenter="handleMouseenter(item,index)"
+          @mouseleave="handleMouseleave(item,index)">
+          <img class="preview-img img-center" v-lazy="item.src">
+          <span class="preview-item-actions" :style="{opacity: item.opacityVal}">
+            <span class="preview-item__item-preview" @click="handlePreview(index)">
+              <i class="el-icon-zoom-in"></i>
+            </span>
+          <span v-if="deleteFlag == 'delete' && !item.isnoPic" class="preview-item__item-delete" @click="handleDelete(index,item)">
+              <i class="el-icon-delete"></i>
+            </span>
+          </span>
+        </li>
+      </transition-group>
+    </draggable>
   </ul>
 </template>
 <script>
 import { deepClone } from '@/utils'
+import draggable from 'vuedraggable'
 export default {
   name: 'preview',
   components: {
-
+    draggable
   },
   props: {
     picList: {
@@ -39,6 +44,11 @@ export default {
       list: [],
       deleteFlag: '',
       showOpacity: false,
+      dragOptions: {
+        animation: 500,
+        group: 'description',
+        ghostClass: 'ghost'
+      }
       /*options: {
         mainClass: 'pswp--minimal--dark',
         barsSize: {top: 0, bottom: 0},
@@ -81,10 +91,16 @@ export default {
         type: 'warning'
       }).then(() => {
         this.list.splice(index, 1);
-        this.$emit('emitDelete', this.list, item.id)
+        handleEmit(item.id)
       }).catch(() => {
 
       });
+    },
+    handleEmit(param) {
+      this.list.map((item) => {
+        item.opacityVal = 0
+      })
+      this.$emit('emitDelete', this.list, param)
     }
   },
   watch: {
@@ -145,7 +161,7 @@ export default {
       height: 100%;
       left: 0;
       top: 0;
-      cursor: default;
+      cursor: move;
       text-align: center;
       color: #fff;
       opacity: 0;
