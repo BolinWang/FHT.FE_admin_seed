@@ -28,17 +28,31 @@
                 v-model="item.imageName" placeholder="请输入图片名称" size="small"
               ></el-input>
               <el-button-group class="btn-group right">
-                <label class="el-button el-button--primary el-button--small" :for="`changeImage${index}`">
-                  <i class="el-icon-upload"></i>
-                </label>
-                <input type="file" :id="`changeImage${index}`"
-                  :accept="accept"
-                  @change="uploadImg($event, `changeImage`, index)"
-                >
-                <el-button type="primary" @click="changeScale(1, index)" size="small" icon="el-icon-zoom-in"></el-button>
-                <el-button type="primary" @click="changeScale(-1, index)" size="small" icon="el-icon-zoom-out"></el-button>
-                <el-button type="primary" @click="rotateLeft(index)" size="small" icon="el-icon-caret-left"></el-button>
-                <el-button type="primary" @click="rotateRight(index)" size="small" icon="el-icon-caret-right"></el-button>
+                <el-tooltip class="item" effect="dark" content="替换图片" placement="top-start">
+                  <label class="el-button el-button--primary el-button--small" :for="`changeImage${index}`">
+                    <i class="el-icon-upload"></i>
+                  </label>
+                  <input type="file" :id="`changeImage${index}`"
+                    :accept="accept"
+                    @change="uploadImg($event, `changeImage`, index)"
+                  >
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="放大图片" placement="top-start">
+                  <el-button type="primary" @click="changeScale(1, index)" size="small" icon="el-icon-zoom-in">
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="缩小图片" placement="top-start">
+                  <el-button type="primary" @click="changeScale(-1, index)" size="small" icon="el-icon-zoom-out">
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="逆时针旋转90°" placement="top-start">
+                  <el-button type="primary" @click="rotateLeft(index)" size="small" icon="el-icon-caret-left">
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="顺时针旋转90°" placement="top-start">
+                  <el-button type="primary" @click="rotateRight(index)" size="small" icon="el-icon-caret-right">
+                  </el-button>
+                </el-tooltip>
               </el-button-group>
             </div>
           </div>
@@ -72,6 +86,21 @@ export default {
       bannerPic: bannerPic,
       layer_cropper: false,
       accept: 'image/png, image/jpeg, image/gif, image/jpg',
+      defaultCropperOptions: {
+        imageName: '',
+        img: '',
+        info: true,
+        size: 1,
+        outputType: 'jpeg',
+        canScale: false,
+        autoCrop: true,
+        // 只有自动截图开启 宽度高度才生效
+        autoCropWidth: 320,
+        autoCropHeight: 240,
+        // 开启宽度和高度比例
+        fixed: true,
+        fixedNumber: [4, 3]
+      },
       cropperList: []
     }
   },
@@ -86,7 +115,7 @@ export default {
   },
   methods: {
     cropperClose() {
-      this.cropperList = [];
+      this.cropperList = []
     },
     // 缩放图片
     changeScale(num, index) {
@@ -100,12 +129,16 @@ export default {
       this.$refs['refCropper' + index][0].rotateRight()
     },
     uploadImg(e, type, index) {
+      if (!e.target.value) {
+        console.log('取消上传...')
+        return false
+      }
       // 上传图片
       let files = e.target.files
       for (let i = 0; i < files.length; i++) {
         let file = files[i]
         if (!/image\/\w+/.test(file.type)) {
-          alert('请上传图片')
+          this.$message.error('请上传图片')
           return false
         }
         let reader = new FileReader()
@@ -120,26 +153,17 @@ export default {
           } else {
             data = e.target.result
           }
-          if (type == 'changeImage') {
-            this.cropperList[index].img = data;
-            this.$set(this.cropperList[index], 'img', data);
+          if (type === 'changeImage') {
+            this.cropperList[index].img = data
+            this.$set(this.cropperList[index], 'img', data)
             this.$set(this.cropperList[index], 'imageName', file.name.split('.')[0])
           } else {
-            this.cropperList.push({
-              imageName: file.name.split('.')[0],
-              img: data,
-              info: true,
-              size: 1,
-              outputType: 'jpeg',
-              canScale: false,
-              autoCrop: true,
-              // 只有自动截图开启 宽度高度才生效
-              autoCropWidth: 320,
-              autoCropHeight: 240,
-              // 开启宽度和高度比例
-              fixed: true,
-              fixedNumber: [4, 3]
-            })
+            this.cropperList.push(
+              Object.assign(this.defaultCropperOptions, {
+                imageName: file.name.split('.')[0],
+                img: data
+              })
+            )
           }
         }
         // 转化为base64
@@ -147,7 +171,10 @@ export default {
         // 转化为blob
         reader.readAsArrayBuffer(file)
       }
-      this.layer_cropper = true
+      if (files.length > 0) {
+        this.layer_cropper = true
+      }
+      e.target.value = ''
     }
   }
 }
