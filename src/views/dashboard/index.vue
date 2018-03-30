@@ -9,6 +9,10 @@
         @change="uploadImg($event, `uploadImages`)"
       >
     </div>
+    <!-- 图片预览 -->
+    <div style="padding: 20px 0; width: 500px;">
+      <Preview :pic-list="cropperData" :delete-icon="`delete`" @emitDelete="emitDelete"></Preview>
+    </div>
     <!-- 图片裁剪 -->
     <div class="dialog-cropper">
       <el-dialog title="图片裁剪" :visible.sync="layer_cropper" width="920px" @close="cropperClose">
@@ -20,6 +24,7 @@
                 :outputType="item.outputType" :info="item.info"
                 :canScale="item.canScale" :autoCrop="item.autoCrop"
                 :autoCropWidth="item.autoCropWidth" :autoCropHeight="item.autoCropHeight"
+                :full="item.full"
                 :fixed="item.fixed" :fixedNumber="item.fixedNumber"
               ></vueCropper>
             </div>
@@ -32,11 +37,11 @@
                   <label class="el-button el-button--primary el-button--small" :for="`changeImage${index}`">
                     <i class="el-icon-upload"></i>
                   </label>
-                  <input type="file" :id="`changeImage${index}`"
-                    :accept="accept"
-                    @change="uploadImg($event, `changeImage`, index)"
-                  >
                 </el-tooltip>
+                <input type="file" :id="`changeImage${index}`"
+                  :accept="accept"
+                  @change="uploadImg($event, `changeImage`, index)"
+                >
                 <el-tooltip class="item" effect="dark" content="放大图片" placement="top-start">
                   <el-button type="primary" @click="changeScale(1, index)" size="small" icon="el-icon-zoom-in">
                   </el-button>
@@ -59,7 +64,7 @@
         </div>
         <div slot="footer" class="dialog-footer">
           <el-button @click="layer_cropper = false" size="small">取 消</el-button>
-          <el-button type="primary" @click="layer_cropper = false" size="small">确 定</el-button>
+          <el-button type="primary" @click="getCropData" size="small">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -69,8 +74,13 @@
 import { mapGetters } from 'vuex'
 import bannerPic from '@/assets/banner1.jpg'
 import VueCropper from 'vue-cropper'
+import Preview from '@/components/Preview'
 export default {
   name: 'dashboard',
+  components: {
+    VueCropper,
+    Preview
+  },
   filters: {
     rolesFilter(value) {
       const valueMap = {
@@ -89,23 +99,20 @@ export default {
       defaultCropperOptions: {
         imageName: '',
         img: '',
-        info: true,
+        info: false,
         size: 1,
         outputType: 'jpeg',
-        canScale: false,
+        canScale: true,
         autoCrop: true,
-        // 只有自动截图开启 宽度高度才生效
-        autoCropWidth: 320,
-        autoCropHeight: 240,
         // 开启宽度和高度比例
         fixed: true,
-        fixedNumber: [4, 3]
+        fixedNumber: [4, 3],
+        // 输出原图比例的截图，不至于大图裁剪出来的图太小啦
+        full: true
       },
-      cropperList: []
+      cropperList: [],
+      cropperData: []
     }
-  },
-  components: {
-    VueCropper
   },
   computed: {
     ...mapGetters([
@@ -128,53 +135,75 @@ export default {
     rotateRight(index) {
       this.$refs['refCropper' + index][0].rotateRight()
     },
-    uploadImg(e, type, index) {
+    // 裁剪完成
+    getCropData() {
+      this.cropperList.forEach((item, index) => {
+        this.$refs['refCropper' + index][0].getCropData((data) => {
+          this.cropperData.push({
+            src: data,
+            title: item.imageName
+          })
+        })
+      })
+      this.layer_cropper = false
+    },
+    // 删除图片$emit
+    emitDelete(val) {
+      this.cropperData = val
+    },
+    /* 选择图片 */
+    async uploadImg(e, type, index) {
       if (!e.target.value) {
         console.log('取消上传...')
         return false
       }
-      // 上传图片
-      let files = e.target.files
-      for (let i = 0; i < files.length; i++) {
-        let file = files[i]
-        if (!/image\/\w+/.test(file.type)) {
-          this.$message.error('请上传图片')
-          return false
-        }
+      const uploadList = []
+      const readFileAsync = file => new Promise(resolve => {
         let reader = new FileReader()
         reader.onerror = function(e) {
           console.log('读取异常....')
         }
-        reader.onload = (e) => {
-          let data
-          if (typeof e.target.result === 'object') {
+        reader.onload = e => {
+          const img = (typeof e.target.result === 'object')
             // 把Array Buffer转化为blob 如果是base64不需要
-            data = window.URL.createObjectURL(new Blob([e.target.result]))
-          } else {
-            data = e.target.result
-          }
-          if (type === 'changeImage') {
-            this.cropperList[index].img = data
-            this.$set(this.cropperList[index], 'img', data)
-            this.$set(this.cropperList[index], 'imageName', file.name.split('.')[0])
-          } else {
-            this.cropperList.push(
-              Object.assign(this.defaultCropperOptions, {
-                imageName: file.name.split('.')[0],
-                img: data
-              })
-            )
-          }
+            ? window.URL.createObjectURL(new Blob([e.target.result]))
+            : e.target.result
+          const imageName = file.name ? file.name.split('.')[0] : ''
+          resolve({
+            img,
+            imageName
+          })
         }
         // 转化为base64
         // reader.readAsDataURL(file)
         // 转化为blob
         reader.readAsArrayBuffer(file)
+      })
+
+      const files = e.target.files
+      for (let i = 0; i < files.length; i++) {
+        if (!/image\/\w+/.test(files[i].type)) {
+          this.$message.error('请上传图片')
+          e.target.value = null
+          return false
+        }
+        uploadList.push(await readFileAsync(files[i]))
       }
-      if (files.length > 0) {
-        this.layer_cropper = true
+      if (type === 'changeImage') {
+        this.cropperList[index].img = uploadList[0].img
+        this.$set(this.cropperList[index], 'img', uploadList[0].img)
+        this.$set(this.cropperList[index], 'imageName', uploadList[0].imageName)
+      } else {
+        this.cropperList = uploadList.map((item, kindex) => {
+          return {
+            ...this.defaultCropperOptions,
+            img: item.img,
+            imageName: item.imageName
+          }
+        })
       }
-      e.target.value = ''
+      this.layer_cropper = true
+      e.target.value = null
     }
   }
 }

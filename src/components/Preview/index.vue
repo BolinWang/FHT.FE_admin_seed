@@ -1,7 +1,9 @@
 <template>
   <ul class="previewItems">
-    <li class="preview-item" v-for="(item, index) in list" @mouseenter="handleMouseenter(item,index)" @mouseleave="handleMouseleave(item,index)">
-      <img class="preview-img img-center" v-lazy="item.src" :key="index">
+    <li class="preview-item" v-for="(item, index) in list" :key="index"
+      @mouseenter="handleMouseenter(item,index)"
+      @mouseleave="handleMouseleave(item,index)">
+      <img class="preview-img img-center" v-lazy="item.src">
       <span class="preview-item-actions" :style="{opacity: item.opacityVal}">
         <span class="preview-item__item-preview" @click="handlePreview(index)">
           <i class="el-icon-zoom-in"></i>
@@ -17,6 +19,9 @@
 import { deepClone } from '@/utils'
 export default {
   name: 'preview',
+  components: {
+
+  },
   props: {
     picList: {
       type: Array,
@@ -31,22 +36,26 @@ export default {
   },
   data() {
     return {
-      /*options:{
-          fullscreenEl: true,
-          errorMsg: `<div class="pswp__error-msg" style="width:auto;height:auto;"><a href="%url%" target="_blank">图片</a>加载失败</div>`
-      },*/
       list: [],
       deleteFlag: '',
-      showOpacity: false
+      showOpacity: false,
+      /*options: {
+        mainClass: 'pswp--minimal--dark',
+        barsSize: {top: 0, bottom: 0},
+        captionEl: false,
+        fullscreenEl: true,
+        shareEl: false,
+        bgOpacity: 0.85,
+        tapToClose: true,
+        tapToToggleControls: false
+      }*/
     }
   },
   mounted() {
     this.list = deepClone(this.picList);
     this.deleteFlag = this.deleteIcon;
-    this.list.forEach((item) => {
+    this.list.map((item) => {
       item.opacityVal = 0;
-      item.w = item.w || 800;
-      item.h = item.h || 600;
     });
   },
   methods: {
@@ -72,7 +81,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.list.splice(index, 1);
-        this.$emit('emitPicList', this.list, item.id)
+        this.$emit('emitDelete', this.list, item.id)
       }).catch(() => {
 
       });
@@ -81,6 +90,14 @@ export default {
   watch: {
     picList(val) {
       this.list = val || [];
+      this.list.map((item) => {
+        let _img = new Image()
+        _img.src = item.src
+        _img.onload = function(){
+            item.w = _img.width || 800
+            item.h = _img.height || 600
+        };
+      });
     }
   }
 }
