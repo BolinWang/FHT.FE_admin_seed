@@ -1,0 +1,203 @@
+<template>
+  <div class="dialog-cropper">
+      <el-dialog title="图片裁剪" :visible.sync="layer_cropper" width="920px" @close="cropperClose">
+        <div class="cropper-wrapper">
+          <div class="cropper-item" v-for="(item,index) in cropperImgs" :key="index">
+            <div class="cropper-component">
+              <vueCropper :ref="`refCropper${index}`"
+                :img="item.img" :outputSize="item.size"
+                :outputType="item.outputType" :info="item.info"
+                :canScale="item.canScale" :autoCrop="item.autoCrop"
+                :autoCropWidth="item.autoCropWidth" :autoCropHeight="item.autoCropHeight"
+                :full="item.full"
+                :fixed="item.fixed" :fixedNumber="item.fixedNumber"
+              ></vueCropper>
+            </div>
+            <div class="cropper-btn--group clearfix">
+              <el-input class="cropper-input--imageName"
+                v-model="item.imageName" placeholder="请输入图片名称" size="small"
+              ></el-input>
+              <el-button-group class="btn-group right">
+                <el-tooltip class="item" effect="dark" content="替换图片" placement="top-start">
+                  <label class="el-button el-button--primary el-button--small" :for="`changeImage${index}`">
+                    <i class="el-icon-upload"></i>
+                  </label>
+                </el-tooltip>
+                <input type="file" :id="`changeImage${index}`"
+                  :accept="accept"
+                  @change="uploadImg($event, index)"
+                >
+                <el-tooltip class="item" effect="dark" content="放大图片" placement="top-start">
+                  <el-button type="primary" @click="changeScale(1, index)" size="small" icon="el-icon-zoom-in">
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="缩小图片" placement="top-start">
+                  <el-button type="primary" @click="changeScale(-1, index)" size="small" icon="el-icon-zoom-out">
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="逆时针旋转90°" placement="top-start">
+                  <el-button type="primary" @click="rotateLeft(index)" size="small" icon="el-icon-caret-left">
+                  </el-button>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="顺时针旋转90°" placement="top-start">
+                  <el-button type="primary" @click="rotateRight(index)" size="small" icon="el-icon-caret-right">
+                  </el-button>
+                </el-tooltip>
+              </el-button-group>
+            </div>
+          </div>
+        </div>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click="layer_cropper = false" size="small">取 消</el-button>
+            <el-button type="primary" @click="getCropData" size="small">确 定</el-button>
+          </div>
+        </el-dialog>
+      </div>
+</template>
+<script>
+import VueCropper from 'vue-cropper'
+export default {
+  name: 'imageCropper',
+  props: {
+    cropperList: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
+  },
+  components: {
+    VueCropper
+  },
+  data() {
+    return {
+      accept: 'image/png, image/jpeg, image/jpg',
+      defaultCropperOptions: {
+        imageName: '',
+        img: '',
+        info: false,
+        size: 1,
+        outputType: 'jpeg',
+        canScale: true,
+        autoCrop: true,
+        // 开启宽度和高度比例
+        fixed: true,
+        fixedNumber: [4, 3],
+        // 输出原图比例的截图，不至于大图裁剪出来的图太小啦
+        full: true
+      },
+      layer_cropper: false,
+      cropperImgs: [],
+      cropperedImgs: []
+    }
+  },
+  created() {
+    this.cropperImgs = this.cropperList.map((item) => {
+      return {
+        ...this.defaultCropperOptions,
+        ...item
+      }
+    })
+    this.layer_cropper = this.cropperImgs.length > 0
+  },
+  methods: {
+    cropperClose() {
+      this.cropperImgs = []
+      this.$emit('emitCropperList', [])
+    },
+    // 缩放图片
+    changeScale(num, index) {
+      this.$refs['refCropper' + index][0].changeScale(num)
+    },
+    // 旋转
+    rotateLeft(index) {
+      this.$refs['refCropper' + index][0].rotateLeft()
+    },
+    rotateRight(index) {
+      this.$refs['refCropper' + index][0].rotateRight()
+    },
+    // 裁剪完成
+    getCropData() {
+      this.cropperImgs.forEach((item, index) => {
+        this.$refs['refCropper' + index][0].getCropData((data) => {
+          this.cropperedImgs.push({
+            src: data,
+            title: item.imageName
+          })
+        })
+      })
+      this.layer_cropper = false
+      this.$emit('emitCropperData', this.cropperedImgs)
+    },
+    // 替换图片
+    uploadImg(e, index) {
+      if (!e.target.value) {
+        console.log('取消上传...')
+        return false
+      }
+      const file = e.target.files[0]
+      if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(files[i].type) == -1) {
+        this.$message.error('请上传jpg/png的图片')
+        e.target.value = null
+        return false;
+      }
+      let reader = new FileReader()
+      reader.onerror = function(e) {
+        console.log('读取异常....')
+      }
+      reader.onload = e => {
+        const img = (typeof e.target.result === 'object')
+          // 把Array Buffer转化为blob 如果是base64不需要
+          ? window.URL.createObjectURL(new Blob([e.target.result]))
+          : e.target.result
+        const imageName = file.name ? file.name.split('.')[0] : ''
+        this.cropperImgs[index].img = img
+        this.$set(this.cropperImgs[index], 'img', img)
+        this.$set(this.cropperImgs[index], 'imageName', imageName)
+      }
+      // 转化为base64
+      // reader.readAsDataURL(file)
+      // 转化为blob
+      reader.readAsArrayBuffer(file)
+      this.layer_cropper = true
+      e.target.value = null
+    }
+  },
+  watch: {
+    cropperList(list = []) {
+      this.cropperImgs = list.map((item) => {
+        return {
+          ...this.defaultCropperOptions,
+          ...item
+        }
+      })
+      this.layer_cropper = this.cropperImgs.length > 0
+    }
+  }
+}
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  .cropper-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  .cropper-item{
+    width: 400px;
+    margin: 0 20px;
+    .cropper-component{
+      height: 300px;
+    }
+    .cropper-btn--group{
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      .cropper-input--imageName{
+        flex: 1;
+      }
+      .btn-group{
+        margin-left: 10px;
+      }
+    }
+  }
+}
+</style>
