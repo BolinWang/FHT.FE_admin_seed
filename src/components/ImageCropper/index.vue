@@ -15,7 +15,7 @@
             </div>
             <div class="cropper-btn--group clearfix">
               <el-input class="cropper-input--imageName"
-                v-model="item.imageName" placeholder="请输入图片名称" size="small"
+                v-model="item.imageName" placeholder="请输入图片名称" size="small" :maxlength="30"
               ></el-input>
               <el-button-group class="btn-group right">
                 <el-tooltip class="item" effect="dark" content="替换图片" placement="top-start">
@@ -62,7 +62,7 @@ export default {
     cropperList: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
     }
   },
@@ -139,7 +139,7 @@ export default {
       if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(files[i].type) == -1) {
         this.$message.error('请上传jpg/png的图片')
         e.target.value = null
-        return false;
+        return false
       }
       let reader = new FileReader()
       reader.onerror = function(e) {
@@ -150,7 +150,14 @@ export default {
           // 把Array Buffer转化为blob 如果是base64不需要
           ? window.URL.createObjectURL(new Blob([e.target.result]))
           : e.target.result
-        const imageName = file.name ? file.name.split('.')[0] : ''
+        let imageName = ''
+        if (!file.name) {
+          imageName = ''
+        }else {
+          imageName = file.name.split('.')[0].length <= 30
+            ? file.name.split('.')[0]
+            : file.name.split('.')[0].substr(0, 30)
+        }
         this.cropperImgs[index].img = img
         this.$set(this.cropperImgs[index], 'img', img)
         this.$set(this.cropperImgs[index], 'imageName', imageName)

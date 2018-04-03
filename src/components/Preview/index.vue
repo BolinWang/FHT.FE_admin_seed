@@ -3,6 +3,7 @@
     <draggable v-model="list" :options="dragOptions" class="dragItems" @end="handleEmit">
       <transition-group>
         <li class="preview-item" v-for="(item, index) in list" :key="index"
+          :style="itemStyle"
           @mouseenter="handleMouseenter(item,index)"
           @mouseleave="handleMouseleave(item,index)">
           <img class="preview-img img-center" v-lazy="item.src">
@@ -14,6 +15,7 @@
               <i class="el-icon-delete"></i>
             </span>
           </span>
+          <div v-if="showImageName" class="pic-imageName">{{item.title}}</div>
         </li>
       </transition-group>
     </draggable>
@@ -37,6 +39,26 @@ export default {
     deleteIcon: {
       type: String,
       default: ''
+    },
+    showImageName: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
+    itemSize: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
+  computed: {
+    itemStyle() {
+      return {
+        width: this.itemSize.width + 'px',
+        height: this.itemSize.height + 'px'
+      }
     }
   },
   data() {
@@ -140,20 +162,41 @@ export default {
     overflow: hidden;
     background-color: #fff;
     border: 1px solid #c0ccda;
-    border-radius: 3px;
+    border-radius: 6px;
     box-sizing: border-box;
     width: 122px;
-    height: 92px;
     margin: 0 8px 8px 0;
     display: inline-block;
     transition: all .5s cubic-bezier(.55, 0, .1, 1);
-    font-size: 14px;
-    color: #606266;
-    line-height: 1.8;
     position: relative;
+   /* &:first-child::before{
+      content: "首图";
+      position: absolute;
+      right: -22px;
+      top: -4px;
+      width: 65px;
+      height: 30px;
+      background: #409eff;
+      text-align: center;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+      -webkit-box-shadow: 0 1px 1px #13ce66;
+      box-shadow: 0 1px 1px #13ce66;
+      font-size: 12px;
+      line-height: 36px;
+      color: #fff;
+      z-index: 1;
+    }*/
+    .pic-imageName {
+      font-size: 12px;
+      line-height: 24px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding: 0 5px;
+    }
     img {
       width: 100%;
-      height: 100%;
     }
     .preview-item-actions {
       position: absolute;
@@ -168,9 +211,11 @@ export default {
       font-size: 20px;
       background-color: rgba(0, 0, 0, .5);
       transition: opacity .3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       span {
         cursor: pointer;
-        line-height: 92px;
         &+span {
           margin-left: 15px;
         }

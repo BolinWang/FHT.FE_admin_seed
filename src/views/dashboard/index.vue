@@ -11,7 +11,13 @@
     </div>
     <!-- 图片预览排序 -->
     <div style="padding: 20px 0; width: 500px;">
-      <Preview :pic-list="cropperData" :delete-icon="`delete`" @emitDelete="emitDelete"></Preview>
+      <Preview
+        :pic-list="cropperData"
+        :delete-icon="`delete`"
+        :showImageName=true
+        :itemSize="{width: 122, height: 122}"
+        @emitDelete="emitDelete">
+      </Preview>
     </div>
     <!-- 图片裁剪 -->
     <ImageCropper
@@ -88,7 +94,14 @@ export default {
             // 把Array Buffer转化为blob 如果是base64不需要
             ? window.URL.createObjectURL(new Blob([e.target.result]))
             : e.target.result
-          const imageName = file.name ? file.name.split('.')[0] : ''
+          let imageName = ''
+          if (!file.name) {
+            imageName = ''
+          }else {
+            imageName = file.name.split('.')[0].length <= 30
+              ? file.name.split('.')[0]
+              : file.name.split('.')[0].substr(0, 30)
+          }
           resolve({
             img,
             imageName
@@ -105,7 +118,7 @@ export default {
         if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(files[i].type) == -1) {
           this.$message.error('请上传jpg/png的图片')
           e.target.value = null
-          return false;
+          return false
         }
         uploadList.push(await readFileAsync(files[i]))
       }
