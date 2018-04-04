@@ -44,18 +44,22 @@ export default new Router({
 })
 
 export const asyncRouterMap = [{
-  path: '/eeop',
+  path: '/example',
   component: Layout,
   redirect: 'noredirect',
-  name: '一级',
+  name: '示例',
   icon: 'dashboard',
   meta: {
     role: ['admin', 'global']
   },
   children: [{
-    path: 'activityPage',
-    component: _import('eeop/activety'),
-    name: '二级'
+    path: 'image',
+    component: _import('example/image'),
+    name: '图片组件'
+  }, {
+    path: 'grid',
+    component: _import('example/tablePagenation'),
+    name: '表格组件'
   }]
 }, {
   path: '*',
