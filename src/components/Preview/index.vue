@@ -1,17 +1,22 @@
 <template>
-  <ul class="previewItems">
-    <draggable v-model="list" :options="dragOptions" class="dragItems" @end="handleEmit">
-      <transition-group>
-        <li class="preview-item" v-for="(item, index) in list" :key="index"
+  <div class="previewItems">
+    <draggable v-model="list" element="ul" class="list-group"
+      :options="dragOptions"
+      @start="startDrag"
+      @end="endDrag">
+      <transition-group type="transition" :name="'flip-list'">
+        <li class="preview-item clearfix" v-for="(item, index) in list"
+          :key="item.sortNum"
           :style="itemStyle"
-          @mouseenter="handleMouseenter(item,index)"
-          @mouseleave="handleMouseleave(item,index)">
+          @mouseenter.stop="handleMouseenter(index)"
+          @mouseleave.stop="handleMouseleave(index)">
           <img class="preview-img img-center" v-lazy="item.src">
           <span class="preview-item-actions" :style="{opacity: item.opacityVal}">
             <span class="preview-item__item-preview" @click="handlePreview(index)">
               <i class="el-icon-zoom-in"></i>
             </span>
-          <span v-if="deleteFlag == 'delete' && !item.isnoPic" class="preview-item__item-delete" @click="handleDelete(index,item)">
+            <span v-if="deleteFlag == 'delete' && !item.isnoPic" class="preview-item__item-delete"
+              @click="handleDelete(index,item)">
               <i class="el-icon-delete"></i>
             </span>
           </span>
@@ -19,11 +24,18 @@
         </li>
       </transition-group>
     </draggable>
-  </ul>
+  </div>
 </template>
 <script>
 import { deepClone } from '@/utils'
 import draggable from 'vuedraggable'
+
+/* 阻止原生dragale打开新页面 */
+document.body.ondrop = function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+}
+
 export default {
   name: 'preview',
   components: {
@@ -33,7 +45,7 @@ export default {
     picList: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
     },
     deleteIcon: {
@@ -59,6 +71,13 @@ export default {
         width: this.itemSize.width + 'px',
         height: this.itemSize.height + 'px'
       }
+    },
+    dragOptions () {
+      return  {
+        animation: 150,
+        group: 'description',
+        ghostClass: 'ghost',
+      }
     }
   },
   data() {
@@ -66,11 +85,8 @@ export default {
       list: [],
       deleteFlag: '',
       showOpacity: false,
-      dragOptions: {
-        animation: 500,
-        group: 'description',
-        ghostClass: 'ghost'
-      }
+      isDragging: false,
+      delayedDragging:false
       /*options: {
         mainClass: 'pswp--minimal--dark',
         barsSize: {top: 0, bottom: 0},
@@ -84,25 +100,24 @@ export default {
     }
   },
   mounted() {
-    this.list = deepClone(this.picList);
-    this.deleteFlag = this.deleteIcon;
-    this.list.map((item) => {
-      item.opacityVal = 0;
-    });
+    this.list = deepClone(this.picList)
+    this.deleteFlag = this.deleteIcon
+    this.list.map((item, index) => {
+      item.opacityVal = 0
+      item.sortNum = index
+    })
   },
   methods: {
-    handleMouseenter(item, index) {
-      item.opacityVal = 1;
-      this.$set(this.list, index, item)
+    handleMouseenter(index) {
+      this.$set(this.list[index], 'opacityVal', 1)
     },
-    handleMouseleave(item, index) {
-      item.opacityVal = 0;
-      this.$set(this.list, index, item)
+    handleMouseleave(index) {
+      this.$set(this.list[index], 'opacityVal', 0)
     },
     handlePreview(index) {
       if (this.list.length == 1 && this.list[0].isnoPic) {
-        this.$message.warning('友情提示：暂无图片');
-        return false;
+        this.$message.warning('友情提示：暂无图片')
+        return false
       }
       this.$preview.open(index, this.list)
     },
@@ -112,30 +127,47 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.list.splice(index, 1);
-        handleEmit(item.id)
+        this.list.splice(index, 1)
+        this.handleEmit()
       }).catch(() => {
 
-      });
+      })
     },
-    handleEmit(param) {
+    handleEmit() {
+      this.$emit('emitDelete', this.list)
+    },
+    startDrag() {
+      this.isDragging = true
+    },
+    endDrag(e) {
+      this.isDragging = false
       this.list.map((item) => {
         item.opacityVal = 0
       })
-      this.$emit('emitDelete', this.list, param)
+      this.handleEmit()
     }
   },
   watch: {
     picList(val) {
-      this.list = val || [];
-      this.list.map((item) => {
+      this.list = val || []
+      this.list.map((item, index) => {
+        item.sortNum = index
         let _img = new Image()
         _img.src = item.src
         _img.onload = function(){
-            item.w = _img.width || 800
-            item.h = _img.height || 600
-        };
-      });
+          item.w = _img.width || 800
+          item.h = _img.height || 600
+        }
+      })
+    },
+    isDragging (newValue) {
+      if (newValue){
+        this.delayedDragging= true
+        return
+      }
+      this.$nextTick( () =>{
+        this.delayedDragging =false
+      })
     }
   }
 }
@@ -154,9 +186,15 @@ export default {
   background: #fff;
 }
 
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
+
 .previewItems {
   margin: 0;
-  display: inline;
   vertical-align: top;
   .preview-item {
     overflow: hidden;
@@ -164,11 +202,14 @@ export default {
     border: 1px solid #c0ccda;
     border-radius: 6px;
     box-sizing: border-box;
+    display: inline-block;
     width: 122px;
     margin: 0 8px 8px 0;
-    display: inline-block;
     transition: all .5s cubic-bezier(.55, 0, .1, 1);
     position: relative;
+    &.ghost {
+      opacity: .5;
+    }
    /* &:first-child::before{
       content: "首图";
       position: absolute;

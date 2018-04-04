@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <p style="margin-top: 0;">{{roles | rolesFilter}}{{name}}</p>
-    <div class="img-banner"></div>
+   <!--  <div class="img-banner"></div> -->
     <div style="padding: 20px 0;">
       <label class="el-button el-button--primary el-button--small" for="uploadImages">上传图片</label>
       <input type="file" id="uploadImages"
@@ -97,7 +97,7 @@ export default {
           let imageName = ''
           if (!file.name) {
             imageName = ''
-          }else {
+          } else {
             imageName = file.name.split('.')[0].length <= 30
               ? file.name.split('.')[0]
               : file.name.split('.')[0].substr(0, 30)
@@ -115,7 +115,7 @@ export default {
 
       const files = e.target.files
       for (let i = 0; i < files.length; i++) {
-        if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(files[i].type) == -1) {
+        if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(files[i].type) === -1) {
           this.$message.error('请上传jpg/png的图片')
           e.target.value = null
           return false

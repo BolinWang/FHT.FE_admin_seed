@@ -2,8 +2,11 @@
   <div class="dialog-cropper">
       <el-dialog title="图片裁剪" :visible.sync="layer_cropper" width="920px" @close="cropperClose">
         <div class="cropper-wrapper">
-          <div class="cropper-item" v-for="(item,index) in cropperImgs" :key="index">
-            <div class="cropper-component">
+          <div class="cropper-item"
+            v-for="(item,index) in cropperImgs"
+            :key="index" :style="itemStyle"
+            >
+            <div class="cropper-component" :style="componentStyle">
               <vueCropper :ref="`refCropper${index}`"
                 :img="item.img" :outputSize="item.size"
                 :outputType="item.outputType" :info="item.info"
@@ -68,6 +71,20 @@ export default {
   },
   components: {
     VueCropper
+  },
+  computed: {
+    itemStyle() {
+      const _width = this.cropperImgs.length > 1 ? 400 : 830
+      return {
+        width: _width + 'px'
+      }
+    },
+    componentStyle() {
+      const componentH = this.cropperImgs.length > 1 ? 300 : 600
+      return {
+        height: componentH + 'px'
+      }
+    }
   },
   data() {
     return {
@@ -136,7 +153,7 @@ export default {
         return false
       }
       const file = e.target.files[0]
-      if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(files[i].type) == -1) {
+      if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(files[i].type) === -1) {
         this.$message.error('请上传jpg/png的图片')
         e.target.value = null
         return false
