@@ -118,7 +118,11 @@ let props = {
   columns: {
     type: Array,
     required: true,
-    // Element UI table-column配置
+    /*
+      Element UI table-column配置
+      供参考，需要一下配置时在cloum中添加对应参数配置
+    */
+
     columnKey: String,
     label: {
       type: String,
@@ -128,18 +132,24 @@ let props = {
       type: String,
       required: true
     },
-    width: Number,
-    minWidth: Number,
+    width: {
+      type: [Number, String],
+      default: 'auto'
+    },
+    minWidth: {
+      type: Number,
+      default: 100
+    },
     fixed: [Boolean, String],
     renderHeader: Function,
     sortable: [Boolean, String],
     sortMethod: Function,
-    resizable: {
+    resizable: Boolean,
+    formatter: Function,
+    showOverflowTooltip: {
       type: Boolean,
       default: true
     },
-    formatter: Function,
-    showOverflowTooltip: Boolean,
     align: {
       type: String,
       default: 'left'
