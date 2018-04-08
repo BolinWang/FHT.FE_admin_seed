@@ -74,15 +74,17 @@ let props = {
     type: Boolean,
     default: false
   },
-
+  // 获取列表数据  需要与后台约定数据格式
   listField: {
     type: String,
     default: 'data.content'
   },
+  // 列表数据总数
   totalField: {
     type: String,
     default: 'data.totalElements'
   },
+  /* 传参  基本上使用formOptions就好啦 */
   params: {
     type: Object,
     default: () => {
@@ -90,12 +92,18 @@ let props = {
     }
   },
   formOptions: {
-    type: Object
+    type: Object,
+    default: () => {
+      return {}
+    }
   },
+  /* 自动加载数据 */
   autoLoad: {
     type: Boolean,
     default: true
   },
+
+  /* 接口数据排列，后续可以增加本地数据操作 */
   type: {
     type: String,
     default: 'remote',
