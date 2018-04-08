@@ -64,6 +64,17 @@ let props = {
       return {}
     }
   },
+  // showRowIndex
+  showRowIndex: {
+    type: Boolean,
+    default: true
+  },
+  // showSelection
+  showSelection: {
+    type: Boolean,
+    default: false
+  },
+
   listField: {
     type: String,
     default: 'data.content'
@@ -190,17 +201,6 @@ let props = {
   pageSizeKey: {
     type: String,
     default: 'pageSize'
-  },
-
-  // showRowIndex
-  showRowIndex: {
-    type: Boolean,
-    default: true
-  },
-  // showSelection
-  showSelection: {
-    type: Boolean,
-    default: false
   }
 }
 
