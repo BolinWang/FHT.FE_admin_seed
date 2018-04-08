@@ -190,6 +190,17 @@ let props = {
   pageSizeKey: {
     type: String,
     default: 'pageSize'
+  },
+
+  // showRowIndex
+  showRowIndex: {
+    type: Boolean,
+    default: true
+  },
+  // showSelection
+  showSelection: {
+    type: Boolean,
+    default: false
   }
 }
 

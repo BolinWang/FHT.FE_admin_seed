@@ -7,6 +7,7 @@ import { getSessionId } from '@/utils/auth';
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API,
+  interceptors: true  // 是否开启response拦截器
   /*   timeout: 5000 // 请求超时时间*/
 });
 
@@ -16,7 +17,7 @@ service.interceptors.request.use(config => {
     version: "1.0",
     timestamp: new Date().getTime(),
     reqId: "0010C2379272774D6EC087B917CE2A71438DEF90",
-    sign: "8F4C4A8E9D850EDD9692DE38723D0543",
+    sign: "8F4C4A8E9D850EDD9692DE38723D0543"
   };
   if (config.method.toUpperCase() == 'POST') {
     if (store.getters.sessionId) {

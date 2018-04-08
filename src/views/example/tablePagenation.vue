@@ -1,11 +1,29 @@
 <template>
   <div class="layout-container">
     <GridUnit
+      ref="refGridUnit"
       :columns="colModels"
       :url="url"
       :dataMethod="method"
-      :maxHeight="tableHeight"
-    ></GridUnit>
+      :maxHeight="tableHeight">
+      <template slot="handle" slot-scope="scope">
+        <el-button type="primary" icon="el-icon-view" size="small"
+          @click="handleView(scope.$index)">
+          再来一个表格吧
+        </el-button>
+      </template>
+    </GridUnit>
+    <div>
+      <el-dialog title="" width="100%" :visible.sync="layer_show" style="text-align: center;">
+        <GridUnit
+          ref="refGridUnit_view"
+          :columns="colModels_view"
+          :url="url"
+          :dataMethod="method"
+          maxHeight="300">
+        </GridUnit>
+      </el-dialog>
+    </div>
   </div>
 </template>
 <script>
@@ -20,16 +38,22 @@ export default {
   },
   data() {
     return {
+      layer_show: false,
       tableHeight: 300,
       colModels: [
-        { prop: 'mobile', label: '手机号码', width: 150 },
-        { prop: 'name', label: '姓名' },
-        { prop: 'housePosion', label: '地区' },
-        { prop: 'houseAmount', label: '房源数量', width: 100 },
-        { prop: 'gmtCreate', label: '申请时间', width: 180 },
-        { prop: 'requestStatus', label: '联系状态', width: 100, type: 'status' },
-        { prop: 'operatorName', label: '操作人' },
-        { prop: 'gmtModified', label: '操作时间', width: 180 }
+        {prop: 'mobile', label: '手机号码', width: 150},
+        {prop: 'name', label: '姓名'},
+        {prop: 'housePosion', label: '地区'},
+        {prop: 'houseAmount', label: '房源数量', width: 100},
+        {prop: 'gmtCreate', label: '申请时间', width: 180},
+        {prop: 'requestStatus', label: '联系状态', width: 100, type: 'status'},
+        {prop: 'operatorName', label: '操作人'},
+        {prop: 'gmtModified', label: '操作时间', width: 180, sortable: true},
+        {label: '操作', slotName: 'handle', width: 160, fixed: 'right'}
+      ],
+      colModels_view: [
+        {prop: 'mobile', label: '手机号码', width: 150},
+        {prop: 'name', label: '姓名'}
       ],
       url: '/market/apply',
       method: 'queryUserRequestByPage'
@@ -37,12 +61,15 @@ export default {
   },
   mounted() {
     /* 表格高度控制 */
-    let temp_height = document.body.clientHeight - 200;
-    this.tableHeight = temp_height > 300 ? temp_height : 300;
+    const offsetTop = this.$refs.refGridUnit.$el.offsetTop || 140
+    const pagenationH = 55
+    const containerPadding = 20
+    let temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
+    this.tableHeight = temp_height > 300 ? temp_height : 300
     window.onresize = () => {
       return (() => {
-        temp_height = document.body.clientHeight - 200;
-        this.tableHeight = this.tableHeight = temp_height > 300 ? temp_height : 300;
+        temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
+        this.tableHeight = this.tableHeight = temp_height > 300 ? temp_height : 300
       })()
     }
   },
@@ -50,6 +77,10 @@ export default {
 
   },
   methods: {
+    handleView(index) {
+      this.$message.success('柏林爸爸' + index)
+      this.layer_show = true
+    }
 
   }
 }
