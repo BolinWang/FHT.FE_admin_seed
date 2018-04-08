@@ -124,7 +124,8 @@
 <script>
   import Vue from 'vue'
   import props from './props'
-  import fetch from '@/utils/fetch';
+  import fetch from '@/utils/fetch'
+  import { ObjectMap } from '@/utils'
   export default {
     name: 'tablePagination',
     components: {},
@@ -183,7 +184,7 @@
           listField, pageNoKey, pageSizeKey,
           totalField, showPagination, pagination
         } = this
-        params = JSON.parse(JSON.stringify(Object.assign(params, formParams)))
+        params = ObjectMap(JSON.parse(JSON.stringify(Object.assign(params, formParams))))
         if (showPagination) {
           params = Object.assign(params, {
             [pageNoKey]: pagination.pageNo,
@@ -253,7 +254,7 @@
       const { type, autoLoad, data, formOptions, params } = this
       if (type === 'remote' && autoLoad) {
         if (formOptions) {
-          this.fetchHandler(Object.assign(formParams, params))
+          this.fetchHandler(Object.assign(formOptions, params))
         } else {
           this.fetchHandler(params)
         }
