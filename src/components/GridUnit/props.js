@@ -202,7 +202,7 @@ let props = {
   },
   paginationLayout: {
     type: String,
-    default: 'total, prev, pager, next, jumper, sizes'
+    default: 'total, sizes, prev, pager, next, jumper'
   },
   pageNoKey: {
     type: String,

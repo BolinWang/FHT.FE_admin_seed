@@ -5,7 +5,7 @@
       :columns="colModels"
       :url="url"
       :dataMethod="method"
-      :maxHeight="tableHeight">
+      :height="tableHeight">
       <template slot="handle" slot-scope="scope">
         <el-button type="primary" icon="el-icon-view" size="small"
           @click="handleView(scope.$index)">
@@ -14,7 +14,7 @@
       </template>
     </GridUnit>
     <div>
-      <el-dialog title="" width="100%" :visible.sync="layer_show" style="text-align: center;">
+      <el-dialog title="你知道的  这是第二个表格" width="100%" :visible.sync="layer_show" style="text-align: center;">
         <GridUnit
           ref="refGridUnit_view"
           :columns="colModels_view"
@@ -41,22 +41,39 @@ export default {
       layer_show: false,
       tableHeight: 300,
       colModels: [
-        {prop: 'mobile', label: '手机号码', width: 150},
-        {prop: 'name', label: '姓名'},
-        {prop: 'housePosion', label: '地区'},
-        {prop: 'houseAmount', label: '房源数量', width: 100},
-        {prop: 'gmtCreate', label: '申请时间', width: 180},
-        {prop: 'requestStatus', label: '联系状态', width: 100, type: 'status'},
-        {prop: 'operatorName', label: '操作人'},
-        {prop: 'gmtModified', label: '操作时间', width: 180, sortable: true},
-        {label: '操作', slotName: 'handle', width: 160, fixed: 'right'}
+        {
+          prop: 'activityStatus',
+          label: '状态',
+          width: 80,
+          type: 'status',
+          unitFilters: {
+            renderStatusType(status) {
+              const statusMap = {
+                '1': 'info',
+                '2': 'success',
+                '3': 'danger'
+              }
+              return statusMap[status] || 'success'
+            },
+            renderStatusValue(status) {
+              const statusStrData = ['待上线', '已上线', '已下线']
+              return statusStrData[status - 1] || '已上线'
+            }
+          }
+        },
+        {prop: 'title', label: '标题'},
+        {prop: 'picUrl', label: '图片', width: 60, type: 'img'},
+        {prop: 'linkUrl', label: '链接', type: 'link'},
+        {prop: 'effectiveTime', label: '上线时间', width: 180, filter: 'parseTime', sortable: true},
+        {prop: 'ineffectiveTime', label: '下线时间', width: 180, filter: 'parseTime'},
+        {prop: 'introduction', label: '简介'},
+        {label: '操作', slotName: 'handle', width: 160}
       ],
       colModels_view: [
-        {prop: 'mobile', label: '手机号码', width: 150},
-        {prop: 'name', label: '姓名'}
+        {prop: 'title', label: '标题'}
       ],
-      url: '/market/apply',
-      method: 'queryUserRequestByPage'
+      url: '/market/activity',
+      method: 'queryActivityListByPage'
     }
   },
   mounted() {

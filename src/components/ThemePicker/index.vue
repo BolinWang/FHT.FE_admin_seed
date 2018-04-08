@@ -5,7 +5,7 @@
 // 获取el version
 const version = require('element-ui/package.json').version
 // 默认color
-const ORIGINAL_THEME = '#409EFF'
+const ORIGINAL_THEME = '#409eff'
 
 export default {
   data() {

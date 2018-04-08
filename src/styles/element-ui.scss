@@ -1,4 +1,21 @@
 //覆盖一些element-ui样式 覆盖css样式可在这里添加
+
+.el-form-item--small.el-form-item {
+  margin-bottom: 16px;
+}
+
+.el-dialog__body {
+  padding: 20px;
+}
+
+.el-dialog__title {
+  font-size: 14px !important;
+}
+
+.el-tooltip__popper {
+  max-width: 600px;
+}
+
 .el-upload {
   input[type="file"] {
     display: none !important;
@@ -53,7 +70,7 @@
 
 /* 改变主题色变量 */
 
-$--color-primary: #409EFF;
+$--color-primary: #409eff;
 
 
 /* 改变 icon 字体路径变量，必需 */
