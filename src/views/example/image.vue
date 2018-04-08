@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container">
+  <div class="layout-container">
     <div style="padding: 20px 0;">
       <label class="el-button el-button--primary el-button--small" for="uploadImages">上传图片</label>
       <input type="file" id="uploadImages"
