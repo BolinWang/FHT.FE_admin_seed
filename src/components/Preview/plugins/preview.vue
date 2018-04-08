@@ -41,15 +41,20 @@
   import PhotoSwipe from 'photoswipe/dist/photoswipe'
   import UI from 'photoswipe/dist/photoswipe-ui-default'
   export default {
+    data() {
+      return {
+        defaultOptions: {
+          captionEl: true,
+          bgOpacity: 0.8,
+          fullscreenEl: true,
+          history: false,
+          shareEl: false,
+          tapToClose: true
+        }
+      }
+    },
     methods: {
-      open (index, list, params = {
-        captionEl: true,
-        bgOpacity: 0.8,
-        fullscreenEl: true,
-        history: false,
-        shareEl: false,
-        tapToClose: true
-      }) {
+      open (index, list, params = Object.assign(this.defaultOptions, {})) {
         let options = Object.assign({
           index: index,
           getThumbBoundsFn (index) {

@@ -86,17 +86,7 @@ export default {
       deleteFlag: '',
       showOpacity: false,
       isDragging: false,
-      delayedDragging:false
-      /*options: {
-        mainClass: 'pswp--minimal--dark',
-        barsSize: {top: 0, bottom: 0},
-        captionEl: false,
-        fullscreenEl: true,
-        shareEl: false,
-        bgOpacity: 0.85,
-        tapToClose: true,
-        tapToToggleControls: false
-      }*/
+      delayedDragging: false
     }
   },
   mounted() {
@@ -141,9 +131,10 @@ export default {
     },
     endDrag(e) {
       this.isDragging = false
-      this.list.map((item) => {
-        item.opacityVal = 0
-      })
+      this.list[e.oldIndex].opacityVal = 0
+      this.list[e.newIndex].opacityVal = 0
+      this.$set(this.list[e.oldIndex], 'opacityVal', 0)
+      this.$set(this.list[e.newIndex], 'opacityVal', 0)
       this.handleEmit()
     }
   },
