@@ -2,16 +2,16 @@ require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
 
-var ora = require('ora')
+let ora = require('ora')
 // 可以在 node 中执行`rm -rf`的工具
-var rm = require('rimraf')
-var path = require('path')
-var chalk = require('chalk')
-var webpack = require('webpack')
-var config = require('../config')
-var webpackConfig = require('./webpack.prod.conf')
+let rm = require('rimraf')
+let path = require('path')
+let chalk = require('chalk')
+let webpack = require('webpack')
+let config = require('../config')
+let webpackConfig = require('./webpack.prod.conf')
 
-var spinner = ora('building for production...')
+let spinner = ora('building for production...')
 spinner.start()
 
 // 删除文件夹 （递归删除）
