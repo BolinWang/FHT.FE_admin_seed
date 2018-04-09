@@ -10,10 +10,14 @@
       <div class="pswp__ui pswp__ui--hidden">
         <div class="pswp__top-bar">
           <div class="pswp__counter"></div>
-          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-          <button class="pswp__button pswp__button--share" title="Share"></button>
-          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+          <button class="pswp__button pswp__button--close" title="关闭 (Esc)"></button>
+          <a v-if="pswpOptions.downloadEl" target="_self" class="fht__download el-icon-download" title="下载图片"
+            :href="downloadImageUrl"
+            :download="downloadImageName">
+          </a>
+          <button class="pswp__button pswp__button--share" title="分享"></button>
+          <button class="pswp__button pswp__button--fs" title="全屏展示"></button>
+          <button class="pswp__button pswp__button--zoom" title="放大/缩小"></button>
           <div class="pswp__preloader">
             <div class="pswp__preloader__icn">
               <div class="pswp__preloader__cut">
@@ -25,9 +29,9 @@
         <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
           <div class="pswp__share-tooltip"></div>
         </div>
-        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+        <button class="pswp__button pswp__button--arrow--left" title="上一张">
         </button>
-        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+        <button class="pswp__button pswp__button--arrow--right" title="下一张">
         </button>
         <div class="pswp__caption">
           <div class="pswp__caption__center"></div>
@@ -49,23 +53,37 @@
           fullscreenEl: true,
           history: false,
           shareEl: false,
-          tapToClose: true
-        }
+          tapToClose: true,
+          /* 下载按钮显示 */
+          downloadEl: true
+        },
+        pswpOptions: {},
+        /* 下载图片地址、名称 */
+        downloadImageUrl: '',
+        downloadImageName: ''
       }
     },
     methods: {
-      open (index, list, params = Object.assign(this.defaultOptions, {})) {
-        let options = Object.assign({
+      open (index, list, params = this.defaultOptions) {
+        this.pswpOptions = Object.assign({
           index: index,
           getThumbBoundsFn (index) {
-            let thumbnail = document.querySelectorAll('.preview-img')[index]
             let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
-            let rect = thumbnail.getBoundingClientRect()
+            let rect = document.querySelectorAll('.preview-img')[index].getBoundingClientRect()
             return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
           }
         }, params)
-        this.photoswipe = new PhotoSwipe(this.$el, UI, list, options)
+        this.photoswipe = new PhotoSwipe(this.$el, UI, list, this.pswpOptions)
         this.photoswipe.init()
+        // 默认下载当前index图片
+        this.downloadImageUrl = list[index].src
+        this.downloadImageName = `麦滴管家_${list[index].title}`
+
+        /* 监听图片变换，替换当前下载图片链接 */
+        this.photoswipe.listen('afterChange', (e) => {
+          this.downloadImageUrl = list[this.photoswipe.getCurrentIndex() || 0].src
+          this.downloadImageName = `麦滴管家_${list[this.photoswipe.getCurrentIndex() || 0].title}`
+        })
       },
       close () {
         this.photoswipe.close()
@@ -74,7 +92,35 @@
   }
 </script>
 
-<style>
+<style rel="stylesheet/scss" lang="scss">
   @import '~photoswipe/dist/photoswipe.css';
   @import '~photoswipe/dist/default-skin/default-skin.css';
+  .fht__download {
+    text-align: center;
+    width: 44px;
+    height: 44px;
+    line-height: 44px !important;
+    font-size: 24px;
+    position: relative;
+    background: none;
+    cursor: pointer;
+    overflow: visible;
+    -webkit-appearance: none;
+    display: block;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    float: right;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #fff;
+    opacity: 0.85;
+    &:focus,
+    &:hover{
+      color: #fff;
+      opacity: 1;
+    }
+  }
 </style>
