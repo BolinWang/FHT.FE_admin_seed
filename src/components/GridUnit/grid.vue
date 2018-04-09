@@ -164,18 +164,15 @@
       /* changeSize */
       handleSizeChange(size) {
         this.pagination.pageSize = size
-        this.dataChangeHandler()
+        this.fetchHandler()
       },
       /* change pageNo */
       handleCurrentChange(pageNo) {
         this.pagination.pageNo = pageNo
-        this.dataChangeHandler()
+        this.fetchHandler()
       },
       searchHandler() {
         this.pagination.pageNo = 1
-        this.dataChangeHandler()
-      },
-      dataChangeHandler() {
         this.fetchHandler()
       },
       fetchHandler() {

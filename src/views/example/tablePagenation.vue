@@ -1,6 +1,6 @@
 <template>
   <div class="layout-container">
-    <el-form :inline="true" :model="formOptions">
+    <el-form :inline="true" :model="formOptions" size="small">
       <el-form-item label="审批人">
         <el-input v-model="formOptions.user" placeholder="审批人"></el-input>
       </el-form-item>
