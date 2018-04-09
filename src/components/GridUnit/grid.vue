@@ -125,7 +125,7 @@
   import Vue from 'vue'
   import props from './props'
   import fetch from '@/utils/fetch'
-  import { ObjectMap } from '@/utils'
+  import { ObjectMap, deepClone } from '@/utils'
   export default {
     name: 'fht-table-pagination',
     components: {},
@@ -139,7 +139,8 @@
         },
         total: 0,
         loading: false,
-        tableData: []
+        tableData: [],
+        searchParams: {}
       }
     },
     computed: {
@@ -172,19 +173,20 @@
       },
       searchHandler() {
         this.pagination.pageNo = 1
-        this.dataChangeHandler(arguments[0])
+        this.dataChangeHandler()
       },
       dataChangeHandler() {
-        this.fetchHandler(arguments[0])
+        this.fetchHandler()
       },
-      fetchHandler(formParams = {}) {
+      fetchHandler() {
         this.loading = true
+        let params
         let {
-          url, method, params, dataMethod,
+          url, method, dataMethod,
           listField, pageNoKey, pageSizeKey,
           totalField, showPagination, pagination
         } = this
-        params = ObjectMap(JSON.parse(JSON.stringify(Object.assign(params, formParams))))
+        params = ObjectMap(deepClone(this.searchParams))
         if (showPagination) {
           params = Object.assign(params, {
             [pageNoKey]: pagination.pageNo,
@@ -249,21 +251,28 @@
       }
     },
     mounted() {
-      // event: expand changed to `expand-change` in Element v2.x
-      this.$refs['gridUnit'].$on('expand', (row, expanded) => this.emitEventHandler('expand', row, expanded))
+      this.$refs['gridUnit'].$on('expand-change', (row, expanded) => this.emitEventHandler('expand-change', row, expanded))
       const { type, autoLoad, data, formOptions, params } = this
       if (type === 'remote' && autoLoad) {
-        if (formOptions) {
-          this.fetchHandler(Object.assign(formOptions, params))
-        } else {
-          this.fetchHandler(params)
-        }
+        this.searchParams = formOptions ? Object.assign(formOptions, params) : params
+        this.fetchHandler()
       } else {
         this.$message.error('请联系柏林Grid组件使用姿势')
       }
     },
     watch: {
-
+      formOptions: {
+        handler(val) {
+          this.searchParams = Object.assign(val, this.params)
+        },
+        deep: true
+      },
+      params: {
+        handler(val) {
+          this.searchParams = Object.assign(val, this.params)
+        },
+        deep: true
+      }
     }
   }
 </script>

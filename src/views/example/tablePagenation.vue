@@ -1,10 +1,25 @@
 <template>
   <div class="layout-container">
+    <el-form :inline="true" :model="formOptions">
+      <el-form-item label="审批人">
+        <el-input v-model="formOptions.user" placeholder="审批人"></el-input>
+      </el-form-item>
+      <el-form-item label="活动区域">
+        <el-select v-model="formOptions.region" placeholder="活动区域">
+          <el-option label="区域一" value="上海"></el-option>
+          <el-option label="区域二" value="北京"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="handleSearch">查询</el-button>
+      </el-form-item>
+    </el-form>
     <GridUnit
       ref="refGridUnit"
       :columns="colModels"
       :url="url"
       :dataMethod="method"
+      :formOptions="formOptions"
       :height="tableHeight">
       <template slot="handle" slot-scope="scope">
         <el-button type="primary" icon="el-icon-view" size="small"
@@ -40,6 +55,10 @@ export default {
     return {
       layer_show: false,
       tableHeight: 300,
+      formOptions: {
+        user: '',
+        region: ''
+      },
       colModels: [
         {
           prop: 'activityStatus',
@@ -97,8 +116,10 @@ export default {
     handleView(index) {
       this.$message.success('柏林爸爸' + index)
       this.layer_show = true
+    },
+    handleSearch() {
+      this.$refs.refGridUnit.searchHandler()
     }
-
   }
 }
 
