@@ -1,4 +1,5 @@
 let path = require('path')
+/* 本地联调后端IP地址 */
 let proxyIPs = {
   WANLI: 'http://192.168.1.121:1234/', // 万里小哥哥
   HONGDENG: 'http://192.168.5.241:1234/' // 水滴灯小哥哥
