@@ -100,8 +100,8 @@ export default {
 
       const files = e.target.files
       for (let i = 0; i < files.length; i++) {
-        if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(files[i].type) === -1) {
-          this.$message.error('请上传jpg/png的图片')
+        if (!this.accept.includes(files[i].type)) {
+          this.$message.error(`请上传${this.accept.replace(/image\//gi, '')}的图片`)
           e.target.value = null
           return false
         }
