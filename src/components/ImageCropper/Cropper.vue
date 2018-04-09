@@ -153,7 +153,7 @@ export default {
         return false
       }
       const file = e.target.files[0]
-      if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(files[i].type) === -1) {
+      if (['image/jpeg', 'image/jpg', 'image/png'].indexOf(file.type) === -1) {
         this.$message.error('请上传jpg/png的图片')
         e.target.value = null
         return false
