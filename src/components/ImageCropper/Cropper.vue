@@ -60,7 +60,7 @@
 <script>
 import VueCropper from 'vue-cropper'
 export default {
-  name: 'imageCropper',
+  name: 'fht-imageCropper',
   props: {
     cropperList: {
       type: Array,

@@ -37,7 +37,7 @@ document.body.ondrop = function(event) {
 }
 
 export default {
-  name: 'preview',
+  name: 'fht-preview',
   components: {
     draggable
   },
@@ -104,12 +104,25 @@ export default {
     handleMouseleave(index) {
       this.$set(this.list[index], 'opacityVal', 0)
     },
-    handlePreview(index) {
+    async handlePreview(index) {
       if (this.list.length == 1 && this.list[0].isnoPic) {
         this.$message.warning('友情提示：暂无图片')
         return false
       }
-      this.$preview.open(index, this.list)
+      const imgloadAsync = item => new Promise(resolve => {
+        let _img = new Image()
+        _img.src = item.src
+        _img.onload = e => {
+          item.w = _img.width || 800
+          item.h = _img.height || 600
+          resolve(item)
+        }
+      })
+      const previewList = []
+      for (let i = 0; i < this.list.length; i++) {
+        previewList.push(await imgloadAsync(this.list[i]))
+      }
+      this.$preview.open(index, previewList)
     },
     handleDelete(index, item) {
       this.$confirm('是否删除?', '提示', {
@@ -143,12 +156,6 @@ export default {
       this.list = val || []
       this.list.map((item, index) => {
         item.sortNum = index
-        let _img = new Image()
-        _img.src = item.src
-        _img.onload = function(){
-          item.w = _img.width || 800
-          item.h = _img.height || 600
-        }
       })
     },
     isDragging (newValue) {

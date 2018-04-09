@@ -127,7 +127,7 @@
   import fetch from '@/utils/fetch'
   import { ObjectMap } from '@/utils'
   export default {
-    name: 'tablePagination',
+    name: 'fht-table-pagination',
     components: {},
     props,
     data() {
