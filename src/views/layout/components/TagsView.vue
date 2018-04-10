@@ -2,7 +2,7 @@
   <div class="tags-view-container">
     <scroll-pane class='tags-view-wrapper' ref='scrollPane'>
       <router-link ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" v-for="tag in Array.from(visitedViews)"
-        :to="tag.path" :key="tag.path" @contextmenu.prevent.native="openMenu(tag,$event)">
+        :to="tag.path" :key="tag.path" @contextmenu.prevent.native="openMenu(tag, $event)">
         {{tag.name}}
         <span class='el-icon-remove' @click.prevent.stop='closeSelectedTag(tag)'></span>
       </router-link>
@@ -71,6 +71,10 @@ export default {
       })
     },
     closeSelectedTag(view) {
+      const visitedViews = this.$store.state.tagsView.visitedViews
+      if (view.name === '首页' && visitedViews.length === 1 && view.name === visitedViews[0].name) {
+        return false
+      }
       this.$store.dispatch('delVisitedViews', view).then((views) => {
         if (this.isActive(view)) {
           const latestView = views.slice(-1)[0]
@@ -89,6 +93,10 @@ export default {
       })
     },
     closeAllTags() {
+      const visitedViews = this.$store.state.tagsView.visitedViews
+      if (visitedViews.length === 1 && visitedViews[0].name === '首页') {
+        return false
+      }
       this.$store.dispatch('delAllViews')
       this.$router.push('/')
     },
