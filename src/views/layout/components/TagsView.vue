@@ -7,10 +7,10 @@
         <span class='el-icon-remove' @click.prevent.stop='closeSelectedTag(tag)'></span>
       </router-link>
     </scroll-pane>
-    <ul class='contextmenu' v-show="visible" :style="{left:left+'px',top:top+'px'}">
-      <li @click="closeSelectedTag(selectedTag)"></li>
-      <li @click="closeOthersTags"></li>
-      <li @click="closeAllTags"></li>
+    <ul class='contextmenu el-dropdown-menu' v-show="visible" :style="{left:left+'px',top:top+'px'}">
+      <li @click="closeSelectedTag(selectedTag)">关闭</li>
+      <li @click="closeOthersTags">关闭其它</li>
+      <li @click="closeAllTags">全部关闭</li>
     </ul>
   </div>
 </template>
@@ -147,22 +147,20 @@ export default {
   }
   .contextmenu {
     margin: 0;
-    background: #fff;
     z-index: 2;
     position: absolute;
     list-style-type: none;
     padding: 5px 0;
     border-radius: 4px;
     font-size: 12px;
-    font-weight: 400;
     color: #333;
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
     li {
       margin: 0;
       padding: 7px 16px;
       cursor: pointer;
       &:hover {
-        background: #eee;
+        background: #ecf5ff;
+        color: #66b1ff;
       }
     }
   }
