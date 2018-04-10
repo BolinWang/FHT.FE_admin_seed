@@ -195,13 +195,9 @@
           this.loading = false
           return false
         }
-        fetch({
-          url,
-          method,
-          data: {
-            method: dataMethod,
-            params
-          }
+        fetch.post(url, {
+          method: dataMethod,
+          params
         }).then(response => {
           let result = response
           if (response && !(response instanceof Array)) {
