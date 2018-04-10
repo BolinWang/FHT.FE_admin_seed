@@ -24,12 +24,14 @@ export const constantRouterMap = [{
   component: _import('404'),
   hidden: true
 }, {
-  path: '/',
+  path: '',
   component: Layout,
   redirect: '/dashboard',
-  name: 'Home',
-  hidden: true,
+  icon: 'dashboard',
+  name: '首页',
+  noDropdown: true,
   children: [{
+    name: '首页',
     path: 'dashboard',
     component: _import('dashboard/index')
   }]
@@ -48,7 +50,7 @@ export const asyncRouterMap = [{
   component: Layout,
   redirect: 'noredirect',
   name: '示例',
-  icon: 'dashboard',
+  icon: 'example',
   meta: {
     role: ['admin', 'global']
   },
