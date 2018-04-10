@@ -1,8 +1,8 @@
-import fetch from '@/utils/fetch';
+import { fetch } from '@/utils/fetch';
 
 /* 登录获取sessionId */
 export function login(mobile, password) {
-  return fetch.post('/user/', {
+  return fetch('/user/', {
     method: 'login',
     params: {
       mobile,
@@ -13,7 +13,7 @@ export function login(mobile, password) {
 
 /* sessionId获取用户信息 */
 export function getInfo(sessionId) {
-  return fetch.post('/user/', {
+  return fetch('/user/', {
     method: 'queryUserDetail',
     params: {
       sessionId
@@ -23,7 +23,7 @@ export function getInfo(sessionId) {
 
 /* 退出系统 */
 export function logout(params = {}) {
-  return fetch.post('/user/', {
+  return fetch('/user/', {
     method: 'logout',
     params
   })

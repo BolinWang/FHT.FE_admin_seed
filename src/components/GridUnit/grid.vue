@@ -124,7 +124,7 @@
 <script>
   import Vue from 'vue'
   import props from './props'
-  import fetch from '@/utils/fetch'
+  import { fetch } from '@/utils/fetch'
   import { ObjectMap, deepClone } from '@/utils'
   export default {
     name: 'fht-table-pagination',
@@ -195,7 +195,7 @@
           this.loading = false
           return false
         }
-        fetch.post(url, {
+        fetch(url, {
           method: dataMethod,
           params
         }).then(response => {

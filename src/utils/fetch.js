@@ -101,35 +101,24 @@ const responseMehod = (response, resolve, reject) => {
   return reject("error")
 }
 
-export default {
-  /* get请求 */
-  get (url, params) {
-    return new Promise((resolve, reject) => {
-      service({
-        method: 'get',
-        url,
-        params,
-        cancelToken: new CancelToken(c => {
-          cancelPromise = c
-        })
-      }).then(response => {
-        responseMehod(response, resolve, reject)
-      })
-    })
-  },
-  /* post请求 */
-  post (url, data) {
-    return new Promise((resolve, reject) => {
-      service({
-        method: 'post',
-        url,
-        data,
-        cancelToken: new CancelToken(c => {
-          cancelPromise = c
-        })
-      }).then(response => {
-        responseMehod(response, resolve, reject)
-      })
+const judgeMethod = (url, params, method = 'post') => {
+  const requestBody = {
+    method,
+    url,
+    cancelToken: new CancelToken(c => {
+      cancelPromise = c
     })
   }
+  if (method === 'post') {
+    requestBody.data = params
+  } else {
+    requestBody.params = params
+  }
+  return new Promise((resolve, reject) => {
+    service(requestBody).then(response => {
+      responseMehod(response, resolve, reject)
+    })
+  })
 }
+
+export const fetch = judgeMethod
