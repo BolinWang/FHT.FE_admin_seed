@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:50:01 
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 19:31:18
+ * @Last Modified time: 2018-04-11 19:33:10
  */
 
 <template>
@@ -110,8 +110,7 @@
         this.rotateCount = this.rotateCount > 3 ? 0 : this.rotateCount
         this.rotateCount ++
         const ratateDeg = this.rotateCount * 90
-        const currentIndex = this.photoswipe.getCurrentIndex()
-        const refIndex = (currentIndex % 3 + 1) % 3
+        const refIndex = (this.photoswipe.getCurrentIndex() % 3 + 1) % 3
         this.$refs[`previewItem${refIndex}`].querySelector('img').style.transform = `rotateZ(${ratateDeg}deg)`
       }
     }
