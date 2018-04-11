@@ -28,7 +28,6 @@ export const constantRouterMap = [{
   component: Layout,
   redirect: '/dashboard',
   icon: 'dashboard',
-  name: '首页',
   noDropdown: true,
   children: [{
     name: '首页',
