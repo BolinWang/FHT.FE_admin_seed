@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:50:01 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 16:50:01 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 18:38:18
  */
 
 <template>
@@ -11,7 +11,7 @@
     <div class="pswp__scroll-wrap">
       <div class="pswp__container">
         <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
+        <div class="pswp__item" ref="previewItem"></div>
         <div class="pswp__item"></div>
       </div>
       <div class="pswp__ui pswp__ui--hidden">
@@ -22,6 +22,7 @@
             :href="downloadImageUrl"
             :download="downloadImageName">
           </a>
+          <span class="fht__download el-icon-caret-right" title="旋转图片" @click="transformRotate()"></span>
           <button class="pswp__button pswp__button--share" title="分享"></button>
           <button class="pswp__button pswp__button--fs" title="全屏展示"></button>
           <button class="pswp__button pswp__button--zoom" title="放大/缩小"></button>
@@ -67,11 +68,14 @@
         pswpOptions: {},
         /* 下载图片地址、名称 */
         downloadImageUrl: '',
-        downloadImageName: ''
+        downloadImageName: '',
+        // 当前图片旋转次数
+        rotateCount: 0
       }
     },
     methods: {
       open (index, list, params = this.defaultOptions) {
+        this.rotateCount = 0
         this.pswpOptions = Object.assign({
           index: index,
           getThumbBoundsFn (index) {
@@ -88,12 +92,23 @@
 
         /* 监听图片变换，替换当前下载图片链接 */
         this.photoswipe.listen('afterChange', (e) => {
+          this.rotateCount = 0
           this.downloadImageUrl = list[this.photoswipe.getCurrentIndex() || 0].src
           this.downloadImageName = `麦滴管家_${list[this.photoswipe.getCurrentIndex() || 0].title}`
         })
       },
       close () {
+        this.rotateCount = 0
         this.photoswipe.close()
+      },
+      /**
+       * 旋转图片
+       */
+      transformRotate() {
+        this.rotateCount = this.rotateCount > 3 ? 0 : this.rotateCount
+        this.rotateCount ++
+        const ratateDeg = this.rotateCount * 90
+        this.$refs.previewItem.getElementsByTagName('img')[0].style.transform = `rotateZ(${ratateDeg}deg)`
       }
     }
   }
