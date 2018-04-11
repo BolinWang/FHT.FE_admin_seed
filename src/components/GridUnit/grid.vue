@@ -41,9 +41,8 @@
         @current-change="(currentRow, oldCurrentRow) => emitEventHandler('current-change', currentRow, oldCurrentRow)"
         @header-dragend="(newWidth, oldWidth, column, event) => emitEventHandler('header-dragend', newWidth, oldWidth, column, event)"
         @expand-change="(row, expanded) => emitEventHandler('expand-change', row, expanded)" >
-        <el-table-column v-if="showRowIndex" type="index" width="60" align="center"></el-table-column>
-        <el-table-column v-if="showSelection" type="selection" width="55"></el-table-column>
-        <el-table-column v-if="showExpand" type="expand">
+        <el-table-column v-if="showRowIndex" type="index" width="40" align="center"></el-table-column>
+        <el-table-column v-if="showExpand" type="expand" width="40">
           <template slot-scope="scope">
             <el-form label-position="left" size="small" inline class="table-expand">
               <el-form-item v-for="(item, index) in expandColums" :label="item.label" key="index">
@@ -52,6 +51,7 @@
             </el-form>
           </template>
         </el-table-column>
+        <el-table-column v-if="showSelection" type="selection" width="40"></el-table-column>
         <el-table-column
           v-for="(column, columnIndex) in columns" :key="columnIndex"
           :column-key="column.columnKey"
