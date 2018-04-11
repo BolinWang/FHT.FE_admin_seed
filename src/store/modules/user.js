@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:09:27
+ * @Last Modified by:   FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 17:09:27
+ */
+
 import { login, logout, getInfo } from '@/api/login'
 import { getSessionId, setSessionId, removeSessionId } from '@/utils/auth'
 import defaultAvatar from '@/assets/defaultAvatar.png'

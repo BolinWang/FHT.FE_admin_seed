@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:49:22 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:49:22 
+ */
+
 <template>
   <div>
     <svg t="1492500959545" @click="toggleClick" class="svg-icon hamburger" :class="{'is-active':isActive}" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1691" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64">

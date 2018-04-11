@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 17:11:31 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 17:11:31 
+ */
+
 <template>
   <el-menu mode="vertical" :default-active="$route.path" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
     <sidebar-item :routes='permission_routers'>

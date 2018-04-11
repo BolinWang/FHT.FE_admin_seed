@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 17:10:36 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 17:10:36 
+ */
+
 /* 是否是公司邮箱*/
 export function isWscnEmail(str) {
   const reg = /^[a-z0-9](?:[-_.+]?[a-z0-9]+)*@wallstreetcn\.com$/i;

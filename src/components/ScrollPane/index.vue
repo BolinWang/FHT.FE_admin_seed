@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:51:47 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 16:54:36
+ */
+
 <template>
   <div class="scroll-container" ref="scrollContainer" @wheel.prevent="handleScroll">
     <div class="scroll-wrapper" ref="scrollWrapper" :style="{left: left + 'px'}">
@@ -10,11 +17,11 @@
 const padding = 15
 
 export default {
-  name: 'scrollPane',
+  name: "scrollPane",
   data() {
     return {
       left: 0
-    }
+    };
   },
   methods: {
     handleScroll(e) {
@@ -31,7 +38,10 @@ export default {
           if (this.left < -($wrapperWidth - $containerWidth + padding)) {
             this.left = this.left
           } else {
-            this.left = Math.max(this.left + eventDelta, $containerWidth - $wrapperWidth - padding)
+            this.left = Math.max(
+              this.left + eventDelta,
+              $containerWidth - $wrapperWidth - padding
+            )
           }
         } else {
           this.left = 0
@@ -39,20 +49,23 @@ export default {
       }
     },
     moveToTarget($target) {
-      const $container = this.$refs.scrollContainer
-      const $containerWidth = $container.offsetWidth
-      const $targetLeft = $target.offsetLeft
-      const $targetWidth = $target.offsetWidth
+      const $container = this.$refs.scrollContainer;
+      const $containerWidth = $container.offsetWidth;
+      const $targetLeft = $target.offsetLeft;
+      const $targetWidth = $target.offsetWidth;
 
       if ($targetLeft < -this.left) {
         this.left = -$targetLeft + padding
-      } else if ($targetLeft + padding > -this.left && $targetLeft + $targetWidth < -this.left + $containerWidth - padding) {
+      } else if (
+        $targetLeft + padding > -this.left &&
+        $targetLeft + $targetWidth < -this.left + $containerWidth - padding
+      ) {
       } else {
         this.left = -($targetLeft - ($containerWidth - $targetWidth) + padding)
       }
     }
   }
-}
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

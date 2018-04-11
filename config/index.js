@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:31:28 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:31:28 
+ */
+
 let path = require('path')
 /* 本地联调后端IP地址 */
 let proxyIPs = {

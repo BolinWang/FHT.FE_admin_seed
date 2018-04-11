@@ -1,3 +1,9 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:47:22 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 16:49:03
+ */
 <template>
   <div class="model-table-pagenation">
     <div class="model-table">
@@ -45,7 +51,7 @@
         <el-table-column v-if="showExpand" type="expand" width="40">
           <template slot-scope="scope">
             <el-form label-position="left" size="small" inline class="table-expand">
-              <el-form-item v-for="(item, index) in expandColums" :label="item.label" key="index">
+              <el-form-item v-for="(item, index) in expandColums" :label="item.label" :key="index">
                 <span>{{ scope.row[item.prop] }}</span>
               </el-form-item>
             </el-form>

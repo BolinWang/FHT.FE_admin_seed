@@ -1,11 +1,9 @@
-/**
- * author : bolin
- * icon : slider图标
- * hidden : 菜单隐藏
- * redirect : ‘noRedirect’ 面包屑链接配置
- * noDropdown : ’noDropdown:true‘ 下拉菜单
- * meta : ‘{ role: ['admin'] }‘ 权限
- **/
+/*
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:07:11
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 17:08:06
+ */
 
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -14,6 +12,14 @@ import Layout from '../views/layout/Layout'
 const _import = require('./_import_' + process.env.NODE_ENV)
 
 Vue.use(Router)
+
+/**
+ * icon : slider图标
+ * hidden : 菜单隐藏
+ * redirect : ‘noRedirect’ 面包屑链接配置
+ * noDropdown : ’noDropdown:true‘ 下拉菜单
+ * meta : ‘{ role: ['admin'] }‘ 权限
+ */
 
 export const constantRouterMap = [{
   path: '/login',

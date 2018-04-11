@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:49:54 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:49:54 
+ */
+
 import PreviewComponent from './preview.vue'
 let $vm
 export default {

@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 17:22:41 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 17:22:41 
+ */
+
 <template>
   <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
     <div class="sidebar-wrapper">

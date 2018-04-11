@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:49:14 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:49:14 
+ */
+
 let props = {
   // Element UI table配置
   height: [String, Number],

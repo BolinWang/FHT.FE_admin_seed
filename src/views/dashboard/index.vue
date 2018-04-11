@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 17:11:02 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 17:11:02 
+ */
+
 <template>
   <div class="dashboard-container">
     <p style="margin-top: 0;">{{roles | rolesFilter}}{{name}}</p>

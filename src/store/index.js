@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:08:41
+ * @Last Modified by:   FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 17:08:41
+ */
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import app from './modules/app'

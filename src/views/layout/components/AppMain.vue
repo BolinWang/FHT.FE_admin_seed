@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 17:21:54 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 17:21:54 
+ */
+
 <template>
   <section class="app-main">
     <transition name="fade" mode="out-in">

@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 17:06:03 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 17:06:31
+ */
+
 function pluralize(time, label) {
   if (time === 1) {
     return time + label

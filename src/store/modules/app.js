@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:08:47
+ * @Last Modified by:   FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 17:08:47
+ */
+
 import Cookies from 'js-cookie'
 
 const app = {

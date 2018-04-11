@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:30:34 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:30:34 
+ */
+
 let path = require('path') // node path模块
 let config = require('../config')
 let ExtractTextPlugin = require('extract-text-webpack-plugin') // 提取代码的css为独立css文件

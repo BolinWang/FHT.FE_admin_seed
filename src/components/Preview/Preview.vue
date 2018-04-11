@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:50:08 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:50:08 
+ */
+
 <template>
   <div class="previewItems">
     <draggable v-model="list" element="ul" class="list-group"

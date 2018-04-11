@@ -1,5 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:30:08 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:30:08 
+ */
 require('./check-versions')()
-
 process.env.NODE_ENV = 'production'
 
 let ora = require('ora')

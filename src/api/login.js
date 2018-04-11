@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:33:06 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:33:06 
+ */
+
 import { fetch } from '@/utils/fetch';
 
 /* 登录获取sessionId */

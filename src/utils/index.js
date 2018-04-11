@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 17:10:26 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 17:10:26 
+ */
+
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
     return null

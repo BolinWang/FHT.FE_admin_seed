@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:49:39 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:49:39 
+ */
+
 <template>
   <div class="dialog-cropper">
       <el-dialog title="图片裁剪" :visible.sync="layer_cropper" width="920px" @close="cropperClose">

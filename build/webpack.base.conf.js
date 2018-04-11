@@ -1,3 +1,10 @@
+/*
+ * @Author: FT.FE.Bolin 
+ * @Date: 2018-04-11 16:30:55 
+ * @Last Modified by:   FT.FE.Bolin 
+ * @Last Modified time: 2018-04-11 16:30:55 
+ */
+
 const path = require('path') // node path模块
 const utils = require('./utils')
 const config = require('../config')
