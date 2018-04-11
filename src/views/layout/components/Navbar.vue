@@ -2,14 +2,14 @@
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 17:22:27 
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 17:40:05
+ * @Last Modified time: 2018-04-11 19:06:19
  */
 
 <template>
   <div class="clearfix">
     <el-menu class="navbar" mode="horizontal">
       <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-      <levelbar></levelbar>
+      <tags-view></tags-view>
       <div class="right-menu">
         <el-tooltip effect="dark" content="全屏" placement="bottom">
           <screenfull class="screenfull right-menu-item"></screenfull>
@@ -51,17 +51,17 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import Levelbar from './Levelbar'
 import Hamburger from '@/components/Hamburger'
 import ThemePicker from '@/components/ThemePicker'
 import Screenfull from '@/components/Screenfull'
+import { default as TagsView } from './TagsView'
 
 export default {
   components: {
-    Levelbar,
     Hamburger,
     ThemePicker,
-    Screenfull
+    Screenfull,
+    TagsView
   },
   data() {
     return {
@@ -102,8 +102,8 @@ export default {
   line-height: 50px;
   border-radius: 0px !important;
   .hamburger-container {
-    line-height: 58px;
-    height: 50px;
+    line-height: 54px;
+    height: 49px;
     float: left;
     padding: 0 10px;
   }

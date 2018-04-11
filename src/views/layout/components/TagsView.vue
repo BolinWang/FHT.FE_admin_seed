@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 17:22:33 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 17:22:33 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 19:04:30
  */
 
 <template>
@@ -122,11 +122,12 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .tags-view-container {
+  width: calc(100% - 300px);
+  display: inline-block;
   .tags-view-wrapper {
     background: #fff;
-    height: 35px;
-    border-bottom: 1px solid #d8dce5;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+    height: 49px;
+    line-height: 49px;
     .tags-view-item {
       display: inline-block;
       position: relative;
@@ -138,10 +139,9 @@ export default {
       padding: 0 8px;
       font-size: 12px;
       margin-left: 5px;
-      margin-top: 4px;
       border-radius: 4px;
-      &:first-of-type {
-        margin-left: 15px;
+      &:first-child{
+        margin-left: 0
       }
       &.active {
         background-color: #409eff;

@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 17:22:41 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 17:22:41 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 18:46:56
  */
 
 <template>
@@ -12,21 +12,19 @@
     </div>
     <div class="main-container">
       <navbar></navbar>
-      <tags-view></tags-view>
       <app-main></app-main>
     </div>
   </div>
 </template>
 <script>
-import { Navbar, Sidebar, AppMain, TagsView } from '@/views/layout/components'
+import { Navbar, Sidebar, AppMain } from '@/views/layout/components'
 
 export default {
   name: 'layout',
   components: {
     Navbar,
     Sidebar,
-    AppMain,
-    TagsView
+    AppMain
   },
   computed: {
     sidebar() {
