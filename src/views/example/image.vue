@@ -1,13 +1,13 @@
 /*
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 17:11:13 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 17:11:13 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 19:08:21
  */
 
 <template>
   <div class="layout-container">
-    <div style="padding: 20px 0;">
+    <div style="padding: 0 0 20px 0;">
       <label class="el-button el-button--primary el-button--small" for="uploadImages">上传图片</label>
       <input type="file" id="uploadImages"
         :accept="accept" multiple
@@ -15,7 +15,7 @@
       >
     </div>
     <!-- 图片预览排序 -->
-    <div style="padding: 20px 0; width: 500px;">
+    <div style="width: 500px;">
       <Preview
         :pic-list="cropperData"
         :delete-icon="`delete`"

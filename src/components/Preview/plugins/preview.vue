@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:50:01 
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 18:38:18
+ * @Last Modified time: 2018-04-11 19:31:18
  */
 
 <template>
@@ -10,9 +10,9 @@
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
       <div class="pswp__container">
-        <div class="pswp__item"></div>
-        <div class="pswp__item" ref="previewItem"></div>
-        <div class="pswp__item"></div>
+        <div class="pswp__item" ref="previewItem0"></div>
+        <div class="pswp__item" ref="previewItem1"></div>
+        <div class="pswp__item" ref="previewItem2"></div>
       </div>
       <div class="pswp__ui pswp__ui--hidden">
         <div class="pswp__top-bar">
@@ -103,12 +103,16 @@
       },
       /**
        * 旋转图片
+       * @ratateDeg: 旋转角度
+       * @currentIndex: 当前图片索引
        */
       transformRotate() {
         this.rotateCount = this.rotateCount > 3 ? 0 : this.rotateCount
         this.rotateCount ++
         const ratateDeg = this.rotateCount * 90
-        this.$refs.previewItem.getElementsByTagName('img')[0].style.transform = `rotateZ(${ratateDeg}deg)`
+        const currentIndex = this.photoswipe.getCurrentIndex()
+        const refIndex = (currentIndex % 3 + 1) % 3
+        this.$refs[`previewItem${refIndex}`].querySelector('img').style.transform = `rotateZ(${ratateDeg}deg)`
       }
     }
   }
