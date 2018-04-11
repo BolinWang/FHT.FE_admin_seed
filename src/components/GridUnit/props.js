@@ -74,6 +74,11 @@ let props = {
     type: Boolean,
     default: false
   },
+  // showExpand
+  showExpand: {
+    type: Boolean,
+    default: false
+  },
   // 获取列表数据  需要与后台约定数据格式
   listField: {
     type: String,
@@ -190,6 +195,14 @@ let props = {
     },
     slotName: {
       type: String
+    }
+  },
+
+  // expand展开行列表数据
+  expandColums: {
+    type: Array,
+    default: () => {
+      return []
     }
   },
 

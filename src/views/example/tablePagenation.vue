@@ -20,7 +20,9 @@
       :url="url"
       :dataMethod="method"
       :formOptions="formOptions"
-      :height="tableHeight">
+      :height="tableHeight"
+      :showExpand="true"
+      :expandColums="expandColums">
       <template slot="handle" slot-scope="scope">
         <el-button type="primary" icon="el-icon-view" size="small"
           @click="handleView(scope.$index)">
@@ -90,6 +92,10 @@ export default {
       ],
       colModels_view: [
         {prop: 'title', label: '标题'}
+      ],
+      expandColums: [
+        {prop: 'title', label: '标题'},
+        {prop: 'introduction', label: '简介'}
       ],
       url: '/market/activity',
       method: 'queryActivityListByPage'

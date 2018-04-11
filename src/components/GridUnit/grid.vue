@@ -43,6 +43,15 @@
         @expand-change="(row, expanded) => emitEventHandler('expand-change', row, expanded)" >
         <el-table-column v-if="showRowIndex" type="index" width="60" align="center"></el-table-column>
         <el-table-column v-if="showSelection" type="selection" width="55"></el-table-column>
+        <el-table-column v-if="showExpand" type="expand">
+          <template slot-scope="scope">
+            <el-form label-position="left" size="small" inline class="table-expand">
+              <el-form-item v-for="(item, index) in expandColums" :label="item.label" key="index">
+                <span>{{ scope.row[item.prop] }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
         <el-table-column
           v-for="(column, columnIndex) in columns" :key="columnIndex"
           :column-key="column.columnKey"
@@ -278,5 +287,25 @@
   .model-pagenation {
     padding: 10px 0;
     text-align: right;
+  }
+
+  .table-expand {
+    font-size: 0;
+    .el-form-item__content {
+      font-size: 12px;
+    }
+    .el-form-item__label {
+      font-size: 12px;
+    }
+  }
+
+  .table-expand label {
+    color: #99a9bf;
+  }
+
+  .table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 33%;
   }
 </style>
