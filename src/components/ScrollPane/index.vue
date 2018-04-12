@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:51:47 
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:33:14
+ * @Last Modified time: 2018-04-12 16:19:15
  */
 
 <template>
@@ -76,6 +76,9 @@ export default {
   width: 100%;
   .scroll-wrapper {
     position: absolute;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    user-select:none;  
   }
 }
 </style>
