@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:46:41 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 16:46:41 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-12 10:38:23
  */
 <template>
   <div>
@@ -36,7 +36,7 @@ export default {
     },
     level: {
       type: Number,
-      default: 0, // 0->二联 1->三联 
+      default: 0, // 0->二联 1->三联
       validator: (val) => [0, 1].indexOf(val) > -1
     },
     size: {
@@ -49,21 +49,20 @@ export default {
       options: areaData,
       selectedOptions: []
     }
-
   },
   methods: {
     handleChange(selected) {
-      this.$emit('input', selected);
+      this.$emit('input', selected)
     }
   },
   created() {
     if (Array.isArray(this.value)) {
-      this.selectedOptions = this.value.map(key => { return parseInt(key) });
+      this.selectedOptions = this.value.map(key => { return parseInt(key) })
     }
   },
   watch: {
     value(val) {
-      this.selectedOptions = val;
+      this.selectedOptions = val
     }
   }
 }

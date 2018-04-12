@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:49:14 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 16:49:14 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:49:14
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-12 10:38:46
  */
 
 let props = {
@@ -54,8 +54,8 @@ let props = {
     type: String,
     default: 'post',
     validator: value => {
-      const methodTypes = ['get', 'post', 'put', 'delete'];
-      return methodTypes.indexOf(value.toLowerCase()) !== -1;
+      const methodTypes = ['get', 'post', 'put', 'delete']
+      return methodTypes.indexOf(value.toLowerCase()) !== -1
     }
   },
 

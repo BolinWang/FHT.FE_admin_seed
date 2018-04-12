@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:10:13 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 17:10:13 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:10:13
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-12 10:37:47
  */
 
 import axios from 'axios'
@@ -11,29 +11,30 @@ import store from '../store'
 import { getSessionId } from '@/utils/auth'
 
 /* 防止重复提交，利用axios的cancelToken */
-let cancelPromise, requestPath = {}
+let cancelPromise
+let requestPath = {}
 const CancelToken = axios.CancelToken
 
 /* 默认请求参数 */
 const defaultConfig = {
-  version: "1.0",
+  version: '1.0',
   timestamp: new Date().getTime(),
-  reqId: "0010C2379272774D6EC087B917CE2A71438DEF90",
-  sign: "8F4C4A8E9D850EDD9692DE38723D0543"
+  reqId: '0010C2379272774D6EC087B917CE2A71438DEF90',
+  sign: '8F4C4A8E9D850EDD9692DE38723D0543'
 }
 
 /* 创建axios实例 */
 const service = axios.create({
   baseURL: process.env.BASE_API,
   interceptors: true, // 是否开启response拦截器 默认true
-  noAssign: false, // 请求体是否带defaultConfig 默认false
+  noAssign: false // 请求体是否带defaultConfig 默认false
   // timeout: 5000 // 请求超时时间
 })
 
 /* request拦截器 */
 service.interceptors.request.use(config => {
   /* 发起请求时，取消掉当前正在进行的相同请求 */
-  const dataMethod =  config.method.toUpperCase() === 'POST' ? config.data.method : config.params.method
+  const dataMethod = config.method.toUpperCase() === 'POST' ? config.data.method : config.params.method
   const requestUrlAndMethod = (config.url.endsWith('/') ? config.url : `${config.url}/`) + dataMethod
   if (requestPath[requestUrlAndMethod]) {
     requestPath[requestUrlAndMethod]('取消重复请求')
@@ -42,7 +43,7 @@ service.interceptors.request.use(config => {
     requestPath[requestUrlAndMethod] = cancelPromise
   }
   /* post请求 */
-  if (config.method.toUpperCase() == 'POST') {
+  if (config.method.toUpperCase() === 'POST') {
     if (store.getters.sessionId) {
       config.data['sessionId'] = getSessionId()
     }
@@ -92,10 +93,10 @@ const logOutMethod = () => {
 /* axios请求体包装 */
 const responseMehod = (response, resolve, reject) => {
   const res = response.data
-  if (!response.config.interceptors || res.code == 0) {
+  if (!response.config.interceptors || res.code * 1 === 0) {
     return resolve(res)
   }
-  if (res.code == 1011 && res.message == '数据不存在') {
+  if (res.code * 1 === 1011 && res.message === '数据不存在') {
     logOutMethod()
   }
   Message({
@@ -104,7 +105,7 @@ const responseMehod = (response, resolve, reject) => {
     duration: 5 * 1000
   })
   // sessionId 失效
-  if (res.code == 1016) {
+  if (res.code * 1 === 1016) {
     MessageBox.confirm(`${res.message}，请重新登录`, '提示', {
       confirmButtonText: '重新登录',
       cancelButtonText: '取消',
@@ -113,7 +114,7 @@ const responseMehod = (response, resolve, reject) => {
       logOutMethod()
     })
   }
-  return reject("error")
+  return reject('error')
 }
 
 const judgeMethod = (url, params, method = 'post') => {

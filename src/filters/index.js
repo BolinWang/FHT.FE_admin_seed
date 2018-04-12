@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:06:03 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:06:03
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 17:06:31
+ * @Last Modified time: 2018-04-12 10:34:52
  */
 
 function pluralize(time, label) {
@@ -31,7 +31,7 @@ export function parseTime(time, cFormat) {
     return null
   }
 
-  if(typeof time === 'string') {
+  if (typeof time === 'string') {
     return time
   }
 

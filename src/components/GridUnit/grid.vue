@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:47:22 
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 16:49:03
+ * @Last Modified time: 2018-04-12 10:42:13
  */
 <template>
   <div class="model-table-pagenation">
@@ -170,7 +170,7 @@
         let previewObj = {src: imageUrl}
         let _img = new Image()
         _img.src = imageUrl
-        _img.onload = function(){
+        _img.onload = function() {
           previewObj.w = _img.width || 800
           previewObj.h = _img.height || 600
           Vue.$preview.open(0, [previewObj])
@@ -193,8 +193,8 @@
       fetchHandler() {
         this.loading = true
         let params
-        let {
-          url, method, dataMethod,
+        const {
+          url, dataMethod,
           listField, pageNoKey, pageSizeKey,
           totalField, showPagination, pagination
         } = this
@@ -251,6 +251,7 @@
           this.total = totalValue
           this.loading = false
         }).catch(error => {
+          console.log(error)
           this.loading = false
         })
       },
@@ -260,7 +261,7 @@
     },
     mounted() {
       this.$refs['gridUnit'].$on('expand-change', (row, expanded) => this.emitEventHandler('expand-change', row, expanded))
-      const { type, autoLoad, data, formOptions, params } = this
+      const { type, autoLoad, formOptions, params } = this
       if (type === 'remote' && autoLoad) {
         this.searchParams = formOptions ? Object.assign(formOptions, params) : params
         this.fetchHandler()

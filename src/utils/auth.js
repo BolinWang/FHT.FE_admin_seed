@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:10:05 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 17:10:05 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:10:05
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-12 10:38:05
  */
 
 import Cookies from 'js-cookie'

@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:51:47 
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 19:00:46
+ * @Last Modified time: 2018-04-12 10:33:14
  */
 
 <template>
@@ -17,11 +17,11 @@
 const padding = 15
 
 export default {
-  name: "scrollPane",
+  name: 'scrollPane',
   data() {
     return {
       left: 0
-    };
+    }
   },
   methods: {
     handleScroll(e) {
@@ -49,10 +49,10 @@ export default {
       }
     },
     moveToTarget($target) {
-      const $container = this.$refs.scrollContainer;
-      const $containerWidth = $container.offsetWidth;
-      const $targetLeft = $target.offsetLeft;
-      const $targetWidth = $target.offsetWidth;
+      const $container = this.$refs.scrollContainer
+      const $containerWidth = $container.offsetWidth
+      const $targetLeft = $target.offsetLeft
+      const $targetWidth = $target.offsetWidth
 
       if ($targetLeft < -this.left) {
         this.left = -$targetLeft + padding
@@ -65,7 +65,7 @@ export default {
       }
     }
   }
-};
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

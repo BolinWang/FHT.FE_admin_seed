@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:49:39 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 16:49:39 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-12 10:42:51
  */
 
 <template>
@@ -177,7 +177,7 @@ export default {
         let imageName = ''
         if (!file.name) {
           imageName = ''
-        }else {
+        } else {
           imageName = file.name.split('.')[0].length <= 30
             ? file.name.split('.')[0]
             : file.name.split('.')[0].substr(0, 30)

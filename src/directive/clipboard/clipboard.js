@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:05:17 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 17:05:17 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:05:17
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-12 10:34:07
  */
 // Inspired by https://github.com/Inndy/vue-clipboard2
 

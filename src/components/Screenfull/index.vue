@@ -14,10 +14,10 @@
   </div>
 </template>
 <script>
-  import screenfull from "screenfull"
+  import screenfull from 'screenfull'
 
   export default {
-    name: "screenfull",
+    name: 'screenfull',
     props: {
       width: {
         type: Number,
@@ -29,7 +29,7 @@
       },
       fill: {
         type: String,
-        default: "#48576a"
+        default: '#48576a'
       }
     },
     data() {
@@ -41,15 +41,15 @@
       click() {
         if (!screenfull.enabled) {
           this.$message({
-            message: "you browser can not work",
-            type: "warning"
+            message: 'you browser can not work',
+            type: 'warning'
           })
           return false
         }
         screenfull.toggle()
       }
     }
-  };
+  }
 
 </script>
 <style scoped>

@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 17:04:21 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 17:04:21 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-12 10:43:14
  */
 
 <template>
@@ -22,7 +22,7 @@ export default {
     }
   },
   created() {
-    this.theme = localStorage.getItem('ORIGINAL_THEME') || ORIGINAL_THEME;
+    this.theme = localStorage.getItem('ORIGINAL_THEME') || ORIGINAL_THEME
   },
   watch: {
     theme(val, oldVal) {
@@ -66,8 +66,8 @@ export default {
       this.$message({
         message: '换肤成功',
         type: 'success'
-      });
-      localStorage.setItem('ORIGINAL_THEME', val);
+      })
+      localStorage.setItem('ORIGINAL_THEME', val)
     }
   },
 

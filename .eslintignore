@@ -1,11 +1,7 @@
 build/*.js
 config/*.js
 src/assets
-src/api
-src/components
-src/directive
-src/filters
 src/icons
-src/utils
+src/components/AreaSelect
 src/vendor
 

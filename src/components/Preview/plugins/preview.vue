@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:50:01 
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 19:33:10
+ * @Last Modified time: 2018-04-12 10:33:18
  */
 
 <template>
@@ -74,11 +74,11 @@
       }
     },
     methods: {
-      open (index, list, params = this.defaultOptions) {
+      open(index, list, params = this.defaultOptions) {
         this.rotateCount = 0
         this.pswpOptions = Object.assign({
           index: index,
-          getThumbBoundsFn (index) {
+          getThumbBoundsFn(index) {
             let pageYScroll = window.pageYOffset || document.documentElement.scrollTop
             let rect = document.querySelectorAll('.preview-img')[index].getBoundingClientRect()
             return {x: rect.left, y: rect.top + pageYScroll, w: rect.width}
@@ -97,7 +97,7 @@
           this.downloadImageName = `麦滴管家_${list[this.photoswipe.getCurrentIndex() || 0].title}`
         })
       },
-      close () {
+      close() {
         this.rotateCount = 0
         this.photoswipe.close()
       },
@@ -108,7 +108,7 @@
        */
       transformRotate() {
         this.rotateCount = this.rotateCount > 3 ? 0 : this.rotateCount
-        this.rotateCount ++
+        this.rotateCount++
         const ratateDeg = this.rotateCount * 90
         const refIndex = (this.photoswipe.getCurrentIndex() % 3 + 1) % 3
         this.$refs[`previewItem${refIndex}`].querySelector('img').style.transform = `rotateZ(${ratateDeg}deg)`
