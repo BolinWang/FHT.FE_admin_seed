@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:50:08 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 16:50:08 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-12 16:53:31
  */
 
 <template>
@@ -39,8 +39,8 @@ import draggable from 'vuedraggable'
 
 /* 阻止原生dragale打开新页面 */
 document.body.ondrop = function(event) {
-  event.preventDefault();
-  event.stopPropagation();
+  event.preventDefault()
+  event.stopPropagation()
 }
 
 export default {
@@ -79,11 +79,11 @@ export default {
         height: this.itemSize.height + 'px'
       }
     },
-    dragOptions () {
-      return  {
+    dragOptions() {
+      return {
         animation: 150,
         group: 'description',
-        ghostClass: 'ghost',
+        ghostClass: 'ghost'
       }
     }
   },
@@ -112,7 +112,7 @@ export default {
       this.$set(this.list[index], 'opacityVal', 0)
     },
     async handlePreview(index) {
-      if (this.list.length == 1 && this.list[0].isnoPic) {
+      if (this.list.length === 1 && this.list[0].isnoPic) {
         this.$message.warning('友情提示：暂无图片')
         return false
       }
@@ -165,13 +165,13 @@ export default {
         item.sortNum = index
       })
     },
-    isDragging (newValue) {
-      if (newValue){
-        this.delayedDragging= true
+    isDragging(newValue) {
+      if (newValue) {
+        this.delayedDragging = true
         return
       }
-      this.$nextTick( () =>{
-        this.delayedDragging =false
+      this.$nextTick(() => {
+        this.delayedDragging = false
       })
     }
   }
