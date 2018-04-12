@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 16:50:01 
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:33:18
+ * @Last Modified time: 2018-04-12 10:54:00
  */
 
 <template>
@@ -104,7 +104,7 @@
       /**
        * 旋转图片
        * @ratateDeg: 旋转角度
-       * @currentIndex: 当前图片索引
+       * @refIndex: 当前图片容器索引
        */
       transformRotate() {
         this.rotateCount = this.rotateCount > 3 ? 0 : this.rotateCount
