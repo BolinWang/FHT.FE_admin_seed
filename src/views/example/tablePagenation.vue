@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin 
  * @Date: 2018-04-11 17:11:19 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 17:11:19 
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-04-12 17:10:05
  */
 
 <template>
@@ -110,17 +110,19 @@ export default {
   },
   mounted() {
     /* 表格高度控制 */
-    const offsetTop = this.$refs.refGridUnit.$el.offsetTop || 140
-    const pagenationH = 55
-    const containerPadding = 20
-    let temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
-    this.tableHeight = temp_height > 300 ? temp_height : 300
-    window.onresize = () => {
-      return (() => {
-        temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
-        this.tableHeight = this.tableHeight = temp_height > 300 ? temp_height : 300
-      })()
-    }
+    this.$nextTick(() => {
+      const offsetTop = this.$refs.refGridUnit.$el.offsetTop || 140
+      const pagenationH = 55
+      const containerPadding = 20
+      let temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
+      this.tableHeight = temp_height > 300 ? temp_height : 300
+      window.onresize = () => {
+        return (() => {
+          temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
+          this.tableHeight = this.tableHeight = temp_height > 300 ? temp_height : 300
+        })()
+      }
+    })
   },
   computed: {
 
