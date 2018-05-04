@@ -11,6 +11,7 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 - 表格组件：基于elementUI table/pagenation 二次封装 支持所有配置
 - 导出excel
 
+```
 # 项目结构
 
 ```
@@ -169,3 +170,4 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 34 directories, 116 files
 
 ```
+
