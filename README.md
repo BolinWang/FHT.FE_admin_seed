@@ -167,3 +167,5 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
     └── loading-spin.svg
 
 34 directories, 116 files
+
+```
