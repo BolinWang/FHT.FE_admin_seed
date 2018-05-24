@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:50:08 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:50:08
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 16:53:31
+ * @Last Modified time: 2018-05-24 20:16:08
  */
 
 <template>
@@ -106,10 +106,16 @@ export default {
   },
   methods: {
     handleMouseenter(index) {
-      this.$set(this.list[index], 'opacityVal', 1)
+      this.$set(this.list, index, {
+        ...this.list[index],
+        opacityVal: 1
+      })
     },
     handleMouseleave(index) {
-      this.$set(this.list[index], 'opacityVal', 0)
+      this.$set(this.list, index, {
+        ...this.list[index],
+        opacityVal: 0
+      })
     },
     async handlePreview(index) {
       if (this.list.length === 1 && this.list[0].isnoPic) {
