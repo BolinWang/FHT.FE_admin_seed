@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:50:01 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:50:01
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:54:00
+ * @Last Modified time: 2018-05-26 15:58:19
  */
 
 <template>
@@ -70,11 +70,13 @@
         downloadImageUrl: '',
         downloadImageName: '',
         // 当前图片旋转次数
-        rotateCount: 0
+        rotateCount: 0,
+        openIndex: 0
       }
     },
     methods: {
       open(index, list, params = this.defaultOptions) {
+        this.openIndex = index
         this.rotateCount = 0
         this.pswpOptions = Object.assign({
           index: index,
@@ -110,7 +112,7 @@
         this.rotateCount = this.rotateCount > 3 ? 0 : this.rotateCount
         this.rotateCount++
         const ratateDeg = this.rotateCount * 90
-        const refIndex = (this.photoswipe.getCurrentIndex() % 3 + 1) % 3
+        const refIndex = ((this.photoswipe.getCurrentIndex() - this.openIndex) % 3 + 1) % 3
         this.$refs[`previewItem${refIndex}`].querySelector('img').style.transform = `rotateZ(${ratateDeg}deg)`
       }
     }
