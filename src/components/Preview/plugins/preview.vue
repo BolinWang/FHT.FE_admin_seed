@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:50:01
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-05-26 15:58:19
+ * @Last Modified time: 2018-05-26 17:33:40
  */
 
 <template>
@@ -10,9 +10,9 @@
     <div class="pswp__bg"></div>
     <div class="pswp__scroll-wrap">
       <div class="pswp__container">
-        <div class="pswp__item" ref="previewItem0"></div>
-        <div class="pswp__item" ref="previewItem1"></div>
-        <div class="pswp__item" ref="previewItem2"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
       </div>
       <div class="pswp__ui pswp__ui--hidden">
         <div class="pswp__top-bar">
@@ -70,13 +70,11 @@
         downloadImageUrl: '',
         downloadImageName: '',
         // 当前图片旋转次数
-        rotateCount: 0,
-        openIndex: 0
+        rotateCount: 0
       }
     },
     methods: {
       open(index, list, params = this.defaultOptions) {
-        this.openIndex = index
         this.rotateCount = 0
         this.pswpOptions = Object.assign({
           index: index,
@@ -112,8 +110,7 @@
         this.rotateCount = this.rotateCount > 3 ? 0 : this.rotateCount
         this.rotateCount++
         const ratateDeg = this.rotateCount * 90
-        const refIndex = ((this.photoswipe.getCurrentIndex() - this.openIndex) % 3 + 1) % 3
-        this.$refs[`previewItem${refIndex}`].querySelector('img').style.transform = `rotateZ(${ratateDeg}deg)`
+        this.photoswipe.currItem.container.querySelector('img').style.transform = `rotateZ(${ratateDeg}deg)`
       }
     }
   }
