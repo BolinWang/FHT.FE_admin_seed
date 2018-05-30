@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:49:39 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:49:39
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:42:51
+ * @Last Modified time: 2018-05-30 09:59:36
  */
 
 <template>
@@ -142,16 +142,20 @@ export default {
     },
     // 裁剪完成
     getCropData() {
+      let countIndex = 0
       this.cropperImgs.forEach((item, index) => {
         this.$refs['refCropper' + index][0].getCropData((data) => {
           this.cropperedImgs.push({
             src: data,
             title: item.imageName
           })
+          countIndex++
+          if (countIndex === this.cropperImgs.length) {
+            this.layer_cropper = false
+            this.$emit('emitCropperData', this.cropperedImgs)
+          }
         })
       })
-      this.layer_cropper = false
-      this.$emit('emitCropperData', this.cropperedImgs)
     },
     // 替换图片
     uploadImg(e, index) {
