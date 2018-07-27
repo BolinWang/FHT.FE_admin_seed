@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:31:28 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 16:31:28 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:31:28
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-07-27 16:45:47
  */
 
 let path = require('path')
@@ -24,7 +24,7 @@ module.exports = {
         }
       }
     },
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 1314,
     autoOpenBrowser: true,
     errorOverlay: true,
