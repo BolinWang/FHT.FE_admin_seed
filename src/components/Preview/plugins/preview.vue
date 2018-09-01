@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:50:01
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-05-26 17:33:40
+ * @Last Modified time: 2018-06-13 14:19:53
  */
 
 <template>
@@ -110,7 +110,64 @@
         this.rotateCount = this.rotateCount > 3 ? 0 : this.rotateCount
         this.rotateCount++
         const ratateDeg = this.rotateCount * 90
-        this.photoswipe.currItem.container.querySelector('img').style.transform = `rotateZ(${ratateDeg}deg)`
+        let targetImage = this.photoswipe.currItem.container.querySelector('img')
+        // image 配置crossOrigin属性，配合canvas跨域
+        // targetImage.crossOrigin = "Anonymous"
+        targetImage.style.transform = `rotateZ(${ratateDeg}deg)`
+        // canvas旋转
+        // this.rotate(targetImage, ratateDeg, function(data, w, h) {
+        //   targetImage.src = data
+        // })
+      },
+      /**
+       * @description
+       * 目前图片地址是阿里云服务，canvas跨域，需要运维支持
+       * 公司服务器上需要做阿里云图片服务代理转发，配置cors访问
+       * js替换阿里云服务地址为公司服务器地址
+       * 配合image的crossOrigin属性可以解决canvas跨域
+       */
+      rotate(image, degrees, callback) {
+        let w = image.width
+        let h = image.height
+        const canvasWidth = Math.max(w, h)
+        let canvas = this.getCanvas(canvasWidth, canvasWidth)
+        let ctx = canvas.getContext('2d')
+        ctx.translate(canvasWidth / 2, canvasWidth / 2)
+          ctx.rotate(degrees * (Math.PI / 180))
+          let x = -canvasWidth / 2
+          let y = -canvasWidth / 2
+          degrees = degrees % 360
+          // 没有旋转角度
+          if (degrees === 0) {
+            return callback(image.src, w, h)
+          }
+          let sx = 0
+          let sy = 0
+          if ((degrees % 180) !== 0) {
+            if (degrees === -90 || degrees === 270) {
+              x = -w + canvasWidth / 2
+            } else {
+              y = canvasWidth/2 - h
+            }
+            let c = w
+            w = h
+            h = c
+          } else {
+            x = canvasWidth/2 - w
+            y = canvasWidth/2 - h
+          }
+          ctx.drawImage(image, x, y)
+          let canvas2 = this.getCanvas(w, h)
+          let ctx2 = canvas2.getContext('2d')
+          ctx2.drawImage(canvas, 0, 0, w, h, 0, 0, w, h)
+          let data = canvas2.toDataURL('image/jpeg')
+          callback(data, w, h)
+      },
+      getCanvas(width, height) {
+        let canvas = document.createElement('canvas');
+        canvas.width = width
+        canvas.height = height
+        return canvas
       }
     }
   }

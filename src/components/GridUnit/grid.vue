@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:47:22 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:47:22
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 17:09:07
+ * @Last Modified time: 2018-09-01 14:24:00
  */
 <template>
   <div class="model-table-pagenation">
@@ -30,6 +30,7 @@
         :show-summary="showSummary"
         :sum-text="sumText"
         :summary-method="summaryMethod"
+        :cell-class-name="cellClassName"
         style="width: 100%;"
         @select="(selection, row) => emitEventHandler('select', selection, row)"
         @select-all="selection => emitEventHandler('select-all', selection)"
@@ -50,11 +51,8 @@
         <el-table-column v-if="showRowIndex" type="index" width="40" align="center"></el-table-column>
         <el-table-column v-if="showExpand" type="expand" width="40">
           <template slot-scope="scope">
-            <el-form label-position="left" size="small" inline class="table-expand">
-              <el-form-item v-for="(item, index) in expandColums" :label="item.label" :key="index">
-                <span>{{ scope.row[item.prop] }}</span>
-              </el-form-item>
-            </el-form>
+            <slot name="expandTable"></slot>
+            <slot name="expandForm"></slot>
           </template>
         </el-table-column>
         <el-table-column v-if="showSelection" type="selection" width="40"></el-table-column>
@@ -139,7 +137,7 @@
 <script>
   import Vue from 'vue'
   import props from './props'
-  import { fetch } from '@/utils/fetch'
+  import fetch from '@/utils/fetch'
   import { ObjectMap, deepClone } from '@/utils'
   export default {
     name: 'fht-table-pagination',
@@ -150,7 +148,7 @@
         Vue,
         pagination: {
           pageNo: 1,
-          pageSize: 20
+          pageSize: this.pageSizes ? this.pageSizes[0] : 20
         },
         total: 0,
         loading: false,
@@ -186,8 +184,11 @@
         this.pagination.pageNo = pageNo
         this.fetchHandler()
       },
-      searchHandler() {
+      searchHandler(options) {
         this.pagination.pageNo = 1
+        if (options && options.type === 'clear') {
+          this.searchParams = options.data
+        }
         this.fetchHandler()
       },
       fetchHandler() {
@@ -210,9 +211,13 @@
           this.loading = false
           return false
         }
-        fetch(url, {
-          method: dataMethod,
-          params
+        fetch({
+          url,
+          method: 'post',
+          data: {
+            method: dataMethod,
+            params
+          }
         }).then(response => {
           let result = response
           if (response && !(response instanceof Array)) {
@@ -261,10 +266,13 @@
     },
     mounted() {
       this.$refs['gridUnit'].$on('expand-change', (row, expanded) => this.emitEventHandler('expand-change', row, expanded))
-      const { type, autoLoad, formOptions, params } = this
+      const { type, autoLoad, formOptions, params, data } = this
       if (type === 'remote' && autoLoad) {
         this.searchParams = formOptions ? Object.assign(formOptions, params) : params
         this.fetchHandler()
+      } else if (type === 'local' && Array.isArray(data)) {
+        this.tableData = data
+        this.total = data.length
       } else {
         this.$message.error('请联系柏林Grid组件使用姿势')
       }
@@ -289,6 +297,13 @@
 <style rel="stylesheet/scss" lang="scss">
   .model-table {
     border: 1px solid #e6ebf5;
+    .expandHeader {
+      background-color: #f5f7fa !important;
+    }
+    .el-table__expanded-cell .el-table {
+      border: 1px solid #e6ebf5;
+      border-bottom: 0;
+    }
   }
 
   .model-pagenation {

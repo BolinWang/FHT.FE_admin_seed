@@ -2,36 +2,32 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:50:08
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-05-24 20:16:08
+ * @Last Modified time: 2018-09-01 14:25:26
  */
 
 <template>
-  <div class="previewItems">
-    <draggable v-model="list" element="ul" class="list-group"
-      :options="dragOptions"
-      @start="startDrag"
-      @end="endDrag">
-      <transition-group type="transition" :name="'flip-list'">
-        <li class="preview-item clearfix" v-for="(item, index) in list"
-          :key="item.sortNum"
-          :style="itemStyle"
-          @mouseenter.stop="handleMouseenter(index)"
-          @mouseleave.stop="handleMouseleave(index)">
-          <img class="preview-img img-center" v-lazy="item.src">
-          <span class="preview-item-actions" :style="{opacity: item.opacityVal}">
-            <span class="preview-item__item-preview" @click="handlePreview(index)">
-              <i class="el-icon-zoom-in"></i>
-            </span>
-            <span v-if="deleteFlag == 'delete' && !item.isnoPic" class="preview-item__item-delete"
-              @click="handleDelete(index,item)">
-              <i class="el-icon-delete"></i>
-            </span>
+  <draggable v-model="list" element="ul" class="list-group"
+    :options="dragOptions"
+    @start="startDrag"
+    @end="endDrag">
+    <transition-group type="transition" :name="'flip-list'">
+      <li class="preview-item clearfix" v-for="(item, index) in list"
+        :key="item.key || item.sortNum"
+        :style="itemStyle">
+        <img class="preview-img img-center" v-lazy="item.src">
+        <span class="preview-tags" v-if="item.picTag">{{item.picTag}}</span>
+        <span class="preview-item-actions">
+          <span class="preview-item__item-preview" @click="handlePreview(index)">
+            <i class="el-icon-zoom-in"></i>
           </span>
-          <div v-if="showImageName" class="pic-imageName">{{item.title}}</div>
-        </li>
-      </transition-group>
-    </draggable>
-  </div>
+          <span v-if="deleteFlag == 'delete' && !item.isnoPic && item.type == 1" class="preview-item__item-delete"
+            @click="handleDelete(index,item)">
+            <i class="el-icon-delete"></i>
+          </span>
+        </span>
+      </li>
+    </transition-group>
+  </draggable>
 </template>
 <script>
 import { deepClone } from '@/utils'
@@ -59,17 +55,15 @@ export default {
       type: String,
       default: ''
     },
-    showImageName: {
-      type: Boolean,
-      default() {
-        return false
-      }
-    },
     itemSize: {
       type: Object,
       default() {
         return {}
       }
+    },
+    disabled: {
+      type: String,
+      default: 'disabled'
     }
   },
   computed: {
@@ -83,7 +77,8 @@ export default {
       return {
         animation: 150,
         group: 'description',
-        ghostClass: 'ghost'
+        ghostClass: 'ghost',
+        disabled: this.disabled
       }
     }
   },
@@ -91,32 +86,14 @@ export default {
     return {
       list: [],
       deleteFlag: '',
-      showOpacity: false,
       isDragging: false,
       delayedDragging: false
     }
   },
   mounted() {
-    this.list = deepClone(this.picList)
     this.deleteFlag = this.deleteIcon
-    this.list.map((item, index) => {
-      item.opacityVal = 0
-      item.sortNum = index
-    })
   },
   methods: {
-    handleMouseenter(index) {
-      this.$set(this.list, index, {
-        ...this.list[index],
-        opacityVal: 1
-      })
-    },
-    handleMouseleave(index) {
-      this.$set(this.list, index, {
-        ...this.list[index],
-        opacityVal: 0
-      })
-    },
     async handlePreview(index) {
       if (this.list.length === 1 && this.list[0].isnoPic) {
         this.$message.warning('友情提示：暂无图片')
@@ -157,19 +134,24 @@ export default {
     },
     endDrag(e) {
       this.isDragging = false
-      this.list[e.oldIndex].opacityVal = 0
-      this.list[e.newIndex].opacityVal = 0
-      this.$set(this.list[e.oldIndex], 'opacityVal', 0)
-      this.$set(this.list[e.newIndex], 'opacityVal', 0)
       this.handleEmit()
     }
   },
   watch: {
-    picList(val) {
-      this.list = val || []
-      this.list.map((item, index) => {
-        item.sortNum = index
-      })
+    picList: {
+      immediate: true,
+      handler: function (val) {
+        this.list = (val || []).slice()
+        this.list.map((item, index) => {
+          // item.sortNum = item.sortNum !== undefined ? item.sortNum : Math.random().toFixed(5)
+          item.sortNum = index
+          item.type = item.type || 1
+          item.title = item.picTag || ''
+        })
+      }
+    },
+    deleteIcon(val) {
+      this.deleteFlag = val
     },
     isDragging(newValue) {
       if (newValue) {
@@ -207,6 +189,11 @@ export default {
 .previewItems {
   margin: 0;
   vertical-align: top;
+  display: inline-block;
+  .list-group {
+    display: initial;
+    min-height: 0;
+  }
   .preview-item {
     overflow: hidden;
     background-color: #fff;
@@ -215,30 +202,13 @@ export default {
     box-sizing: border-box;
     display: inline-block;
     width: 122px;
+    height: 92px;
     margin: 0 8px 8px 0;
     transition: all .5s cubic-bezier(.55, 0, .1, 1);
     position: relative;
     &.ghost {
       opacity: .5;
     }
-   /* &:first-child::before{
-      content: "首图";
-      position: absolute;
-      right: -22px;
-      top: -4px;
-      width: 65px;
-      height: 30px;
-      background: #409eff;
-      text-align: center;
-      -webkit-transform: rotate(45deg);
-      transform: rotate(45deg);
-      -webkit-box-shadow: 0 1px 1px #13ce66;
-      box-shadow: 0 1px 1px #13ce66;
-      font-size: 12px;
-      line-height: 36px;
-      color: #fff;
-      z-index: 1;
-    }*/
     .pic-imageName {
       font-size: 12px;
       line-height: 24px;
@@ -249,6 +219,17 @@ export default {
     }
     img {
       width: 100%;
+      height: 100%;
+    }
+    .preview-tags {
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+      width: 100%;
+      height: 30px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 12px;
     }
     .preview-item-actions {
       position: absolute;
@@ -276,6 +257,11 @@ export default {
         position: static;
         font-size: inherit;
         color: inherit;
+      }
+    }
+    &:hover {
+      .preview-item-actions {
+        opacity: 1;
       }
     }
   }
