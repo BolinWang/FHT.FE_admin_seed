@@ -1,38 +1,29 @@
 // https://eslint.org/docs/user-guide/configuring
+
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    parser: 'babel-eslint'
   },
   env: {
     browser: true,
   },
-  // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'standard',
-  plugins: [
-    'html'
+  extends: [
+    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
+    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
+    'plugin:vue/essential',
+    // https://github.com/standard/standard/blob/master/docs/RULES-en.md
+    'standard'
   ],
-  'rules': {
-    'arrow-parens': 0,
-    'generator-star-spacing': 0,
-    'camelcase': [0, {
-      'properties': 'always'
-    }],
-    'indent': [2, 2, {
-      'SwitchCase': 1
-    }],
-    'space-before-function-paren': [2, 'never'],
-    'spaced-comment': [2, 'always', {
-      'markers': ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!', ',']
-    }],
-    'no-new-object': 2,
-    'no-new-require': 2,
-    'no-new-symbol': 2,
-    'no-new-wrappers': 2,
-    'no-multiple-empty-lines': [2, {
-      'max': 1
-    }],
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+  // required to lint *.vue files
+  plugins: [
+    'vue'
+  ],
+  // add your custom rules here
+  rules: {
+    // allow async-await
+    'generator-star-spacing': 'off',
+    // allow debugger during development
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
 }

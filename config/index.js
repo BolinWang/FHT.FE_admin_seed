@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:31:28
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-07-27 16:45:47
+ * @Last Modified time: 2018-09-12 16:52:24
  */
 
 let path = require('path')
@@ -31,7 +31,6 @@ module.exports = {
     notifyOnErrors: false,
     poll: false,
     devtool: 'eval-source-map',
-    cacheBusting: true,
     cssSourceMap: false,
     useEslint: true,
     showEslintErrorsInOverlay: false

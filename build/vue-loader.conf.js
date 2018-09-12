@@ -1,28 +1,12 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:30:43 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 16:30:43 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:30:43
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-09-12 16:55:30
  */
 
-const utils = require('./utils')
-const config = require('../config')
-const isProduction = process.env.NODE_ENV === 'production'
-const sourceMapEnabled = isProduction ?
-  config.build.productionSourceMap :
-  config.dev.cssSourceMap
+'use strict'
 
 module.exports = {
-  loaders: utils.cssLoaders({
-    sourceMap: sourceMapEnabled,
-    extract: isProduction
-  }),
-  cssSourceMap: sourceMapEnabled,
-  cacheBusting: config.dev.cacheBusting,
-  transformToRequire: {
-    video: ['src', 'poster'],
-    source: 'src',
-    img: 'src',
-    image: 'xlink:href'
-  }
+  //You can set the vue-loader configuration by yourself.
 }

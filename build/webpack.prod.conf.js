@@ -1,23 +1,21 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:31:14 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 16:31:14 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:31:14
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-09-12 16:58:25
  */
+'use strict'
 const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
-// webpack 复制文件和文件夹的插件
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// 整合css的工具 https://github.com/webpack-contrib/extract-text-webpack-plugin
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-// 压缩提取出的css 并解决ExtractTextPlugin分离出的重复问题
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-// 压缩代码
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 function resolve(dir) {
@@ -26,12 +24,13 @@ function resolve(dir) {
 
 const env = require('../config/' + process.env.env_config + '.env')
 
+// For NamedChunksPlugin
+const seen = new Set()
+const nameLength = 4
+
 const webpackConfig = merge(baseWebpackConfig, {
+  mode: 'production',
   module: {
-    /*
-      在utils.js已经配置好相关对extractTextPlugin的css抽取配置.通过extract: true即可触发
-      如果要触发这个 extract 需要在plugins里面注册一下
-    */
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true,
@@ -41,124 +40,107 @@ const webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+    filename: utils.assetsPath('js/[name].[chunkhash:8].js'),
+    chunkFilename: utils.assetsPath('js/[name].[chunkhash:8].js')
   },
   plugins: [
+    // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {
-          warnings: false
-        }
-      },
-      sourceMap: config.build.productionSourceMap,
-      parallel: true
+    // extract css into its own file
+    new MiniCssExtractPlugin({
+      filename: utils.assetsPath('css/[name].[contenthash:8].css'),
+      chunkFilename: utils.assetsPath('css/[name].[contenthash:8].css')
     }),
-    // 将每个模块的css提取到一个文件里面
-    new ExtractTextPlugin({
-      // 提取出来的文件名称
-      filename: utils.assetsPath('css/[name].[contenthash].css'),
-      allChunks: false,
-    }),
-    // 删除重复的css内容
-    new OptimizeCSSPlugin({
-      cssProcessorOptions: config.build.productionSourceMap ? {
-        safe: true,
-        map: {
-          inline: false
-        }
-      } : {
-        safe: true
-      }
-    }),
-    // https://github.com/ampedandwired/html-webpack-plugin
+    // generate dist index.html with correct asset hash for caching.
+    // you can customize output by editing /index.html
+    // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
       inject: true,
       favicon: resolve('favicon.ico'),
-      title: 'FHT.BOP',
-      path: config.build.assetsPublicPath + config.build.assetsSubDirectory,
+      title: 'vue-admin-template',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
         removeAttributeQuotes: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // 控制生成的js插入位置的顺序(可以结合chunks进行选择)
-      chunksSortMode: 'dependency'
+      }
+      // default sort mode uses toposort which cannot handle cyclic deps
+      // in certain cases, and in webpack 4, chunk order in HTML doesn't
+      // matter anyway
     }),
-    // 该插件会根据模块的相对路径生成一个四位数的hash作为模块id
+    new ScriptExtHtmlWebpackPlugin({
+      //`runtime` must same as runtimeChunk name. default is `runtime`
+      inline: /runtime\..*\.js$/
+    }),
+    // keep chunk.id stable when chunk has no name
+    new webpack.NamedChunksPlugin(chunk => {
+      if (chunk.name) {
+        return chunk.name
+      }
+      const modules = Array.from(chunk.modulesIterable)
+      if (modules.length > 1) {
+        const hash = require('hash-sum')
+        const joinedHash = hash(modules.map(m => m.id).join('_'))
+        let len = nameLength
+        while (seen.has(joinedHash.substr(0, len))) len++
+        seen.add(joinedHash.substr(0, len))
+        return `chunk-${joinedHash.substr(0, len)}`
+      } else {
+        return modules[0].id
+      }
+    }),
+    // keep module.id stable when vender modules does not change
     new webpack.HashedModuleIdsPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks(module) {
-        /*
-          一般来讲这里的module会返回整个项目所用到的组件库包,和import的东西
-          然后通过这个函数去控制一下哪一些放入vendor的文件
-          然后查看了一下打包出来的vendor文件.
-          主要是将(在package.json中的dependencies部分被页面所import使用的包)
-        */
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
-          ) === 0
-        )
-      }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
-    }),
-    // https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
-      async: 'vendor-async',
-      children: true,
-      minChunks: 3
-    }),
-    // 提取echarts
-    new webpack.optimize.CommonsChunkPlugin({
-      async: 'echarts',
-      minChunks(module) {
-        var context = module.context;
-        return context && (context.indexOf('echarts') >= 0 || context.indexOf('zrender') >= 0);
-      }
-    }),
-    // 提取xlsx
-    new webpack.optimize.CommonsChunkPlugin({
-      async: 'xlsx',
-      minChunks(module) {
-        var context = module.context;
-        return context && (context.indexOf('xlsx') >= 0);
-      }
-    }),
-    // split codemirror into its own file
-    new webpack.optimize.CommonsChunkPlugin({
-      async: 'codemirror',
-      minChunks(module) {
-        var context = module.context;
-        return context && (context.indexOf('codemirror') >= 0);
-      }
-    }),
-
     // copy custom static assets
-    new CopyWebpackPlugin([{
-      from: path.resolve(__dirname, '../static'),
-      to: config.build.assetsSubDirectory,
-      ignore: ['.*']
-    }])
-  ]
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: config.build.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ])
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        libs: {
+          name: 'chunk-libs',
+          test: /[\\/]node_modules[\\/]/,
+          priority: 10,
+          chunks: 'initial' // 只打包初始时依赖的第三方
+        },
+        elementUI: {
+          name: 'chunk-elementUI', // 单独将 elementUI 拆包
+          priority: 20, // 权重要大于 libs 和 app 不然会被打包进 libs 或者 app
+          test: /[\\/]node_modules[\\/]element-ui[\\/]/
+        }
+      }
+    },
+    runtimeChunk: 'single',
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          mangle: {
+            safari10: true
+          }
+        },
+        sourceMap: config.build.productionSourceMap,
+        cache: true,
+        parallel: true
+      }),
+      // Compress extracted CSS. We are using this plugin so that possible
+      // duplicated CSS from different components can be deduped.
+      new OptimizeCSSAssetsPlugin()
+    ]
+  }
 })
 
-// gzip压缩
 if (config.build.productionGzip) {
   const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
@@ -167,9 +149,7 @@ if (config.build.productionGzip) {
       asset: '[path].gz[query]',
       algorithm: 'gzip',
       test: new RegExp(
-        '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
-        ')$'
+        '\\.(' + config.build.productionGzipExtensions.join('|') + ')$'
       ),
       threshold: 10240,
       minRatio: 0.8
@@ -177,9 +157,28 @@ if (config.build.productionGzip) {
   )
 }
 
-if (config.build.bundleAnalyzerReport) {
-  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+if (config.build.generateAnalyzerReport || config.build.bundleAnalyzerReport) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+    .BundleAnalyzerPlugin
+
+  if (config.build.bundleAnalyzerReport) {
+    webpackConfig.plugins.push(
+      new BundleAnalyzerPlugin({
+        analyzerPort: 8080,
+        generateStatsFile: false
+      })
+    )
+  }
+
+  if (config.build.generateAnalyzerReport) {
+    webpackConfig.plugins.push(
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: 'bundle-report.html',
+        openAnalyzer: false
+      })
+    )
+  }
 }
 
 module.exports = webpackConfig
