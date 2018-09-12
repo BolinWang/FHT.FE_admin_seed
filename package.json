@@ -1,8 +1,8 @@
 {
-  "name": "FT.seed",
+  "name": "admin_seed",
   "version": "1.0.0",
   "license": "MIT",
-  "description": "ft_admin-seed",
+  "description": "FHT.FE_admin-seed",
   "author": "bolin",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
