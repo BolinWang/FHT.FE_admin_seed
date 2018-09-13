@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:50:08
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:30:50
+ * @Last Modified time: 2018-09-13 15:15:03
  */
 
 <template>
@@ -15,10 +15,11 @@
     @end="endDrag">
     <transition-group
       :name="'flip-list'"
+      class="previewItems"
       type="transition">
       <li
         v-for="(item, index) in list"
-        :key="item.key || item.sortNum"
+        :key="item.src"
         :style="itemStyle"
         class="preview-item clearfix">
         <img
@@ -34,7 +35,7 @@
             <i class="el-icon-zoom-in"/>
           </span>
           <span
-            v-if="deleteFlag == 'delete' && !item.isnoPic && item.type == 1"
+            v-if="deleteIcon"
             class="preview-item__item-delete"
             @click="handleDelete(index,item)">
             <i class="el-icon-delete"/>
@@ -59,31 +60,34 @@ export default {
     draggable
   },
   props: {
+    // 图片列表
     picList: {
       type: Array,
       default: function () {
         return []
       }
     },
+    // 删除
     deleteIcon: {
-      type: String,
-      default: ''
+      type: Boolean,
+      default: false
     },
+    // 图片尺寸
     itemSize: {
       type: Object,
       default () {
         return {}
       }
     },
+    // 是否启用拖拽
     disabled: {
-      type: String,
-      default: 'disabled'
+      type: Boolean,
+      default: true
     }
   },
   data () {
     return {
       list: [],
-      deleteFlag: '',
       isDragging: false,
       delayedDragging: false
     }
@@ -110,15 +114,11 @@ export default {
       handler: function (val) {
         this.list = (val || []).slice()
         this.list.map((item, index) => {
-          // item.sortNum = item.sortNum !== undefined ? item.sortNum : Math.random().toFixed(5)
-          item.sortNum = index
+          item.sortNum = item.sortNum ? item.sortNum : Math.random()
           item.type = item.type || 1
           item.title = item.picTag || ''
         })
       }
-    },
-    deleteIcon (val) {
-      this.deleteFlag = val
     },
     isDragging (newValue) {
       if (newValue) {
@@ -131,7 +131,7 @@ export default {
     }
   },
   mounted () {
-    this.deleteFlag = this.deleteIcon
+
   },
   methods: {
     async handlePreview (index) {
@@ -178,9 +178,8 @@ export default {
     }
   }
 }
-
 </script>
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss" scoped>
 .pswp__caption__center {
   text-align: center
 }
@@ -200,14 +199,15 @@ export default {
   transition: transform 0s;
 }
 
+.list-group {
+  display: initial;
+  min-height: 0;
+}
+
 .previewItems {
   margin: 0;
   vertical-align: top;
   display: inline-block;
-  .list-group {
-    display: initial;
-    min-height: 0;
-  }
   .preview-item {
     overflow: hidden;
     background-color: #fff;

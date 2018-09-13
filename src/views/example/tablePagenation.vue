@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:19
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:18:16
+ * @Last Modified time: 2018-09-13 15:32:18
  */
 
 <template>
@@ -158,7 +158,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style rel="stylesheet/scss" lang="scss">

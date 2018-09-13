@@ -63,7 +63,6 @@ export default {
     }
   }
 }
-
 </script>
 <style scoped>
 .screenfull-svg {

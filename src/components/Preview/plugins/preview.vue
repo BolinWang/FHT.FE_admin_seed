@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:50:01
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:30:26
+ * @Last Modified time: 2018-09-13 14:57:12
  */
 
 <template>
@@ -193,7 +193,7 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss" scoped>
   @import '~photoswipe/dist/photoswipe.css';
   @import '~photoswipe/dist/default-skin/default-skin.css';
   .fht__download {

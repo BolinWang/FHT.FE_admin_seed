@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:13
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:12:33
+ * @Last Modified time: 2018-09-13 15:06:24
  */
 
 <template>
@@ -23,8 +23,8 @@
     <div style="width: 500px;">
       <Preview
         :pic-list="cropperData"
-        :delete-icon="`delete`"
-        :show-image-name="true"
+        :delete-icon="true"
+        :disabled="false"
         :item-size="{width: 122, height: 122}"
         @emitDelete="emitDelete"/>
     </div>
@@ -129,7 +129,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style rel="stylesheet/scss" lang="scss">

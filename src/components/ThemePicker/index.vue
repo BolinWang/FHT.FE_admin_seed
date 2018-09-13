@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:04:21
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:32:11
+ * @Last Modified time: 2018-09-13 14:58:29
  */
 
 <template>
@@ -142,7 +142,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .theme-picker .el-color-picker__trigger {
   vertical-align: middle;
 }

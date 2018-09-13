@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:07:11
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 17:08:06
+ * @Last Modified time: 2018-09-13 14:41:55
  */
 
 import Vue from 'vue'
@@ -23,11 +23,11 @@ Vue.use(Router)
 
 export const constantRouterMap = [{
   path: '/login',
-  component: _import('login/index'),
+  component: _import('login/index').default,
   hidden: true
 }, {
   path: '/404',
-  component: _import('404'),
+  component: _import('404').default,
   hidden: true
 }, {
   path: '',
@@ -38,7 +38,7 @@ export const constantRouterMap = [{
   children: [{
     name: '首页',
     path: 'dashboard',
-    component: _import('dashboard/index')
+    component: _import('dashboard/index').default
   }]
 }]
 
@@ -61,11 +61,11 @@ export const asyncRouterMap = [{
   },
   children: [{
     path: 'image',
-    component: _import('example/image'),
+    component: _import('example/image').default,
     name: '图片组件'
   }, {
     path: 'grid',
-    component: _import('example/tablePagenation'),
+    component: _import('example/tablePagenation').default,
     name: '表格组件'
   }]
 }, {

@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:47:22
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:38:48
+ * @Last Modified time: 2018-09-13 14:57:54
  */
 <template>
   <div class="model-table-pagenation">
@@ -317,7 +317,7 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss" scoped>
 .model-table {
   border: 1px solid #e6ebf5;
   .expandHeader {

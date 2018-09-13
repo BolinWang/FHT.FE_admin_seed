@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:51:47
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:32:06
+ * @Last Modified time: 2018-09-13 14:58:11
  */
 
 <template>
@@ -75,7 +75,7 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" scoped>
 .scroll-container {
   white-space: nowrap;
   position: relative;

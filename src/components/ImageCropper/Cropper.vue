@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:49:39
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-05-30 09:59:36
+ * @Last Modified time: 2018-09-13 14:57:31
  */
 
 <template>
@@ -273,7 +273,7 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" scoped>
   .cropper-wrapper{
   display: flex;
   flex-wrap: wrap;

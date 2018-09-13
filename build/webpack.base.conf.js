@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:30:55
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:04:27
+ * @Last Modified time: 2018-09-13 14:34:33
  */
 
 'use strict'
@@ -44,7 +44,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': resolve('src'),
-      'vue$': 'vue/dist/vue.common.js'
+      'vue$': 'vue/dist/vue.esm.js'
     }
   },
   module: {
