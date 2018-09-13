@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:47:22
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:35:53
+ * @Last Modified time: 2018-09-13 11:38:48
  */
 <template>
   <div class="model-table-pagenation">
@@ -265,13 +265,9 @@ export default {
         this.loading = false
         return false
       }
-      fetch({
-        url,
-        method: 'post',
-        data: {
-          method: dataMethod,
-          params
-        }
+      fetch(url, {
+        method: dataMethod,
+        params
       }).then(response => {
         let result = response
         if (response && !(response instanceof Array)) {
