@@ -2,6 +2,3 @@ build/*.js
 config/*.js
 src/assets
 src/icons
-src/components/AreaSelect
-src/vendor
-

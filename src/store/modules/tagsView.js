@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:09:19
- * @Last Modified by:   FT.FE.Bolin
- * @Last Modified time: 2018-04-11 17:09:19
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-09-13 11:10:20
  */
 
 const tagsView = {
@@ -58,22 +58,22 @@ const tagsView = {
     }
   },
   actions: {
-    addVisitedViews({ commit }, view) {
+    addVisitedViews ({ commit }, view) {
       commit('ADD_VISITED_VIEWS', view)
     },
-    delVisitedViews({ commit, state }, view) {
+    delVisitedViews ({ commit, state }, view) {
       return new Promise((resolve) => {
         commit('DEL_VISITED_VIEWS', view)
         resolve([...state.visitedViews])
       })
     },
-    delOthersViews({ commit, state }, view) {
+    delOthersViews ({ commit, state }, view) {
       return new Promise((resolve) => {
         commit('DEL_OTHERS_VIEWS', view)
         resolve([...state.visitedViews])
       })
     },
-    delAllViews({ commit, state }) {
+    delAllViews ({ commit, state }) {
       return new Promise((resolve) => {
         commit('DEL_ALL_VIEWS')
         resolve([...state.visitedViews])

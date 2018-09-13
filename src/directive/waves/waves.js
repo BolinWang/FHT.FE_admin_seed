@@ -2,13 +2,13 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:05:49
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:34:02
+ * @Last Modified time: 2018-09-13 11:09:46
  */
 
 import './waves.css'
 
 export default{
-  bind(el, binding) {
+  bind (el, binding) {
     el.addEventListener('click', e => {
       const customOpts = Object.assign({}, binding.value)
       const opts = Object.assign({
@@ -46,4 +46,3 @@ export default{
     }, false)
   }
 }
-

@@ -1,14 +1,20 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:51:47 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:51:47
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 16:19:15
+ * @Last Modified time: 2018-09-13 11:32:06
  */
 
 <template>
-  <div class="scroll-container" ref="scrollContainer" @wheel.prevent="handleScroll">
-    <div class="scroll-wrapper" ref="scrollWrapper" :style="{left: left + 'px'}">
-      <slot></slot>
+  <div
+    ref="scrollContainer"
+    class="scroll-container"
+    @wheel.prevent="handleScroll">
+    <div
+      ref="scrollWrapper"
+      :style="{left: left + 'px'}"
+      class="scroll-wrapper">
+      <slot/>
     </div>
   </div>
 </template>
@@ -17,14 +23,14 @@
 const padding = 15
 
 export default {
-  name: 'scrollPane',
-  data() {
+  name: 'ScrollPane',
+  data () {
     return {
       left: 0
     }
   },
   methods: {
-    handleScroll(e) {
+    handleScroll (e) {
       const eventDelta = e.wheelDelta || -e.deltaY * 3
       const $container = this.$refs.scrollContainer
       const $containerWidth = $container.offsetWidth
@@ -48,7 +54,7 @@ export default {
         }
       }
     },
-    moveToTarget($target) {
+    moveToTarget ($target) {
       const $container = this.$refs.scrollContainer
       const $containerWidth = $container.offsetWidth
       const $targetLeft = $target.offsetLeft
@@ -60,6 +66,7 @@ export default {
         $targetLeft + padding > -this.left &&
         $targetLeft + $targetWidth < -this.left + $containerWidth - padding
       ) {
+        console.log('bolin')
       } else {
         this.left = -($targetLeft - ($containerWidth - $targetWidth) + padding)
       }
@@ -78,7 +85,7 @@ export default {
     position: absolute;
     -moz-user-select:none;
     -webkit-user-select:none;
-    user-select:none;  
+    user-select:none;
   }
 }
 </style>

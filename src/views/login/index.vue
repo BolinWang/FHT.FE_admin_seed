@@ -1,28 +1,50 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:22:52 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:22:52
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 14:15:58
+ * @Last Modified time: 2018-09-13 10:52:21
  */
 
 <template>
   <div class="login-container">
-    <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px" class="card-box login-form">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      auto-complete="on"
+      label-position="left"
+      label-width="0px"
+      class="card-box login-form">
       <h3 class="title">FT_admin-seed</h3>
       <el-form-item prop="mobile">
         <span class="svg-container">
-          <icon-svg icon-class="peoples"></icon-svg>
+          <icon-svg icon-class="peoples"/>
         </span>
-        <el-input name="mobile" type="text" v-model="loginForm.mobile" autoComplete="on" placeholder="请输入用户名"></el-input>
+        <el-input
+          v-model="loginForm.mobile"
+          name="mobile"
+          type="text"
+          auto-complete="on"
+          placeholder="请输入用户名"/>
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
-          <icon-svg icon-class="password"></icon-svg>
+          <icon-svg icon-class="password"/>
         </span>
-        <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on" placeholder="请输入密码"></el-input>
+        <el-input
+          v-model="loginForm.password"
+          name="password"
+          type="password"
+          auto-complete="on"
+          placeholder="请输入密码"
+          @keyup.enter.native="handleLogin"/>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
+        <el-button
+          :loading="loading"
+          type="primary"
+          style="width:100%;"
+          @click.native.prevent="handleLogin">
           登录
         </el-button>
       </el-form-item>
@@ -33,8 +55,8 @@
 import { validateMobile } from '@/utils/validate'
 
 export default {
-  name: 'login',
-  data() {
+  name: 'Login',
+  data () {
     const validatePhone = (rule, value, callback) => {
       if (!validateMobile(value.trim())) {
         callback(new Error('请输入正确的手机号'))
@@ -66,7 +88,7 @@ export default {
     }
   },
   methods: {
-    handleLogin() {
+    handleLogin () {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
@@ -77,7 +99,6 @@ export default {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
@@ -102,6 +123,7 @@ export default {
   background-size: cover;
   background-position: center center;
   input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px rgb(133, 133, 133) inset !important;
     -webkit-box-shadow: 0 0 0px 1000px rgb(133, 133, 133) inset !important;
     -webkit-text-fill-color: #fff !important;
   }

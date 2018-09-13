@@ -1,29 +1,48 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:11:36 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:11:36
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 17:18:29
+ * @Last Modified time: 2018-09-13 11:21:51
  */
 
 <template>
   <div>
-    <div v-for="(item, itemIndex) in routes" :key="itemIndex">
+    <div
+      v-for="(item, itemIndex) in routes"
+      :key="itemIndex">
       <template>
-        <router-link v-if="!item.hidden&&item.noDropdown&&item.children.length>0" :to="item.path+'/'+item.children[0].path">
+        <router-link
+          v-if="!item.hidden&&item.noDropdown&&item.children.length>0"
+          :to="item.path+'/'+item.children[0].path">
           <el-menu-item :index="item.path+'/'+item.children[0].path">
-            <icon-svg v-if='item.icon' :icon-class="item.icon" /> {{item.children[0].name}}
+            <icon-svg
+              v-if="item.icon"
+              :icon-class="item.icon" /> {{ item.children[0].name }}
           </el-menu-item>
         </router-link>
-        <el-submenu :index="item.name" v-if="!item.noDropdown&&!item.hidden">
+        <el-submenu
+          v-if="!item.noDropdown&&!item.hidden"
+          :index="item.name">
           <template slot="title">
-            <icon-svg v-if='item.icon' :icon-class="item.icon" /> {{item.name}}
+            <icon-svg
+              v-if="item.icon"
+              :icon-class="item.icon" /> {{ item.name }}
           </template>
-          <div v-for="(child, childIndex) in item.children" v-if='!child.hidden' :key="childIndex">
+          <div
+            v-for="(child, childIndex) in item.children"
+            v-if="!child.hidden"
+            :key="childIndex">
             <template>
-              <sidebar-item class='menu-indent' v-if='child.children&&child.children.length>0' :routes='[child]'> </sidebar-item>
-              <router-link v-else class="menu-indent" :to="item.path+'/'+child.path">
+              <sidebar-item
+                v-if="child.children&&child.children.length>0"
+                :routes="[child]"
+                class="menu-indent"/>
+              <router-link
+                v-else
+                :to="item.path+'/'+child.path"
+                class="menu-indent">
                 <el-menu-item :index="item.path+'/'+child.path">
-                  {{child.name}}
+                  {{ child.name }}
                 </el-menu-item>
               </router-link>
             </template>
@@ -38,7 +57,10 @@ export default {
   name: 'SidebarItem',
   props: {
     routes: {
-      type: Array
+      type: Array,
+      default () {
+        return []
+      }
     }
   }
 }

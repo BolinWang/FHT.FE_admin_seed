@@ -1,16 +1,21 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:11:13 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:11:13
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 19:08:21
+ * @Last Modified time: 2018-09-13 11:12:33
  */
 
 <template>
   <div class="layout-container">
     <div style="padding: 0 0 20px 0;">
-      <label class="el-button el-button--primary el-button--small" for="uploadImages">上传图片</label>
-      <input type="file" id="uploadImages"
-        :accept="accept" multiple
+      <label
+        class="el-button el-button--primary el-button--small"
+        for="uploadImages">上传图片</label>
+      <input
+        id="uploadImages"
+        :accept="accept"
+        type="file"
+        multiple
         @change="uploadImg($event)"
       >
     </div>
@@ -19,24 +24,22 @@
       <Preview
         :pic-list="cropperData"
         :delete-icon="`delete`"
-        :showImageName=true
-        :itemSize="{width: 122, height: 122}"
-        @emitDelete="emitDelete">
-      </Preview>
+        :show-image-name="true"
+        :item-size="{width: 122, height: 122}"
+        @emitDelete="emitDelete"/>
     </div>
     <!-- 图片裁剪 -->
     <ImageCropper
-      :cropperList="cropperList"
+      :cropper-list="cropperList"
       @emitCropperList="emitCropperList"
-      @emitCropperData="emitCropperData">
-    </ImageCropper>
+      @emitCropperData="emitCropperData"/>
   </div>
 </template>
 <script>
 import Preview from '@/components/Preview/Preview'
 import ImageCropper from '@/components/ImageCropper/Cropper'
 export default {
-  name: 'example-image',
+  name: 'ExampleImage',
   components: {
     Preview,
     ImageCropper
@@ -44,7 +47,7 @@ export default {
   filters: {
 
   },
-  data() {
+  data () {
     return {
       layer_cropper: false,
       accept: 'image/png, image/jpeg, image/jpg',
@@ -58,19 +61,19 @@ export default {
   methods: {
     /* $emit */
     // 删除图片
-    emitDelete(val) {
+    emitDelete (val) {
       this.cropperData = val
     },
     // 上传的图片列表
-    emitCropperList(list = []) {
+    emitCropperList (list = []) {
       this.cropperList = list
     },
     // 裁剪后图片列表
-    emitCropperData(list = []) {
+    emitCropperData (list = []) {
       this.cropperData = list
     },
     /* 选择图片 */
-    async uploadImg(e) {
+    async uploadImg (e) {
       if (!e.target.value) {
         console.log('取消上传...')
         return false
@@ -78,7 +81,7 @@ export default {
       const uploadList = []
       const readFileAsync = file => new Promise(resolve => {
         let reader = new FileReader()
-        reader.onerror = function(e) {
+        reader.onerror = function (e) {
           console.log('读取异常....')
         }
         reader.onload = e => {

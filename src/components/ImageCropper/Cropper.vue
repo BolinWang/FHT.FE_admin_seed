@@ -7,93 +7,140 @@
 
 <template>
   <div class="dialog-cropper">
-      <el-dialog title="图片裁剪" :visible.sync="layer_cropper" width="920px" @close="cropperClose">
-        <div class="cropper-wrapper">
-          <div class="cropper-item"
-            v-for="(item,index) in cropperImgs"
-            :key="index" :style="itemStyle"
-            >
-            <div class="cropper-component" :style="componentStyle">
-              <vueCropper :ref="`refCropper${index}`"
-                :img="item.img" :outputSize="item.size"
-                :outputType="item.outputType" :info="item.info"
-                :canScale="item.canScale" :autoCrop="item.autoCrop"
-                :autoCropWidth="item.autoCropWidth" :autoCropHeight="item.autoCropHeight"
-                :full="item.full"
-                :fixed="item.fixed" :fixedNumber="item.fixedNumber"
-              ></vueCropper>
-            </div>
-            <div class="cropper-btn--group clearfix">
-              <el-input class="cropper-input--imageName"
-                v-model="item.imageName" placeholder="请输入图片名称" size="small" :maxlength="30"
-              ></el-input>
-              <el-button-group class="btn-group right">
-                <el-tooltip class="item" effect="dark" content="替换图片" placement="top-start">
-                  <label class="el-button el-button--primary el-button--small" :for="`changeImage${index}`">
-                    <i class="el-icon-upload"></i>
-                  </label>
-                </el-tooltip>
-                <input type="file" :id="`changeImage${index}`"
-                  :accept="accept"
-                  @change="uploadImg($event, index)"
-                >
-                <el-tooltip class="item" effect="dark" content="放大图片" placement="top-start">
-                  <el-button type="primary" @click="changeScale(1, index)" size="small" icon="el-icon-zoom-in">
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="缩小图片" placement="top-start">
-                  <el-button type="primary" @click="changeScale(-1, index)" size="small" icon="el-icon-zoom-out">
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="逆时针旋转90°" placement="top-start">
-                  <el-button type="primary" @click="rotateLeft(index)" size="small" icon="el-icon-caret-left">
-                  </el-button>
-                </el-tooltip>
-                <el-tooltip class="item" effect="dark" content="顺时针旋转90°" placement="top-start">
-                  <el-button type="primary" @click="rotateRight(index)" size="small" icon="el-icon-caret-right">
-                  </el-button>
-                </el-tooltip>
-              </el-button-group>
-            </div>
+    <el-dialog
+      :visible.sync="layer_cropper"
+      title="图片裁剪"
+      width="920px"
+      @close="cropperClose">
+      <div class="cropper-wrapper">
+        <div
+          v-for="(item,index) in cropperImgs"
+          :key="index"
+          :style="itemStyle"
+          class="cropper-item"
+        >
+          <div
+            :style="componentStyle"
+            class="cropper-component">
+            <vueCropper
+              :ref="`refCropper${index}`"
+              :img="item.img"
+              :output-size="item.size"
+              :output-type="item.outputType"
+              :info="item.info"
+              :can-scale="item.canScale"
+              :auto-crop="item.autoCrop"
+              :auto-crop-width="item.autoCropWidth"
+              :auto-crop-height="item.autoCropHeight"
+              :full="item.full"
+              :fixed="item.fixed"
+              :fixed-number="item.fixedNumber"
+            />
+          </div>
+          <div class="cropper-btn--group clearfix">
+            <el-input
+              v-model="item.imageName"
+              :maxlength="30"
+              class="cropper-input--imageName"
+              placeholder="请输入图片名称"
+              size="small"
+            />
+            <el-button-group class="btn-group right">
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="替换图片"
+                placement="top-start">
+                <label
+                  :for="`changeImage${index}`"
+                  class="el-button el-button--primary el-button--small">
+                  <i class="el-icon-upload"/>
+                </label>
+              </el-tooltip>
+              <input
+                :id="`changeImage${index}`"
+                :accept="accept"
+                type="file"
+                @change="uploadImg($event, index)"
+              >
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="放大图片"
+                placement="top-start">
+                <el-button
+                  type="primary"
+                  size="small"
+                  icon="el-icon-zoom-in"
+                  @click="changeScale(1, index)"/>
+              </el-tooltip>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="缩小图片"
+                placement="top-start">
+                <el-button
+                  type="primary"
+                  size="small"
+                  icon="el-icon-zoom-out"
+                  @click="changeScale(-1, index)"/>
+              </el-tooltip>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="逆时针旋转90°"
+                placement="top-start">
+                <el-button
+                  type="primary"
+                  size="small"
+                  icon="el-icon-caret-left"
+                  @click="rotateLeft(index)"/>
+              </el-tooltip>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="顺时针旋转90°"
+                placement="top-start">
+                <el-button
+                  type="primary"
+                  size="small"
+                  icon="el-icon-caret-right"
+                  @click="rotateRight(index)"/>
+              </el-tooltip>
+            </el-button-group>
           </div>
         </div>
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="layer_cropper = false" size="small">取 消</el-button>
-            <el-button type="primary" @click="getCropData" size="small">确 定</el-button>
-          </div>
-        </el-dialog>
       </div>
+      <div
+        slot="footer"
+        class="dialog-footer">
+        <el-button
+          size="small"
+          @click="layer_cropper = false">取 消</el-button>
+        <el-button
+          type="primary"
+          size="small"
+          @click="getCropData">确 定</el-button>
+      </div>
+    </el-dialog>
+  </div>
 </template>
 <script>
 import VueCropper from 'vue-cropper'
 export default {
-  name: 'fht-imageCropper',
+  name: 'FhtImageCropper',
+  components: {
+    VueCropper
+  },
   props: {
     cropperList: {
       type: Array,
-      default: function() {
+      default: function () {
         return []
       }
     }
   },
-  components: {
-    VueCropper
-  },
-  computed: {
-    itemStyle() {
-      const _width = this.cropperImgs.length > 1 ? 400 : 830
-      return {
-        width: _width + 'px'
-      }
-    },
-    componentStyle() {
-      const componentH = this.cropperImgs.length > 1 ? 300 : 600
-      return {
-        height: componentH + 'px'
-      }
-    }
-  },
-  data() {
+  data () {
     return {
       accept: 'image/png, image/jpeg, image/jpg',
       defaultCropperOptions: {
@@ -115,7 +162,32 @@ export default {
       cropperedImgs: []
     }
   },
-  created() {
+  computed: {
+    itemStyle () {
+      const _width = this.cropperImgs.length > 1 ? 400 : 830
+      return {
+        width: _width + 'px'
+      }
+    },
+    componentStyle () {
+      const componentH = this.cropperImgs.length > 1 ? 300 : 600
+      return {
+        height: componentH + 'px'
+      }
+    }
+  },
+  watch: {
+    cropperList (list = []) {
+      this.cropperImgs = list.map((item) => {
+        return {
+          ...this.defaultCropperOptions,
+          ...item
+        }
+      })
+      this.layer_cropper = this.cropperImgs.length > 0
+    }
+  },
+  created () {
     this.cropperImgs = this.cropperList.map((item) => {
       return {
         ...this.defaultCropperOptions,
@@ -125,23 +197,23 @@ export default {
     this.layer_cropper = this.cropperImgs.length > 0
   },
   methods: {
-    cropperClose() {
+    cropperClose () {
       this.cropperImgs = []
       this.$emit('emitCropperList', [])
     },
     // 缩放图片
-    changeScale(num, index) {
+    changeScale (num, index) {
       this.$refs['refCropper' + index][0].changeScale(num)
     },
     // 旋转
-    rotateLeft(index) {
+    rotateLeft (index) {
       this.$refs['refCropper' + index][0].rotateLeft()
     },
-    rotateRight(index) {
+    rotateRight (index) {
       this.$refs['refCropper' + index][0].rotateRight()
     },
     // 裁剪完成
-    getCropData() {
+    getCropData () {
       let countIndex = 0
       this.cropperImgs.forEach((item, index) => {
         this.$refs['refCropper' + index][0].getCropData((data) => {
@@ -158,7 +230,7 @@ export default {
       })
     },
     // 替换图片
-    uploadImg(e, index) {
+    uploadImg (e, index) {
       if (!e.target.value) {
         console.log('取消上传...')
         return false
@@ -170,7 +242,7 @@ export default {
         return false
       }
       let reader = new FileReader()
-      reader.onerror = function(e) {
+      reader.onerror = function (e) {
         console.log('读取异常....')
       }
       reader.onload = e => {
@@ -196,17 +268,6 @@ export default {
       reader.readAsArrayBuffer(file)
       this.layer_cropper = true
       e.target.value = null
-    }
-  },
-  watch: {
-    cropperList(list = []) {
-      this.cropperImgs = list.map((item) => {
-        return {
-          ...this.defaultCropperOptions,
-          ...item
-        }
-      })
-      this.layer_cropper = this.cropperImgs.length > 0
     }
   }
 }

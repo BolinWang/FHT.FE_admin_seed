@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:10:13
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:37:47
+ * @Last Modified time: 2018-09-13 11:10:57
  */
 
 import axios from 'axios'
@@ -60,7 +60,6 @@ service.interceptors.request.use(config => {
   }
   return config
 }, error => {
-  console.log('【REQUEST】' + error)
   Promise.reject(error)
 })
 
@@ -70,7 +69,6 @@ service.interceptors.response.use(
     return response
   },
   error => {
-    console.log('【response】' + error)
     if (error.message === '取消重复请求') {
       return Promise.reject(error)
     }

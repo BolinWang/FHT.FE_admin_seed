@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:08:54
- * @Last Modified by:   FT.FE.Bolin
- * @Last Modified time: 2018-04-11 17:08:54
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-09-13 11:10:16
  */
 
 import {
@@ -15,7 +15,7 @@ import {
  * @param roles
  * @param route
  */
-function hasPermission(roles, route) {
+function hasPermission (roles, route) {
   if (route.meta && route.meta.role) {
     return roles.some(role => route.meta.role.indexOf(role) >= 0)
   } else {
@@ -28,7 +28,7 @@ function hasPermission(roles, route) {
  * @param asyncRouterMap
  * @param roles
  */
-function filterAsyncRouter(asyncRouterMap, roles) {
+function filterAsyncRouter (asyncRouterMap, roles) {
   const accessedRouters = asyncRouterMap.filter(route => {
     if (hasPermission(roles, route)) {
       if (route.children && route.children.length) {
@@ -53,7 +53,7 @@ const permission = {
     }
   },
   actions: {
-    GenerateRoutes({
+    GenerateRoutes ({
       commit
     }, data) {
       return new Promise(resolve => {
