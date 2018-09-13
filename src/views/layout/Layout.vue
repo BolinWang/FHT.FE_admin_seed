@@ -1,18 +1,20 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:22:41 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:22:41
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 18:46:56
+ * @Last Modified time: 2018-09-13 11:01:36
  */
 
 <template>
-  <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
+  <div
+    :class="{hideSidebar:!sidebar.opened}"
+    class="app-wrapper">
     <div class="sidebar-wrapper">
-      <sidebar class="sidebar-container"></sidebar>
+      <sidebar class="sidebar-container"/>
     </div>
     <div class="main-container">
-      <navbar></navbar>
-      <app-main></app-main>
+      <navbar/>
+      <app-main/>
     </div>
   </div>
 </template>
@@ -20,14 +22,14 @@
 import { Navbar, Sidebar, AppMain } from '@/views/layout/components'
 
 export default {
-  name: 'layout',
+  name: 'Layout',
   components: {
     Navbar,
     Sidebar,
     AppMain
   },
   computed: {
-    sidebar() {
+    sidebar () {
       return this.$store.state.app.sidebar
     }
   }

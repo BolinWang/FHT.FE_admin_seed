@@ -1,22 +1,33 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:46:41 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:46:41
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:38:23
+ * @Last Modified time: 2018-09-13 11:23:58
  */
 <template>
   <div>
-    <el-cascader :placeholder="placeholder" :disabled="disabled" :options="options" :size="size" :clearable="clearable" :filterable="filterable" v-model="selectedOptions" @change="handleChange" style="width:100%">
-    </el-cascader>
+    <el-cascader
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :options="options"
+      :size="size"
+      :clearable="clearable"
+      :filterable="filterable"
+      v-model="selectedOptions"
+      style="width:100%"
+      @change="handleChange"/>
   </div>
 </template>
 <script>
 import areaData from './cityData'
 export default {
-  name: 'areaselect',
+  name: 'Areaselect',
   props: {
     value: {
-      default: []
+      type: Array,
+      default () {
+        return []
+      }
     },
     placeholder: {
       type: String,
@@ -44,25 +55,25 @@ export default {
       default: 'small'
     }
   },
-  data() {
+  data () {
     return {
       options: areaData,
       selectedOptions: []
     }
   },
-  methods: {
-    handleChange(selected) {
-      this.$emit('input', selected)
+  watch: {
+    value (val) {
+      this.selectedOptions = val
     }
   },
-  created() {
+  created () {
     if (Array.isArray(this.value)) {
       this.selectedOptions = this.value.map(key => { return parseInt(key) })
     }
   },
-  watch: {
-    value(val) {
-      this.selectedOptions = val
+  methods: {
+    handleChange (selected) {
+      this.$emit('input', selected)
     }
   }
 }

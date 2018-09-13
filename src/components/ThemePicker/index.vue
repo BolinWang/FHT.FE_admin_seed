@@ -1,12 +1,15 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:04:21 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:04:21
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:43:14
+ * @Last Modified time: 2018-09-13 11:32:11
  */
 
 <template>
-  <el-color-picker class="theme-picker" popper-class="theme-picker-dropdown" v-model="theme"></el-color-picker>
+  <el-color-picker
+    v-model="theme"
+    class="theme-picker"
+    popper-class="theme-picker-dropdown"/>
 </template>
 <script>
 // 获取el version
@@ -15,17 +18,14 @@ const version = require('element-ui/package.json').version
 const ORIGINAL_THEME = '#409eff'
 
 export default {
-  data() {
+  data () {
     return {
       chalk: '',
       theme: ORIGINAL_THEME
     }
   },
-  created() {
-    this.theme = localStorage.getItem('ORIGINAL_THEME') || ORIGINAL_THEME
-  },
   watch: {
-    theme(val, oldVal) {
+    theme (val, oldVal) {
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
@@ -70,9 +70,12 @@ export default {
       localStorage.setItem('ORIGINAL_THEME', val)
     }
   },
+  created () {
+    this.theme = localStorage.getItem('ORIGINAL_THEME') || ORIGINAL_THEME
+  },
 
   methods: {
-    updateStyle(style, oldCluster, newCluster) {
+    updateStyle (style, oldCluster, newCluster) {
       let newStyle = style
       oldCluster.forEach((color, index) => {
         newStyle = newStyle.replace(new RegExp(color, 'ig'), newCluster[index])
@@ -80,7 +83,7 @@ export default {
       return newStyle
     },
 
-    getCSSString(url, callback, variable) {
+    getCSSString (url, callback, variable) {
       const xhr = new XMLHttpRequest()
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -92,7 +95,7 @@ export default {
       xhr.send()
     },
 
-    getThemeCluster(theme) {
+    getThemeCluster (theme) {
       const tintColor = (color, tint) => {
         let red = parseInt(color.slice(0, 2), 16)
         let green = parseInt(color.slice(2, 4), 16)

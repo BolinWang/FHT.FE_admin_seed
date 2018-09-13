@@ -2,27 +2,42 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:50:08
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-01 14:25:26
+ * @Last Modified time: 2018-09-13 11:30:50
  */
 
 <template>
-  <draggable v-model="list" element="ul" class="list-group"
+  <draggable
+    v-model="list"
     :options="dragOptions"
+    element="ul"
+    class="list-group"
     @start="startDrag"
     @end="endDrag">
-    <transition-group type="transition" :name="'flip-list'">
-      <li class="preview-item clearfix" v-for="(item, index) in list"
+    <transition-group
+      :name="'flip-list'"
+      type="transition">
+      <li
+        v-for="(item, index) in list"
         :key="item.key || item.sortNum"
-        :style="itemStyle">
-        <img class="preview-img img-center" v-lazy="item.src">
-        <span class="preview-tags" v-if="item.picTag">{{item.picTag}}</span>
+        :style="itemStyle"
+        class="preview-item clearfix">
+        <img
+          v-lazy="item.src"
+          class="preview-img img-center">
+        <span
+          v-if="item.picTag"
+          class="preview-tags">{{ item.picTag }}</span>
         <span class="preview-item-actions">
-          <span class="preview-item__item-preview" @click="handlePreview(index)">
-            <i class="el-icon-zoom-in"></i>
+          <span
+            class="preview-item__item-preview"
+            @click="handlePreview(index)">
+            <i class="el-icon-zoom-in"/>
           </span>
-          <span v-if="deleteFlag == 'delete' && !item.isnoPic && item.type == 1" class="preview-item__item-delete"
+          <span
+            v-if="deleteFlag == 'delete' && !item.isnoPic && item.type == 1"
+            class="preview-item__item-delete"
             @click="handleDelete(index,item)">
-            <i class="el-icon-delete"></i>
+            <i class="el-icon-delete"/>
           </span>
         </span>
       </li>
@@ -30,24 +45,23 @@
   </draggable>
 </template>
 <script>
-import { deepClone } from '@/utils'
 import draggable from 'vuedraggable'
 
 /* 阻止原生dragale打开新页面 */
-document.body.ondrop = function(event) {
+document.body.ondrop = function (event) {
   event.preventDefault()
   event.stopPropagation()
 }
 
 export default {
-  name: 'fht-preview',
+  name: 'FhtPreview',
   components: {
     draggable
   },
   props: {
     picList: {
       type: Array,
-      default: function() {
+      default: function () {
         return []
       }
     },
@@ -57,7 +71,7 @@ export default {
     },
     itemSize: {
       type: Object,
-      default() {
+      default () {
         return {}
       }
     },
@@ -66,14 +80,22 @@ export default {
       default: 'disabled'
     }
   },
+  data () {
+    return {
+      list: [],
+      deleteFlag: '',
+      isDragging: false,
+      delayedDragging: false
+    }
+  },
   computed: {
-    itemStyle() {
+    itemStyle () {
       return {
         width: this.itemSize.width + 'px',
         height: this.itemSize.height + 'px'
       }
     },
-    dragOptions() {
+    dragOptions () {
       return {
         animation: 150,
         group: 'description',
@@ -82,19 +104,37 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      list: [],
-      deleteFlag: '',
-      isDragging: false,
-      delayedDragging: false
+  watch: {
+    picList: {
+      immediate: true,
+      handler: function (val) {
+        this.list = (val || []).slice()
+        this.list.map((item, index) => {
+          // item.sortNum = item.sortNum !== undefined ? item.sortNum : Math.random().toFixed(5)
+          item.sortNum = index
+          item.type = item.type || 1
+          item.title = item.picTag || ''
+        })
+      }
+    },
+    deleteIcon (val) {
+      this.deleteFlag = val
+    },
+    isDragging (newValue) {
+      if (newValue) {
+        this.delayedDragging = true
+        return
+      }
+      this.$nextTick(() => {
+        this.delayedDragging = false
+      })
     }
   },
-  mounted() {
+  mounted () {
     this.deleteFlag = this.deleteIcon
   },
   methods: {
-    async handlePreview(index) {
+    async handlePreview (index) {
       if (this.list.length === 1 && this.list[0].isnoPic) {
         this.$message.warning('友情提示：暂无图片')
         return false
@@ -114,7 +154,7 @@ export default {
       }
       this.$preview.open(index, previewList)
     },
-    handleDelete(index, item) {
+    handleDelete (index, item) {
       this.$confirm('是否删除?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -126,41 +166,15 @@ export default {
 
       })
     },
-    handleEmit() {
+    handleEmit () {
       this.$emit('emitDelete', this.list)
     },
-    startDrag() {
+    startDrag () {
       this.isDragging = true
     },
-    endDrag(e) {
+    endDrag (e) {
       this.isDragging = false
       this.handleEmit()
-    }
-  },
-  watch: {
-    picList: {
-      immediate: true,
-      handler: function (val) {
-        this.list = (val || []).slice()
-        this.list.map((item, index) => {
-          // item.sortNum = item.sortNum !== undefined ? item.sortNum : Math.random().toFixed(5)
-          item.sortNum = index
-          item.type = item.type || 1
-          item.title = item.picTag || ''
-        })
-      }
-    },
-    deleteIcon(val) {
-      this.deleteFlag = val
-    },
-    isDragging(newValue) {
-      if (newValue) {
-        this.delayedDragging = true
-        return
-      }
-      this.$nextTick(() => {
-        this.delayedDragging = false
-      })
     }
   }
 }

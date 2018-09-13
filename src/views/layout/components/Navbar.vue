@@ -1,49 +1,84 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:22:27 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:22:27
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-11 19:06:19
+ * @Last Modified time: 2018-09-13 11:22:20
  */
 
 <template>
   <div class="clearfix">
-    <el-menu class="navbar" mode="horizontal">
-      <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-      <tags-view></tags-view>
+    <el-menu
+      class="navbar"
+      mode="horizontal">
+      <hamburger
+        :toggle-click="toggleSideBar"
+        :is-active="sidebar.opened"
+        class="hamburger-container"/>
+      <tags-view/>
       <div class="right-menu">
-        <el-tooltip effect="dark" content="全屏" placement="bottom">
-          <screenfull class="screenfull right-menu-item"></screenfull>
+        <el-tooltip
+          effect="dark"
+          content="全屏"
+          placement="bottom">
+          <screenfull class="screenfull right-menu-item"/>
         </el-tooltip>
-        <el-tooltip effect="dark" content="换肤" placement="bottom">
-          <theme-picker class="theme-switch right-menu-item"></theme-picker>
+        <el-tooltip
+          effect="dark"
+          content="换肤"
+          placement="bottom">
+          <theme-picker class="theme-switch right-menu-item"/>
         </el-tooltip>
-        <el-dropdown class="avatar-container right-menu-item" trigger="click">
+        <el-dropdown
+          class="avatar-container right-menu-item"
+          trigger="click">
           <div class="avatar-wrapper">
-            <img class="user-avatar" :src="avatar">
-            <span class="user-name">{{name}}</span>
-            <i class="el-icon-caret-bottom"></i>
+            <img
+              :src="avatar"
+              class="user-avatar">
+            <span class="user-name">{{ name }}</span>
+            <i class="el-icon-caret-bottom"/>
           </div>
-          <el-dropdown-menu class="user-dropdown" slot="dropdown">
+          <el-dropdown-menu
+            slot="dropdown"
+            class="user-dropdown">
             <el-dropdown-item>
-              <span @click="layer_showUserInfo = true" style="display:block;">个人信息</span>
+              <span
+                style="display:block;"
+                @click="layer_showUserInfo = true">个人信息</span>
             </el-dropdown-item>
-            <router-link class='inlineBlock' to="/">
+            <router-link
+              class="inlineBlock"
+              to="/">
               <el-dropdown-item>
                 首页
               </el-dropdown-item>
             </router-link>
             <el-dropdown-item divided>
-              <span @click="logout" style="display:block;">退出</span>
+              <span
+                style="display:block;"
+                @click="logout">退出</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
     </el-menu>
     <!-- 个人信息 -->
-    <el-dialog title="个人信息" :visible.sync="layer_showUserInfo" width="600px" @close="dialogClose">
-      <el-form :model="ruleForm" status-icon ref="ruleForm" label-width="100px">
-        <el-form-item label="用户名" prop="name">
-          <el-input v-model="ruleForm.name" disabled></el-input>
+    <el-dialog
+      :visible.sync="layer_showUserInfo"
+      title="个人信息"
+      width="600px"
+      @close="dialogClose">
+      <el-form
+        ref="ruleForm"
+        :model="ruleForm"
+        status-icon
+        label-width="100px">
+        <el-form-item
+          label="用户名"
+          prop="name">
+          <el-input
+            v-model="ruleForm.name"
+            disabled/>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -63,16 +98,13 @@ export default {
     Screenfull,
     TagsView
   },
-  data() {
+  data () {
     return {
       layer_showUserInfo: false,
       ruleForm: {
         name: this.$store.state.user.name
       }
     }
-  },
-  created() {
-
   },
   computed: {
     ...mapGetters([
@@ -81,16 +113,19 @@ export default {
       'name'
     ])
   },
+  created () {
+
+  },
   methods: {
-    toggleSideBar() {
+    toggleSideBar () {
       this.$store.dispatch('ToggleSideBar')
     },
-    logout() {
+    logout () {
       this.$store.dispatch('LogOut').then(() => {
         location.reload() // 为了重新实例化vue-router对象 避免bug
       })
     },
-    dialogClose() {
+    dialogClose () {
       this.$refs.ruleForm.resetFields()
     }
   }

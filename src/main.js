@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:24:18
- * @Last Modified by:   FT.FE.Bolin
- * @Last Modified time: 2018-04-11 17:24:18
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-09-13 14:32:02
  */
 
 import Vue from 'vue'
@@ -26,7 +26,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VuePreview)
 Vue.use(VueLazyload, {
-  /* error: errorPic,*/
+  /* error: errorPic, */
   loading: lazyLoadPic
 })
 Vue.component('icon-svg', IconSvg)
@@ -77,7 +77,9 @@ const vm = new Vue({
   el: '#app',
   router,
   store,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })
-Vue.use(vm)
+
+Vue.use({
+  vm
+})

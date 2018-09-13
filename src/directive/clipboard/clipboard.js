@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:05:17
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:34:07
+ * @Last Modified time: 2018-09-13 11:09:54
  */
 // Inspired by https://github.com/Inndy/vue-clipboard2
 
@@ -12,15 +12,15 @@ if (!Clipboard) {
 }
 
 export default {
-  bind(el, binding) {
+  bind (el, binding) {
     if (binding.arg === 'success') {
       el._v_clipboard_success = binding.value
     } else if (binding.arg === 'error') {
       el._v_clipboard_error = binding.value
     } else {
       const clipboard = new Clipboard(el, {
-        text() { return binding.value },
-        action() { return binding.arg === 'cut' ? 'cut' : 'copy' }
+        text () { return binding.value },
+        action () { return binding.arg === 'cut' ? 'cut' : 'copy' }
       })
       clipboard.on('success', e => {
         const callback = el._v_clipboard_success
@@ -33,17 +33,17 @@ export default {
       el._v_clipboard = clipboard
     }
   },
-  update(el, binding) {
+  update (el, binding) {
     if (binding.arg === 'success') {
       el._v_clipboard_success = binding.value
     } else if (binding.arg === 'error') {
       el._v_clipboard_error = binding.value
     } else {
-      el._v_clipboard.text = function() { return binding.value }
-      el._v_clipboard.action = function() { return binding.arg === 'cut' ? 'cut' : 'copy' }
+      el._v_clipboard.text = function () { return binding.value }
+      el._v_clipboard.action = function () { return binding.arg === 'cut' ? 'cut' : 'copy' }
     }
   },
-  unbind(el, binding) {
+  unbind (el, binding) {
     if (binding.arg === 'success') {
       delete el._v_clipboard_success
     } else if (binding.arg === 'error') {

@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:09:27
- * @Last Modified by:   FT.FE.Bolin
- * @Last Modified time: 2018-04-11 17:09:27
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-09-13 14:31:06
  */
 
 import { login, logout, getInfo } from '@/api/login'
@@ -39,7 +39,7 @@ const user = {
 
   actions: {
     // 登录
-    Login({ commit }, userInfo) {
+    Login ({ commit }, userInfo) {
       const mobile = userInfo.mobile.trim()
       return new Promise((resolve, reject) => {
         login(mobile, userInfo.password).then(response => {
@@ -54,7 +54,7 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit, state }) {
+    GetInfo ({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo(state.sessionId).then(response => {
           const data = response.data
@@ -69,7 +69,7 @@ const user = {
     },
 
     // 登出
-    LogOut({ commit, state }) {
+    LogOut ({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout({ sessionId: state.sessionId }).then(() => {
           removeSessionId()
@@ -83,7 +83,7 @@ const user = {
     },
 
     // 前端 登出
-    FedLogOut({ commit }) {
+    FedLogOut ({ commit }) {
       return new Promise(resolve => {
         removeSessionId()
         commit('SET_SESSIONID', '')

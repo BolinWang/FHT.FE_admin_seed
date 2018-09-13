@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:49:14
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-01 14:24:33
+ * @Last Modified time: 2018-09-13 11:24:09
  */
 
 const props = {
@@ -120,7 +120,7 @@ const props = {
   type: {
     type: String,
     default: 'remote',
-    validator(value) {
+    validator (value) {
       const types = ['remote', 'local']
       const validType = types.indexOf(value) !== -1
       if (!validType) {

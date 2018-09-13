@@ -1,51 +1,72 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:11:19 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:11:19
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 17:10:05
+ * @Last Modified time: 2018-09-13 11:18:16
  */
 
 <template>
   <div class="layout-container">
-    <el-form :inline="true" :model="formOptions" size="small">
+    <el-form
+      :inline="true"
+      :model="formOptions"
+      size="small">
       <el-form-item label="审批人">
-        <el-input v-model="formOptions.user" placeholder="审批人"></el-input>
+        <el-input
+          v-model="formOptions.user"
+          placeholder="审批人"/>
       </el-form-item>
       <el-form-item label="活动区域">
-        <el-select v-model="formOptions.region" placeholder="活动区域">
-          <el-option label="区域一" value="上海"></el-option>
-          <el-option label="区域二" value="北京"></el-option>
+        <el-select
+          v-model="formOptions.region"
+          placeholder="活动区域">
+          <el-option
+            label="区域一"
+            value="上海"/>
+          <el-option
+            label="区域二"
+            value="北京"/>
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="handleSearch">查询</el-button>
+        <el-button
+          type="primary"
+          @click="handleSearch">查询</el-button>
       </el-form-item>
     </el-form>
     <GridUnit
       ref="refGridUnit"
       :columns="colModels"
       :url="url"
-      :dataMethod="method"
-      :formOptions="formOptions"
+      :data-method="method"
+      :form-options="formOptions"
       :height="tableHeight"
-      :showExpand="true"
-      :expandColums="expandColums">
-      <template slot="handle" slot-scope="scope">
-        <el-button type="primary" icon="el-icon-view" size="small"
+      :show-expand="true"
+      :expand-colums="expandColums">
+      <template
+        slot="handle"
+        slot-scope="scope">
+        <el-button
+          type="primary"
+          icon="el-icon-view"
+          size="small"
           @click="handleView(scope.$index)">
           再来一个表格吧
         </el-button>
       </template>
     </GridUnit>
     <div>
-      <el-dialog title="你知道的  这是第二个表格" width="100%" :visible.sync="layer_show" style="text-align: center;">
+      <el-dialog
+        :visible.sync="layer_show"
+        title="你知道的  这是第二个表格"
+        width="100%"
+        style="text-align: center;">
         <GridUnit
           ref="refGridUnit_view"
           :columns="colModels_view"
           :url="url"
-          :dataMethod="method"
-          maxHeight="300">
-        </GridUnit>
+          :data-method="method"
+          max-height="300"/>
       </el-dialog>
     </div>
   </div>
@@ -53,14 +74,14 @@
 <script>
 import GridUnit from '@/components/GridUnit/grid'
 export default {
-  name: 'example-grid',
+  name: 'ExampleGrid',
   components: {
     GridUnit
   },
   filters: {
 
   },
-  data() {
+  data () {
     return {
       layer_show: false,
       tableHeight: 300,
@@ -75,7 +96,7 @@ export default {
           width: 80,
           type: 'status',
           unitFilters: {
-            renderStatusType(status) {
+            renderStatusType (status) {
               const statusMap = {
                 '1': 'info',
                 '2': 'success',
@@ -83,7 +104,7 @@ export default {
               }
               return statusMap[status] || 'success'
             },
-            renderStatusValue(status) {
+            renderStatusValue (status) {
               const statusStrData = ['待上线', '已上线', '已下线']
               return statusStrData[status - 1] || '已上线'
             }
@@ -108,7 +129,10 @@ export default {
       method: 'queryActivityListByPage'
     }
   },
-  mounted() {
+  computed: {
+
+  },
+  mounted () {
     /* 表格高度控制 */
     this.$nextTick(() => {
       const offsetTop = this.$refs.refGridUnit.$el.offsetTop || 140
@@ -124,15 +148,12 @@ export default {
       }
     })
   },
-  computed: {
-
-  },
   methods: {
-    handleView(index) {
+    handleView (index) {
       this.$message.success('柏林爸爸' + index)
       this.layer_show = true
     },
-    handleSearch() {
+    handleSearch () {
       this.$refs.refGridUnit.searchHandler()
     }
   }

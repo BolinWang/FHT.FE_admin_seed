@@ -1,21 +1,24 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 16:49:30 
- * @Last Modified by:   FT.FE.Bolin 
- * @Last Modified time: 2018-04-11 16:49:30 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 16:49:30
+ * @Last Modified by:   FT.FE.Bolin
+ * @Last Modified time: 2018-04-11 16:49:30
  */
 
 <template>
-  <svg :class="svgClass" aria-hidden="true">
-    <use :xlink:href="iconName"></use>
+  <svg
+    :class="svgClass"
+    aria-hidden="true">
+    <use :xlink:href="iconName"/>
   </svg>
 </template>
 <script>
 export default {
-  name: 'icon-svg',
+  name: 'IconSvg',
   props: {
     className: {
-      type: String
+      type: String,
+      default: ''
     },
     iconClass: {
       type: String,
@@ -23,10 +26,10 @@ export default {
     }
   },
   computed: {
-    iconName() {
+    iconName () {
       return `#icon-${this.iconClass}`
     },
-    svgClass() {
+    svgClass () {
       if (this.className) {
         return 'svg-icon ' + this.className
       } else {
