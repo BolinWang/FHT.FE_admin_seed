@@ -1,8 +1,8 @@
 /*
- * @Author: FT.FE.Bolin 
- * @Date: 2018-04-11 17:09:53 
+ * @Author: FT.FE.Bolin
+ * @Date: 2018-04-11 17:09:53
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 16:16:04
+ * @Last Modified time: 2018-09-17 16:22:55
  */
 
 @import './element-ui.scss';
@@ -166,4 +166,10 @@ a:hover {
   vertical-align: -0.15em;
   fill: currentColor;
   overflow: hidden;
+}
+
+.iconfont {
+  display: inline-block;
+  font-style: normal;
+  color: #fff;
 }

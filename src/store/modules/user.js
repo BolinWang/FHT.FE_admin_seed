@@ -2,10 +2,10 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:09:27
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:10:23
+ * @Last Modified time: 2018-09-14 10:26:21
  */
 
-import { login, logout, getInfo } from '@/api/login'
+import { loginApi } from '@/api/user'
 import { getSessionId, setSessionId, removeSessionId } from '@/utils/auth'
 import defaultAvatar from '@/assets/defaultAvatar.png'
 
@@ -42,7 +42,10 @@ const user = {
     Login ({ commit }, userInfo) {
       const mobile = userInfo.mobile.trim()
       return new Promise((resolve, reject) => {
-        login(mobile, userInfo.password).then(response => {
+        loginApi.login({
+          mobile,
+          password: userInfo.password
+        }).then(response => {
           const data = response.data
           setSessionId(data.sessionId)
           commit('SET_SESSIONID', data.sessionId)
@@ -56,7 +59,9 @@ const user = {
     // 获取用户信息
     GetInfo ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getInfo(state.sessionId).then(response => {
+        loginApi.getInfo({
+          sessionId: state.sessionId
+        }).then(response => {
           const data = response.data
           commit('SET_ROLES', data.isAdmin)
           commit('SET_NAME', data.name)
@@ -71,7 +76,9 @@ const user = {
     // 登出
     LogOut ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout({ sessionId: state.sessionId }).then(() => {
+        loginApi.logout({
+          sessionId: state.sessionId
+        }).then(() => {
           removeSessionId()
           commit('SET_SESSIONID', '')
           commit('SET_ROLES', [])

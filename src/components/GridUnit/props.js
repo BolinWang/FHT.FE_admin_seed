@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:49:14
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:24:09
+ * @Last Modified time: 2018-09-17 17:25:41
  */
 
 const props = {
@@ -63,6 +63,11 @@ const props = {
   // axios dataMethod
   dataMethod: {
     type: String
+  },
+
+  isMock: {
+    type: Boolean,
+    default: false
   },
 
   // axios headers  一般不需要

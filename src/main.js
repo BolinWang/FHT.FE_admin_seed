@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:24:18
- * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 14:43:12
+ * @Last Modified by: chudequan
+ * @Last Modified time: 2018-09-17 16:10:39
  */
 
 import Vue from 'vue'
@@ -11,7 +11,7 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
 import NProgress from 'nprogress'
-import IconSvg from '@/components/Icon-svg/index.vue'
+// import IconSvg from '@/components/Icon-svg/index.vue'
 import { getSessionId } from '@/utils/auth'
 import * as filters from './filters'
 import VuePreview from '@/components/Preview/plugins'
@@ -29,7 +29,9 @@ Vue.use(VueLazyload, {
   /* error: errorPic, */
   loading: lazyLoadPic
 })
-Vue.component('icon-svg', IconSvg)
+// Vue.component('icon-svg', IconSvg)
+
+process.env.MOCK && require('./mock')
 
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

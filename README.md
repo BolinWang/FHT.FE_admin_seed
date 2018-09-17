@@ -12,6 +12,15 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 - 导出excel
 
 ```
+
+```
+mockjs（development使用）
+1、src/api 各文件中需要使用mock数据的添加属性isMock: true
+2、src/mock 建议新建对应模块名称的文件，在文件中定义方法以及mock数据，最后在index.js中拦截相应url
+3、2中拦截的url，是原始http请求中的url+method拼接
+
+```
+
 ## Extra
 
 本项目基于`webpack4`开发，若还想使用`webpack3`开发，请使用该分支[webpack3](https://github.com/BolinWang/FHT.FE_admin_seed/tree/webpack3)

@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:36
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:21:51
+ * @Last Modified time: 2018-09-17 16:23:32
  */
 
 <template>
@@ -15,18 +15,20 @@
           v-if="!item.hidden&&item.noDropdown&&item.children.length>0"
           :to="item.path+'/'+item.children[0].path">
           <el-menu-item :index="item.path+'/'+item.children[0].path">
-            <icon-svg
+            <i
               v-if="item.icon"
-              :icon-class="item.icon" /> {{ item.children[0].name }}
+              :class="`iconfont icon-${item.icon}`" />
+            <span slot="title">{{ item.children[0].name }}</span>
           </el-menu-item>
         </router-link>
         <el-submenu
           v-if="!item.noDropdown&&!item.hidden"
           :index="item.name">
           <template slot="title">
-            <icon-svg
+            <i
               v-if="item.icon"
-              :icon-class="item.icon" /> {{ item.name }}
+              :class="`iconfont icon-${item.icon}`" />
+            <span slot="title">{{ item.name }}</span>
           </template>
           <div
             v-for="(child, childIndex) in item.children"
@@ -65,7 +67,7 @@ export default {
   }
 }
 </script>
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" scoped>
 .svg-icon {
   margin-right: 10px;
 }
@@ -78,5 +80,13 @@ export default {
 .el-submenu .el-menu-item {
   padding: 0;
   min-width: inherit;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.el-submenu__title i,
+.el-menu-item i {
+  color: #fff;
 }
 </style>

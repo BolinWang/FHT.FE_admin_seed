@@ -1,10 +1,3 @@
-/*
- * @Author: FT.FE.Bolin
- * @Date: 2018-04-11 16:47:12
- * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:39:01
- */
-
 module.exports = [{
   'value': 110000,
   'parentvalue': 1,

@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:19
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 15:32:18
+ * @Last Modified time: 2018-09-17 17:27:20
  */
 
 <template>
@@ -39,6 +39,7 @@
       :columns="colModels"
       :url="url"
       :data-method="method"
+      :is-mock="isMock"
       :form-options="formOptions"
       :height="tableHeight"
       :show-expand="true"
@@ -73,6 +74,7 @@
 </template>
 <script>
 import GridUnit from '@/components/GridUnit/grid'
+import { exampleApi } from '@/api/example'
 export default {
   name: 'ExampleGrid',
   components: {
@@ -125,8 +127,9 @@ export default {
         {prop: 'title', label: '标题'},
         {prop: 'introduction', label: '简介'}
       ],
-      url: '/market/activity',
-      method: 'queryActivityListByPage'
+      url: exampleApi.requestPath,
+      method: exampleApi.queryMethod,
+      isMock: exampleApi.isMock
     }
   },
   computed: {

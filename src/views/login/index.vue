@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:22:52
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 10:52:21
+ * @Last Modified time: 2018-09-17 10:48:32
  */
 
 <template>
@@ -17,27 +17,29 @@
       class="card-box login-form">
       <h3 class="title">FT_admin-seed</h3>
       <el-form-item prop="mobile">
-        <span class="svg-container">
-          <icon-svg icon-class="peoples"/>
-        </span>
         <el-input
           v-model="loginForm.mobile"
           name="mobile"
           type="text"
           auto-complete="on"
-          placeholder="请输入用户名"/>
+          placeholder="请输入用户名">
+          <i
+            slot="prefix"
+            class="iconfont icon-user" />
+        </el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <span class="svg-container">
-          <icon-svg icon-class="password"/>
-        </span>
         <el-input
           v-model="loginForm.password"
           name="password"
           type="password"
           auto-complete="on"
           placeholder="请输入密码"
-          @keyup.enter.native="handleLogin"/>
+          @keyup.enter.native="handleLogin">
+          <i
+            slot="prefix"
+            class="iconfont icon-lock" />
+        </el-input>
       </el-form-item>
       <el-form-item>
         <el-button
@@ -105,19 +107,13 @@ export default {
     }
   }
 }
-
 </script>
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss">
 @import "src/styles/mixin.scss";
-.tips {
-  font-size: 14px;
-  color: #fff;
-  margin-bottom: 5px;
-}
 
 .login-container {
   @include relative;
-  height: 100vh;
+  height: 100%;
   background-color: #2d3a4b;
   background-image: url(../../assets/banner.jpg);
   background-size: cover;
@@ -134,24 +130,8 @@ export default {
     border-radius: 0px;
     padding: 12px 5px 12px 15px;
     color: #fff;
-    height: 47px;
-  }
-  .el-input {
-    display: inline-block;
-    height: 47px;
-    width: 289px;
-  }
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: #fff;
-  }
-  .title {
-    font-size: 26px;
-    font-weight: 400;
-    color: #fff;
-    margin: 0px auto 40px auto;
-    text-align: center;
-    font-weight: bold;
+    height: 50px;
+    line-height: 50px;
   }
   .login-form {
     position: absolute;
@@ -163,7 +143,27 @@ export default {
     margin-left: -200px;
     background-color: rgba(45, 58, 75, 0.4);
     border-radius: 10px;
+    .el-input {
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+    }
+    .title {
+      font-size: 26px;
+      font-weight: 400;
+      color: #fff;
+      margin: 0px auto 40px auto;
+      text-align: center;
+      font-weight: bold;
+    }
+    .iconfont {
+      width: 25px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 16px;
+    }
   }
+
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.3);
     background: rgba(0, 0, 0, 0.1);
@@ -171,9 +171,7 @@ export default {
     color: #454545;
     margin-bottom: 30px;
   }
-  .forget-pwd {
-    color: #fff;
-  }
+
   .el-form-item__error {
     color: #ff0;
     font-size: 13px;

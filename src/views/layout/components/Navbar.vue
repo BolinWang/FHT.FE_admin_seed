@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:22:27
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:22:20
+ * @Last Modified time: 2018-09-17 09:56:22
  */
 
 <template>
@@ -35,8 +35,8 @@
             <img
               :src="avatar"
               class="user-avatar">
-            <span class="user-name">{{ name }}</span>
-            <i class="el-icon-caret-bottom"/>
+              <!-- <span class="user-name">{{ name }}</span>
+            <i class="el-icon-caret-bottom"/> -->
           </div>
           <el-dropdown-menu
             slot="dropdown"
@@ -152,31 +152,28 @@ export default {
   }
   .right-menu {
     float: right;
+    display: flex;
+    align-items: center;
     height: 100%;
     &:focus {
       outline: none;
     }
     .right-menu-item {
+      height: 40px;
       display: inline-block;
       margin: 0 5px;
     }
     .screenfull {
-      height: 40px;
       padding: 4px;
       border: 1px solid #e6e6e6;
       border-radius: 4px;
-      vertical-align: 1px;
-    }
-    .theme-switch {
-      vertical-align: 16px;
     }
     .avatar-container {
-      height: 50px;
       margin-right: 30px;
       .avatar-wrapper {
         cursor: pointer;
-        margin-top: 5px;
         position: relative;
+        height: 40px;
       }
       .user-name {
         position: relative;
