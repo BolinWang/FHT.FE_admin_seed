@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:10:13
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-17 16:51:03
+ * @Last Modified time: 2018-09-18 15:29:21
  */
 
 import axios from 'axios'
@@ -19,8 +19,8 @@ const CancelToken = axios.CancelToken
 const defaultConfig = {
   version: '1.0',
   timestamp: new Date().getTime(),
-  reqId: 'ota',
-  sign: 'ota'
+  reqId: 'admin_seed',
+  sign: 'admin_seed'
 }
 
 /* 创建axios实例 */
