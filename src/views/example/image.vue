@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:13
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 15:06:24
+ * @Last Modified time: 2018-09-18 17:24:26
  */
 
 <template>
@@ -81,14 +81,14 @@ export default {
       const uploadList = []
       const readFileAsync = file => new Promise(resolve => {
         let reader = new FileReader()
-        reader.onerror = function (e) {
-          console.log('读取异常....')
+        reader.onerror = error => {
+          console.log(error + '读取异常....')
         }
-        reader.onload = e => {
-          const img = (typeof e.target.result === 'object')
+        reader.onload = item => {
+          const img = (typeof item.target.result === 'object')
             // 把Array Buffer转化为blob 如果是base64不需要
-            ? window.URL.createObjectURL(new Blob([e.target.result]))
-            : e.target.result
+            ? window.URL.createObjectURL(new Blob([item.target.result]))
+            : item.target.result
           let imageName = ''
           if (!file.name) {
             imageName = ''
@@ -103,9 +103,9 @@ export default {
           })
         }
         // 转化为base64
-        // reader.readAsDataURL(file)
-        // 转化为blob
-        reader.readAsArrayBuffer(file)
+        reader.readAsDataURL(file)
+        // 转化为blob 不知道啥错误，还是用base64吧
+        // reader.readAsArrayBuffer(file)
       })
 
       const files = e.target.files
