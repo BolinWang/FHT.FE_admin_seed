@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:49:39
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 14:57:31
+ * @Last Modified time: 2018-09-18 18:58:47
  */
 
 <template>
@@ -148,7 +148,7 @@ export default {
         img: '',
         info: false,
         size: 1,
-        outputType: 'jpeg',
+        outputType: 'png', // png解决裁剪后图片背景为黑色背景的问题，直接输出png吧
         canScale: true,
         autoCrop: true,
         // 开启宽度和高度比例
@@ -242,14 +242,14 @@ export default {
         return false
       }
       let reader = new FileReader()
-      reader.onerror = function (e) {
-        console.log('读取异常....')
+      reader.onerror = error => {
+        console.log(error + '读取异常....')
       }
-      reader.onload = e => {
-        const img = (typeof e.target.result === 'object')
+      reader.onload = item => {
+        const img = (typeof item.target.result === 'object')
           // 把Array Buffer转化为blob 如果是base64不需要
-          ? window.URL.createObjectURL(new Blob([e.target.result]))
-          : e.target.result
+          ? window.URL.createObjectURL(new Blob([item.target.result]))
+          : item.target.result
         let imageName = ''
         if (!file.name) {
           imageName = ''
@@ -263,9 +263,9 @@ export default {
         this.$set(this.cropperImgs[index], 'imageName', imageName)
       }
       // 转化为base64
-      // reader.readAsDataURL(file)
+      reader.readAsDataURL(file)
       // 转化为blob
-      reader.readAsArrayBuffer(file)
+      // reader.readAsArrayBuffer(file)
       this.layer_cropper = true
       e.target.value = null
     }
