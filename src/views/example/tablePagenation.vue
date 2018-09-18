@@ -2,61 +2,65 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:19
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-17 17:27:20
+ * @Last Modified time: 2018-09-18 10:35:40
  */
 
 <template>
-  <div class="layout-container">
-    <el-form
-      :inline="true"
-      :model="formOptions"
-      size="small">
-      <el-form-item label="审批人">
-        <el-input
-          v-model="formOptions.user"
-          placeholder="审批人"/>
-      </el-form-item>
-      <el-form-item label="活动区域">
-        <el-select
-          v-model="formOptions.region"
-          placeholder="活动区域">
-          <el-option
-            label="区域一"
-            value="上海"/>
-          <el-option
-            label="区域二"
-            value="北京"/>
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button
-          type="primary"
-          @click="handleSearch">查询</el-button>
-      </el-form-item>
-    </el-form>
-    <GridUnit
-      ref="refGridUnit"
-      :columns="colModels"
-      :url="url"
-      :data-method="method"
-      :is-mock="isMock"
-      :form-options="formOptions"
-      :height="tableHeight"
-      :show-expand="true"
-      :expand-colums="expandColums">
-      <template
-        slot="handle"
-        slot-scope="scope">
-        <el-button
-          type="primary"
-          icon="el-icon-view"
-          size="small"
-          @click="handleView(scope.$index)">
-          再来一个表格吧
-        </el-button>
-      </template>
-    </GridUnit>
-    <div>
+  <div>
+    <div class="layout_pageHeader">
+      <el-form
+        :inline="true"
+        :model="formOptions"
+        size="small">
+        <el-form-item label="审批人">
+          <el-input
+            v-model="formOptions.user"
+            placeholder="审批人"/>
+        </el-form-item>
+        <el-form-item label="活动区域">
+          <el-select
+            v-model="formOptions.region"
+            placeholder="活动区域">
+            <el-option
+              label="区域一"
+              value="上海"/>
+            <el-option
+              label="区域二"
+              value="北京"/>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            @click="handleSearch">查询</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="layout-container">
+      <GridUnit
+        ref="refGridUnit"
+        :columns="colModels"
+        :url="url"
+        :data-method="method"
+        :is-mock="isMock"
+        :form-options="formOptions"
+        :show-expand="true"
+        :expand-colums="expandColums">
+        <template
+          slot="handle"
+          slot-scope="scope">
+          <el-button
+            type="primary"
+            icon="el-icon-view"
+            size="small"
+            @click="handleView(scope.$index)">
+            再来一个表格吧
+          </el-button>
+        </template>
+      </GridUnit>
+    </div>
+    <div class="dialog_example">
       <el-dialog
         :visible.sync="layer_show"
         title="你知道的  这是第二个表格"
@@ -67,7 +71,8 @@
           :columns="colModels_view"
           :url="url"
           :data-method="method"
-          max-height="300"/>
+          :is-mock="isMock"
+          height="300px" />
       </el-dialog>
     </div>
   </div>
@@ -138,17 +143,17 @@ export default {
   mounted () {
     /* 表格高度控制 */
     this.$nextTick(() => {
-      const offsetTop = this.$refs.refGridUnit.$el.offsetTop || 140
-      const pagenationH = 55
-      const containerPadding = 20
-      let temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
-      this.tableHeight = temp_height > 300 ? temp_height : 300
-      window.onresize = () => {
-        return (() => {
-          temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
-          this.tableHeight = this.tableHeight = temp_height > 300 ? temp_height : 300
-        })()
-      }
+      // const offsetTop = this.$refs.refGridUnit.$el.offsetTop || 140
+      // const pagenationH = 55
+      // const containerPadding = 20
+      // let temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
+      // this.tableHeight = temp_height > 300 ? temp_height : 300
+      // window.onresize = () => {
+      //   return (() => {
+      //     temp_height = document.body.clientHeight - offsetTop - pagenationH - containerPadding
+      //     this.tableHeight = this.tableHeight = temp_height > 300 ? temp_height : 300
+      //   })()
+      // }
     })
   },
   methods: {
@@ -157,7 +162,9 @@ export default {
       this.layer_show = true
     },
     handleSearch () {
-      this.$refs.refGridUnit.searchHandler()
+      this.$nextTick(() => {
+        this.$refs.refGridUnit.searchHandler()
+      })
     }
   }
 }

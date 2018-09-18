@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:04:21
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 14:58:29
+ * @Last Modified time: 2018-09-18 10:37:20
  */
 
 <template>
@@ -15,7 +15,12 @@
 // 获取el version
 const version = require('element-ui/package.json').version
 // 默认color
-const ORIGINAL_THEME = '#409eff'
+const ORIGINAL_THEME = '#409EFF'
+let coverTheme = localStorage.getItem('ORIGINAL_THEME')
+if (!coverTheme) {
+  coverTheme = '#4680ff'
+  localStorage.setItem('ORIGINAL_THEME', coverTheme)
+}
 
 export default {
   data () {
@@ -71,7 +76,7 @@ export default {
     }
   },
   created () {
-    this.theme = localStorage.getItem('ORIGINAL_THEME') || ORIGINAL_THEME
+    this.theme = coverTheme || ORIGINAL_THEME
   },
 
   methods: {

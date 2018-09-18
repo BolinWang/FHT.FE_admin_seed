@@ -13,7 +13,7 @@ export const exampleApi = {
   isMock: true,
   queryActivityListByPage (params = {}) {
     return fetch(this.requestPath, {
-      method: this.queryMethod,
+      // method: this.queryMethod,
       params
     }, {
       isMock: this.isMock

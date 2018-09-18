@@ -2,18 +2,20 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:36
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-17 16:23:32
+ * @Last Modified time: 2018-09-17 20:24:15
  */
 
 <template>
-  <div>
+  <div class="container">
     <div
       v-for="(item, itemIndex) in routes"
       :key="itemIndex">
       <template>
         <router-link
           v-if="!item.hidden&&item.noDropdown&&item.children.length>0"
-          :to="item.path+'/'+item.children[0].path">
+          :to="item.path+'/'+item.children[0].path"
+          :class="item.icon ? 'linkItem_icon' : '' "
+          class="menu_linkItem">
           <el-menu-item :index="item.path+'/'+item.children[0].path">
             <i
               v-if="item.icon"
@@ -42,9 +44,13 @@
               <router-link
                 v-else
                 :to="item.path+'/'+child.path"
-                class="menu-indent">
+                :class="child.icon ? 'linkItem_icon' : '' "
+                class="menu-indent menu_linkItem">
                 <el-menu-item :index="item.path+'/'+child.path">
-                  {{ child.name }}
+                  <i
+                    v-if="child.icon"
+                    :class="`iconfont icon-${child.icon}`" />
+                  <span slot="title">{{ child.name }}</span>
                 </el-menu-item>
               </router-link>
             </template>
@@ -68,13 +74,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.svg-icon {
-  margin-right: 10px;
+.iconfont {
+  margin-right: 20px;
 }
 
 .hideSidebar .menu-indent {
   display: block;
-  text-indent: 10px;
+  text-indent: 20px;
 }
 
 .el-submenu .el-menu-item {
@@ -83,6 +89,27 @@ export default {
   display: flex;
   align-items: center;
   align-content: center;
+}
+.el-menu-item {
+  &.is-active {
+    background-color:rgba(41, 44, 207, 1) !important;
+    padding-left: 34px !important;
+  }
+}
+.linkItem_icon {
+  .el-menu-item {
+    &.is-active {
+      padding-left: 14px !important;
+    }
+  }
+}
+
+.menu_linkItem {
+  display: inline-block;
+  width: 100%;
+  &.router-link-active {
+    border-left: 6px solid #1E52FF;
+  }
 }
 
 .el-submenu__title i,

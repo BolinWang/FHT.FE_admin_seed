@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:22:33
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:22:24
+ * @Last Modified time: 2018-09-17 19:37:47
  */
 
 <template>
@@ -139,16 +139,17 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .tags-view-container {
   width: calc(100% - 300px);
-  display: inline-block;
+  height: 100%;
   .tags-view-wrapper {
     background: #fff;
-    height: 49px;
-    line-height: 49px;
+    display: flex;
+    align-items: center;
+    height: 100%;
     .tags-view-item {
       display: inline-block;
       position: relative;
-      height: 26px;
-      line-height: 26px;
+      height: 28px;
+      line-height: 28px;
       border: 1px solid #d8dce5;
       color: #333;
       background: #fff;

@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:47:22
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-17 17:24:22
+ * @Last Modified time: 2018-09-18 10:32:03
  */
 <template>
   <div class="model-table-pagenation">
@@ -321,18 +321,18 @@ export default {
 
 <style lang="scss" scoped>
 .model-table {
-  border: 1px solid #e6ebf5;
+  // border: 1px solid #e6ebf5;
   .expandHeader {
     background-color: #f5f7fa !important;
   }
   .el-table__expanded-cell .el-table {
-    border: 1px solid #e6ebf5;
+    // border: 1px solid #e6ebf5;
     border-bottom: 0;
   }
 }
 
 .model-pagenation {
-  padding: 10px 0;
+  padding-top: 20px;
   text-align: right;
 }
 

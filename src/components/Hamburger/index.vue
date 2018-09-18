@@ -2,10 +2,10 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:49:22
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-04-12 10:42:37
+ * @Last Modified time: 2018-09-17 19:38:56
  */
 <template>
-  <div>
+  <div class="svg_container">
     <svg
       :class="{'is-active':isActive}"
       t="1492500959545"
@@ -49,8 +49,8 @@ export default {
 .hamburger {
   display: inline-block;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   transform: rotate(0deg);
   transition: .38s;
   transform-origin: 50% 50%;

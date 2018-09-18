@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="svg_container">
     <svg
       t="1508738709248"
       class="screenfull-svg"
@@ -71,7 +71,6 @@ export default {
   fill: #5a5e66;
   width: 30px;
   height: 30px;
-  vertical-align: 4px;
 }
 
 </style>

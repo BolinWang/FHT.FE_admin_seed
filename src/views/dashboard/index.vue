@@ -2,11 +2,11 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:02
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:12:06
+ * @Last Modified time: 2018-09-17 20:52:04
  */
 
 <template>
-  <div class="dashboard-container">
+  <div class="layout-container">
     <p style="margin-top: 0;">{{ roles | rolesFilter }}{{ name }}</p>
     <div class="img-banner"/>
   </div>
@@ -44,22 +44,13 @@ export default {
 
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
-.dashboard {
-  &-container {
-    padding: 20px;
-    .img-banner {
-      height: 50vh;
-      border-radius: 10px;
-      background-color: #2d3a4b;
-      background-image: url(../../assets/banner1.jpg);
-      background-size: cover;
-      background-position: center center;
-    }
-  }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
+<style lang="scss" scoped>
+.img-banner {
+  height: 50vh;
+  border-radius: 10px;
+  background-color: #2d3a4b;
+  background-image: url(../../assets/banner1.jpg);
+  background-size: cover;
+  background-position: center center;
 }
 </style>
