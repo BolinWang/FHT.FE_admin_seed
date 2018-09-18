@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:04:21
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-18 10:37:20
+ * @Last Modified time: 2018-09-18 14:31:25
  */
 
 <template>
@@ -68,10 +68,12 @@ export default {
         if (typeof innerText !== 'string') return
         style.innerText = this.updateStyle(innerText, originalCluster, themeCluster)
       })
-      this.$message({
-        message: '换肤成功',
-        type: 'success'
-      })
+      if (val !== oldVal && val !== coverTheme) {
+        this.$message({
+          message: '换肤成功',
+          type: 'success'
+        })
+      }
       localStorage.setItem('ORIGINAL_THEME', val)
     }
   },

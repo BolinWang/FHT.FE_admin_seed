@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:22:41
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-18 10:54:49
+ * @Last Modified time: 2018-09-18 14:06:36
  */
 
 <template>
@@ -10,8 +10,9 @@
     :class="{hideSidebar:!sidebar.opened}"
     class="app-wrapper">
     <div class="sidebar-wrapper">
-      <div class="image_logo">
+      <div class="sidebar_logo">
         <img src="../../assets/logo.png">
+        FHT Admin
       </div>
       <sidebar class="sidebar-container"/>
     </div>
@@ -48,11 +49,13 @@ export default {
   &.hideSidebar {
     .sidebar-wrapper {
       transform: translate(-140px, 0);
+      .sidebar_logo,
       .sidebar-container {
         transform: translate(140px, 0);
       }
       &:hover {
         transform: translate(0, 0);
+        .sidebar_logo,
         .sidebar-container {
           transform: translate(0, 0);
         }
@@ -71,6 +74,7 @@ export default {
     z-index: 1001;
     overflow-x: hidden;
     overflow-y: auto;
+    background: rgb(66, 60, 110);
     transition: all .28s ease-out;
     box-shadow: 2px 0 6px rgba(0, 0, 0, .35);
   }
@@ -87,15 +91,18 @@ export default {
     transition: all .28s ease-out;
     margin-left: 200px;
   }
-  .image_logo {
+  .sidebar_logo {
     width: 100%;
     height: 60px;
     background: rgb(66, 60, 110);
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 18px;
+    font-size: 20px;
+    color: #fff;
     img {
-      width: 120px;
+      height: 32px;
+      margin-right: 20px;
     }
   }
 }

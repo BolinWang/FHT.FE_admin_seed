@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:24:18
- * @Last Modified by: chudequan
- * @Last Modified time: 2018-09-17 16:10:39
+ * @Last Modified by: FT.FE.Bolin
+ * @Last Modified time: 2018-09-18 14:09:52
  */
 
 import Vue from 'vue'
@@ -16,7 +16,7 @@ import { getSessionId } from '@/utils/auth'
 import * as filters from './filters'
 import VuePreview from '@/components/Preview/plugins'
 import VueLazyload from 'vue-lazyload'
-import lazyLoadPic from '@/assets/lazyLoad@3x.png'
+import lazyLoadPic from '@/assets/lazyLoad.png'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'nprogress/nprogress.css'
 import 'normalize.css/normalize.css'

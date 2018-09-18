@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:22:27
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-18 10:38:55
+ * @Last Modified time: 2018-09-18 14:36:06
  */
 
 <template>
@@ -140,7 +140,6 @@ export default {
   display: flex;
   align-content: center;
   align-items: center;
-  overflow: hidden;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
   .hamburger-container {
     padding: 0 10px;

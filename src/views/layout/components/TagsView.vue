@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:22:33
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-17 19:37:47
+ * @Last Modified time: 2018-09-18 14:36:45
  */
 
 <template>
@@ -179,7 +179,7 @@ export default {
   }
   .contextmenu {
     margin: 0;
-    z-index: 2;
+    z-index: 9;
     position: absolute;
     list-style-type: none;
     padding: 5px 0;
