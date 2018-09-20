@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:49:39
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-18 18:58:47
+ * @Last Modified time: 2018-09-20 14:20:01
  */
 
 <template>
@@ -11,6 +11,7 @@
       :visible.sync="layer_cropper"
       title="图片裁剪"
       width="920px"
+      @open="cropperedImgs=[]"
       @close="cropperClose">
       <div class="cropper-wrapper">
         <div
@@ -199,7 +200,6 @@ export default {
   methods: {
     cropperClose () {
       this.cropperImgs = []
-      this.$emit('emitCropperList', [])
     },
     // 缩放图片
     changeScale (num, index) {

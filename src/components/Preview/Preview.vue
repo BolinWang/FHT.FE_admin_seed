@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:50:08
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 15:15:03
+ * @Last Modified time: 2018-09-20 14:19:21
  */
 
 <template>
@@ -19,7 +19,7 @@
       type="transition">
       <li
         v-for="(item, index) in list"
-        :key="item.src"
+        :key="item.sortNum"
         :style="itemStyle"
         class="preview-item clearfix">
         <img

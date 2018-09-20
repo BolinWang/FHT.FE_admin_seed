@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:13
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-18 17:24:26
+ * @Last Modified time: 2018-09-20 14:20:28
  */
 
 <template>
@@ -31,7 +31,6 @@
     <!-- 图片裁剪 -->
     <ImageCropper
       :cropper-list="cropperList"
-      @emitCropperList="emitCropperList"
       @emitCropperData="emitCropperData"/>
   </div>
 </template>
@@ -64,13 +63,9 @@ export default {
     emitDelete (val) {
       this.cropperData = val
     },
-    // 上传的图片列表
-    emitCropperList (list = []) {
-      this.cropperList = list
-    },
     // 裁剪后图片列表
     emitCropperData (list = []) {
-      this.cropperData = list
+      this.cropperData = [...this.cropperData, ...list]
     },
     /* 选择图片 */
     async uploadImg (e) {
