@@ -47,8 +47,8 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 - 目前公司API大部分都是`url+method`的请求体形式，针对这类规范，`@/src/mock/index.js`中的`正则匹配url`须是api请求的`${url}${method}`字段拼接
 
 - 如果API请求体没有`method`，`@/src/mock/index.js`中的`正则匹配url`须是api请求的`${url}isMock`字段拼接
-`@/src/utils/fetch.js`中的封装，请直接看源码吧[fetch.js](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/src/utils/fetch.js)
 ```
+`@/src/utils/fetch.js`中的封装，请直接看源码吧[fetch.js](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/src/utils/fetch.js)
 
 ## Extra
 1、组件使用请自行参考[example](https://github.com/BolinWang/FHT.FE_admin_seed/tree/master/src/views/example)
