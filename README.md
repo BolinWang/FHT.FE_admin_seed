@@ -35,11 +35,20 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 
 ```
 
-## mockjs（development使用）
-**1、src/api 各文件中需要使用mock数据的添加属性isMock: true**
-**2、src/mock 建议新建对应模块名称的文件，在文件中定义方法以及mock数据，最后在index.js中拦截相应url**
-**3、2中拦截的url，是原始http请求中的url+method拼接**
-**4、fetch.js中method为空时，url拼接'isMock'，所以在mock/index.js中无method的api正则匹配isMock**
+## mockjs（development使用）[config配置](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/config/dev.env.js)
+**1、所有的 mock 数据都在 `@/src/mock` 目录下，它只会拦截 `@/src/mock/index.js` 文件中`正则匹配url`**
+
+**2、`@/src/api` 目录下各文件中需要使用mock数据的添加`axios（fetch）请求 config`属性`isMock: true`**
+
+**3、`@/src/mock` 新建`@/src/api`对应模块的文件，在文件中定义方法以及mock数据，然后在`@/src/mock/index.js`中拦截相应`url`**
+
+**4、3中拦截的`url`，可以分成两类：**
+```
+- 目前公司API大部分都是`url+method`的请求体形式，针对这类规范，`@/src/mock/index.js`中的`正则匹配url`须是api请求的`${url}${method}`字段拼接
+
+- 如果API请求体没有`method`，`@/src/mock/index.js`中的`正则匹配url`须是api请求的`${url}isMock`字段拼接
+`@/src/utils/fetch.js`中的封装，请直接看源码吧[fetch.js](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/src/utils/fetch.js)
+```
 
 ## Extra
 1、组件使用请自行参考[example](https://github.com/BolinWang/FHT.FE_admin_seed/tree/master/src/views/example)
