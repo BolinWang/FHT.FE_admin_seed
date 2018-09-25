@@ -7,7 +7,8 @@
 </a>
 
 **注意：该项目使用 element-ui@2.3.0+ 版本，所以最低兼容 vue@2.5.0+**
-## 前序准备
+## 项目Demo预览地址：[Demo Preview](https://bolinwang.github.io/FHT.FE_admin_seed/)
+## 你需要做好的准备
 
 你需要在本地安装 [node](http://nodejs.org/) 和 [git](https://git-scm.com/)。
 
