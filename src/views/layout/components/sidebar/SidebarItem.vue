@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:36
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-17 20:24:15
+ * @Last Modified time: 2018-09-25 20:02:33
  */
 
 <template>
@@ -17,20 +17,24 @@
           :class="item.icon ? 'linkItem_icon' : '' "
           class="menu_linkItem">
           <el-menu-item :index="item.path+'/'+item.children[0].path">
-            <i
-              v-if="item.icon"
-              :class="`iconfont icon-${item.icon}`" />
-            <span slot="title">{{ item.children[0].name }}</span>
+            <span class="inlineBlock">
+              <i
+                v-if="item.icon"
+                :class="`iconfont icon-${item.icon}`" />
+              <span slot="title">{{ item.children[0].name }}</span>
+            </span>
           </el-menu-item>
         </router-link>
         <el-submenu
           v-if="!item.noDropdown&&!item.hidden"
           :index="item.name">
           <template slot="title">
-            <i
-              v-if="item.icon"
-              :class="`iconfont icon-${item.icon}`" />
-            <span slot="title">{{ item.name }}</span>
+            <span class="inlineBlock">
+              <i
+                v-if="item.icon"
+                :class="`iconfont icon-${item.icon}`" />
+              <span slot="title">{{ item.name }}</span>
+            </span>
           </template>
           <div
             v-for="(child, childIndex) in item.children"
@@ -47,10 +51,12 @@
                 :class="child.icon ? 'linkItem_icon' : '' "
                 class="menu-indent menu_linkItem">
                 <el-menu-item :index="item.path+'/'+child.path">
-                  <i
-                    v-if="child.icon"
-                    :class="`iconfont icon-${child.icon}`" />
-                  <span slot="title">{{ child.name }}</span>
+                  <span class="inlineBlock">
+                    <i
+                      v-if="child.icon"
+                      :class="`iconfont icon-${child.icon}`" />
+                    <span slot="title">{{ child.name }}</span>
+                  </span>
                 </el-menu-item>
               </router-link>
             </template>
@@ -78,6 +84,10 @@ export default {
   margin-right: 20px;
 }
 
+.inlineBlock {
+  display: inline-block;
+}
+
 .hideSidebar .menu-indent {
   display: block;
   text-indent: 20px;
@@ -90,17 +100,10 @@ export default {
   align-items: center;
   align-content: center;
 }
-.el-menu-item {
-  &.is-active {
-    background-color:rgba(41, 44, 207, 1) !important;
-    padding-left: 34px !important;
-  }
-}
-.linkItem_icon {
-  .el-menu-item {
-    &.is-active {
-      padding-left: 14px !important;
-    }
+.el-menu-item.is-active {
+  background-color:rgba(41, 44, 207, 1) !important;
+  .inlineBlock {
+    transform: translate(-6px)
   }
 }
 
