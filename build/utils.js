@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:30:34
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-12 16:54:31
+ * @Last Modified time: 2018-09-25 18:32:30
  */
 
 'use strict'
@@ -44,7 +44,13 @@ exports.cssLoaders = function(options) {
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {
-      loaders.push(MiniCssExtractPlugin.loader)
+      loaders.push({
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+          // css 背景图片引用路径
+          publicPath: '../../'
+        }
+      })
     } else {
       loaders.push('vue-style-loader')
     }
