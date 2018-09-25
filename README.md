@@ -1,14 +1,10 @@
-# FHT.FE_admin_seed
-# Author: 柏林
-
-<p align="center">
-  <a href="https://github.com/vuejs/vue">
-    <img src="https://img.shields.io/badge/vue-2.5.17-brightgreen.svg" alt="vue">
-  </a>
-  <a href="https://github.com/ElemeFE/element">
-    <img src="https://img.shields.io/badge/element--ui-2.4.6-brightgreen.svg" alt="element-ui">
-  </a>
-</p>
+## Author: 柏林
+<a href="https://github.com/vuejs/vue">
+  <img src="https://img.shields.io/badge/vue-2.5.17-brightgreen.svg" alt="vue">
+</a>
+<a href="https://github.com/ElemeFE/element">
+  <img src="https://img.shields.io/badge/element--ui-2.4.6-brightgreen.svg" alt="element-ui">
+</a>
 
 **注意：该项目使用 element-ui@2.3.0+ 版本，所以最低兼容 vue@2.5.0+**
 ## 前序准备
