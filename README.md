@@ -7,7 +7,9 @@
 </a>
 
 **注意：该项目使用 element-ui@2.3.0+ 版本，所以最低兼容 vue@2.5.0+**
-## 项目Demo预览地址：[Demo Preview](https://bolinwang.github.io/FHT.FE_admin_seed/)
+
+**项目在线Demo地址：[Online Demo](https://bolinwang.github.io/FHT.FE_admin_seed/)**
+
 ## 你需要做好的准备
 
 你需要在本地安装 [node](http://nodejs.org/) 和 [git](https://git-scm.com/)。
@@ -50,7 +52,39 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 ```
 `@/src/utils/fetch.js`中的封装，请直接看源码吧[fetch.js](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/src/utils/fetch.js)
 
-## Extra
+## 开发
+
+```bash
+# 克隆项目
+git clone https://github.com/BolinWang/FHT.FE_admin_seed.git
+
+或
+
+git clone http://116.62.130.63:3000/FHT.FE/FHT.FE_admin_seed.git
+
+# 安装依赖
+npm i
+
+# 建议不要用 cnpm 安装 会有各种诡异的bug 可以通过如下操作解决 npm 下载速度慢的问题
+npm i --registry=https://registry.npm.taobao.org
+
+# 启动服务
+npm run dev
+```
+
+浏览器访问 http://0.0.0.0:1314
+
+## 发布
+
+```bash
+# 构建测试环境
+npm run build:sit
+
+# 构建生产环境
+npm run build:prod
+```
+
+## 其它
 1、组件使用请自行参考[example](https://github.com/BolinWang/FHT.FE_admin_seed/tree/master/src/views/example)
 
 2、npm scripts请自行参考[package.json](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/package.json)
