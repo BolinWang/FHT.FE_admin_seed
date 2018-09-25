@@ -30,6 +30,9 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 - more...
 
 ```
+[table组件props](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/src/components/GridUnit/props.js)
+
+[配置参考](http://element-cn.eleme.io/#/zh-CN/component/table)
 
 ## mockjs（development使用）[config配置](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/config/dev.env.js)
 **1、所有的 mock 数据都在 `@/src/mock` 目录下，它只会拦截 `@/src/mock/index.js` 文件中`正则匹配url`**
