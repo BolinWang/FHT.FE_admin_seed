@@ -84,12 +84,35 @@ npm run build:sit
 npm run build:prod
 ```
 
+## Git Hooks配置
+```bash
+# 安装依赖包
+npm i --save-dev lint-staged husky
+
+# package.json配置
+"husky": {
+  "hooks": {
+    "pre-commit": "lint-staged"
+  }
+},
+"lint-staged": {
+  "linters": {
+    "src/**/*.{js,vue}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "ignore": []
+}
+[查看详细代码]()
+```
 ## 其它
 1、组件使用请自行参考[example](https://github.com/BolinWang/FHT.FE_admin_seed/tree/master/src/views/example)
 
 2、npm scripts请自行参考[package.json](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/package.json)
 
 3、本项目基于`webpack4`开发，若还想使用`webpack3`开发，请使用该分支[webpack3](https://github.com/BolinWang/FHT.FE_admin_seed/tree/webpack3)
+
 
 # 项目结构
 
