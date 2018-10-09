@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
 npm-debug.log*
-dist/
 .vscode
 .TREE.md
+dist/
+dist_dev/
+dist_test/
