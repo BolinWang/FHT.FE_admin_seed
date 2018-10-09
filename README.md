@@ -16,7 +16,6 @@
 
 本项目技术栈基于 [ES6](http://es6.ruanyifeng.com/)、[vue](https://cn.vuejs.org/index.html)、[vuex](https://vuex.vuejs.org/zh-cn/)、[vue-router](https://router.vuejs.org/zh-cn/) 、[axios](https://github.com/axios/axios) 和 [element-ui](https://github.com/ElemeFE/element)，所有的请求数据都使用[Mock.js](https://github.com/nuysoft/Mock)模拟，请提前了解和学习这些知识。
 
-
 ```
 vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正）
 主要功能：
@@ -33,9 +32,12 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 - more...
 
 ```
+
+**多环境资源打包请前往分支`build_env`查看相关配置代码[查看](https://github.com/BolinWang/FHT.FE_admin_seed/commit/658426bc8b9edcc19f85cd3c67308f5f9b15ea7b)**
+
 [table组件props](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/src/components/GridUnit/props.js)
 
-[配置参考](http://element-cn.eleme.io/#/zh-CN/component/table)
+[element table配置参考](http://element-cn.eleme.io/#/zh-CN/component/table)
 
 ## mockjs（development使用）[config配置](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/config/dev.env.js)
 **1、所有的 mock 数据都在 `@/src/mock` 目录下，它只会拦截 `@/src/mock/index.js` 文件中`正则匹配url`**
@@ -122,7 +124,9 @@ npm i --save-dev lint-staged husky
 
 3、本项目基于`webpack4`开发，若还想使用`webpack3`开发，请使用该分支[webpack3](https://github.com/BolinWang/FHT.FE_admin_seed/tree/webpack3)
 
-4、解决css引用背景图片路径问题[详细代码](https://github.com/BolinWang/FHT.FE_admin_seed/commit/75227eab39eb74c21ed4945a3256553f83252246)
+4、多环境资源打包请前往分支`build_env`查看相关配置代码[查看](https://github.com/BolinWang/FHT.FE_admin_seed/commit/658426bc8b9edcc19f85cd3c67308f5f9b15ea7b)
+
+5、解决css引用背景图片路径问题[详细代码](https://github.com/BolinWang/FHT.FE_admin_seed/commit/75227eab39eb74c21ed4945a3256553f83252246)
 
 
 # 项目结构
