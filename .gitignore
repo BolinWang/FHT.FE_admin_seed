@@ -2,5 +2,9 @@
 node_modules/
 npm-debug.log*
 dist/
+dist_dev/
+dist_test/
+dist_pre/
+dist_cloud/
 .vscode
 .TREE.md
