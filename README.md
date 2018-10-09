@@ -122,6 +122,8 @@ npm i --save-dev lint-staged husky
 
 3、本项目基于`webpack4`开发，若还想使用`webpack3`开发，请使用该分支[webpack3](https://github.com/BolinWang/FHT.FE_admin_seed/tree/webpack3)
 
+4、解决css引用背景图片路径问题[详细代码](https://github.com/BolinWang/FHT.FE_admin_seed/commit/75227eab39eb74c21ed4945a3256553f83252246)
+
 
 # 项目结构
 
