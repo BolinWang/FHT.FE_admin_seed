@@ -2,13 +2,12 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:30:08
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-12 16:53:40
+ * @Last Modified time: 2018-10-09 19:01:59
  */
 'use strict'
 require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
-
 const ora = require('ora')
 const rm = require('rimraf')
 const path = require('path')
@@ -20,7 +19,9 @@ const webpackConfig = require('./webpack.prod.conf')
 const spinner = ora('building for production...')
 spinner.start()
 
-rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
+const env = require('../config/' + process.env.env_config + '.env')
+
+rm(path.join(path.resolve(__dirname, `../${env.buildAssetsRoot || config.build.assetsRoot}`), config.build.assetsSubDirectory), err => {
   if (err) throw err
   webpack(webpackConfig, (err, stats) => {
     spinner.stop()
