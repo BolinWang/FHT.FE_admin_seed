@@ -2,10 +2,9 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:31:28
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-17 15:43:51
+ * @Last Modified time: 2018-10-09 19:00:20
  */
 
-let path = require('path')
 /* 本地联调后端IP地址 */
 let proxyIPs = {
   WANLI: 'http://192.168.1.121:1234/', // 万里小哥哥
@@ -36,8 +35,8 @@ module.exports = {
     showEslintErrorsInOverlay: false
   },
   build: {
-    index: path.resolve(__dirname, '../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    index: 'dist/index.html',
+    assetsRoot: 'dist',
     assetsSubDirectory: 'static',
     assetsPublicPath: './',
     productionSourceMap: false,

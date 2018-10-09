@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:31:14
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-12 16:58:25
+ * @Last Modified time: 2018-10-09 18:50:59
  */
 'use strict'
 const path = require('path')
@@ -39,7 +39,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
-    path: config.build.assetsRoot,
+    path: path.resolve(__dirname, `../${env.buildAssetsRoot || config.build.assetsRoot}`),
     filename: utils.assetsPath('js/[name].[chunkhash:8].js'),
     chunkFilename: utils.assetsPath('js/[name].[chunkhash:8].js')
   },
@@ -57,11 +57,11 @@ const webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: config.build.index,
+      filename: path.resolve(__dirname, `../${env.buildAssetsRoot || config.build.index}/index.html`),
       template: 'index.html',
       inject: true,
       favicon: resolve('favicon.ico'),
-      title: 'vue-admin-template',
+      title: 'FHT.FE_admin_seed',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
