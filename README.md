@@ -85,7 +85,16 @@ npm run build:prod
 ```
 
 ## Git Hooks配置
+
+[查看详细代码](https://github.com/BolinWang/FHT.FE_admin_seed/commit/3e8061b2d89af7b40c363cf3cc5c637a09f1c436)
+
+[lint-staged文档](https://github.com/okonet/lint-staged/blob/master/README.md)
+
 ```bash
+# 如下配置，每次它只会在你本地 commit 之前，校验你提交的内容是否符合你本地配置的 eslint规则
+# 如果符合则提交成功
+# 如果不符合它会自动执行 eslint --fix 尝试帮你自动修复，如果修复成功则会帮你把修复好的代码提交，如果失败，则会提示你错误，让你修好这个错误之后才能允许你提交代码。
+
 # 安装依赖包
 npm i --save-dev lint-staged husky
 
@@ -104,8 +113,8 @@ npm i --save-dev lint-staged husky
   },
   "ignore": []
 }
-[查看详细代码]()
 ```
+
 ## 其它
 1、组件使用请自行参考[example](https://github.com/BolinWang/FHT.FE_admin_seed/tree/master/src/views/example)
 
