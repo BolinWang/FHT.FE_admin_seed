@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:49:14
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-17 17:25:41
+ * @Last Modified time: 2018-10-11 11:39:46
  */
 
 const props = {
@@ -211,13 +211,13 @@ const props = {
     }
   },
 
-  // expand展开行列表数据
-  expandColums: {
-    type: Array,
-    default: () => {
-      return []
-    }
-  },
+  // // expand展开行列表数据
+  // expandColums: {
+  //   type: Array,
+  //   default: () => {
+  //     return []
+  //   }
+  // },
 
   // pageNation配置
   showPagination: {

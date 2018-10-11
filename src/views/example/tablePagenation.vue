@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:19
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-18 10:35:40
+ * @Last Modified time: 2018-10-11 11:39:06
  */
 
 <template>
@@ -46,7 +46,21 @@
         :is-mock="isMock"
         :form-options="formOptions"
         :show-expand="true"
-        :expand-colums="expandColums">
+        :show-selection="true">
+        <template
+          slot="expandForm"
+          slot-scope="table_scope">
+          <el-form
+            label-position="left"
+            inline>
+            <el-form-item
+              v-for="(item, index) in expandColums"
+              :label="item.label"
+              :key="index">
+              <span>{{ item.prop }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
         <template
           slot="handle"
           slot-scope="scope">
