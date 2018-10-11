@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:19
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-10-11 11:39:06
+ * @Last Modified time: 2018-10-11 15:32:43
  */
 
 <template>
@@ -35,6 +35,11 @@
             icon="el-icon-search"
             @click="handleSearch">查询</el-button>
         </el-form-item>
+        <el-form-item>
+          <el-button
+            type="primary"
+            @click="getMultipleSelectionAll">获取已选数据</el-button>
+        </el-form-item>
       </el-form>
     </div>
     <div class="layout-container">
@@ -46,7 +51,8 @@
         :is-mock="isMock"
         :form-options="formOptions"
         :show-expand="true"
-        :show-selection="true">
+        :show-selection="true"
+        :selection-key="`exampleId`">
         <template
           slot="expandForm"
           slot-scope="table_scope">
@@ -178,6 +184,13 @@ export default {
     handleSearch () {
       this.$nextTick(() => {
         this.$refs.refGridUnit.searchHandler()
+      })
+    },
+    getMultipleSelectionAll () {
+      const multipleSelectionAll = this.$refs.refGridUnit.multipleSelectionAll
+      this.$message({
+        showClose: true,
+        message: `已选择${multipleSelectionAll.length}条数据`
       })
     }
   }

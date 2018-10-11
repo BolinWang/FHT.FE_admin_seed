@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:47:22
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-10-11 11:38:45
+ * @Last Modified time: 2018-10-11 15:29:06
  */
 <template>
   <div class="model-table-pagenation">
@@ -179,8 +179,10 @@ export default {
       },
       total: 0,
       loading: false,
-      tableData: [],
-      searchParams: {}
+      tableData: [], // 表格数据
+      searchParams: {},
+      multipleSelection: [], // 当前页已选择数据
+      multipleSelectionAll: [] // 所有页已选择数据
     }
   },
   computed: {
@@ -236,8 +238,10 @@ export default {
     /* change pageNo */
     handleCurrentChange (pageNo) {
       this.pagination.pageNo = pageNo
+      this.changePageHoldSelection()
       this.fetchHandler()
     },
+    // 数据查询
     searchHandler (options) {
       this.pagination.pageNo = 1
       if (options && options.type === 'clear') {
@@ -245,6 +249,7 @@ export default {
       }
       this.fetchHandler()
     },
+    // 请求数据
     fetchHandler () {
       this.loading = true
       let params
@@ -307,13 +312,78 @@ export default {
         }
         this.total = totalValue
         this.loading = false
+        setTimeout(() => {
+          this.setSelectRow()
+        }, 0)
       }).catch(error => {
         console.log(error)
         this.loading = false
       })
     },
+    // 父子组件通信
     emitEventHandler (event) {
+      if (event === 'selection-change') {
+        this.multipleSelection = [...Array.from(arguments).slice(1)][0]
+        setTimeout(() => {
+          this.changePageHoldSelection()
+        }, 0)
+      }
       this.$emit(event, ...Array.from(arguments).slice(1))
+    },
+    // 切换表格selection
+    setSelectRow () {
+      if (!this.multipleSelectionAll || this.multipleSelectionAll.length <= 0) {
+        return
+      }
+      let selectionKey = this.selectionKey
+      let selectAllIds = []
+      this.multipleSelectionAll.forEach(row => {
+        selectAllIds.push(row[selectionKey])
+      })
+      this.$refs.gridUnit.clearSelection()
+      for (let i = 0; i < this.tableData.length; i++) {
+        if (selectAllIds.includes(this.tableData[i][selectionKey])) {
+          this.$refs.gridUnit.toggleRowSelection(this.tableData[i], true)
+        }
+      }
+    },
+    // 跨页选择保留选项
+    changePageHoldSelection () {
+      let selectionKey = this.selectionKey
+      if (this.multipleSelectionAll.length <= 0) {
+        this.multipleSelectionAll = this.multipleSelection
+        return
+      }
+      let selectAllIds = []
+      this.multipleSelectionAll.forEach(row => {
+        selectAllIds.push(row[selectionKey])
+      })
+      let selectIds = []
+      // 获取当前页选中的id
+      this.multipleSelection.forEach(row => {
+        selectIds.push(row[selectionKey])
+        if (!selectAllIds.includes(row[selectionKey])) {
+          this.multipleSelectionAll.push(row)
+        }
+      })
+      // 当前页没有选中的id
+      let noSelectIds = []
+      this.tableData.forEach(row => {
+        if (!selectIds.includes(row[selectionKey])) {
+          noSelectIds.push(row[selectionKey])
+        }
+      })
+      // 如果所有已选择列表中有未被选中的，删除
+      noSelectIds.forEach(id => {
+        if (selectAllIds.includes(id)) {
+          for (let i = 0; i < this.multipleSelectionAll.length; i++) {
+            if (this.multipleSelectionAll[i][selectionKey] === id) {
+              this.multipleSelectionAll.splice(i, 1)
+              break
+            }
+          }
+        }
+      })
     }
   }
 }

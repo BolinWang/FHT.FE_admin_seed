@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:49:14
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-10-11 11:39:46
+ * @Last Modified time: 2018-10-11 15:19:21
  */
 
 const props = {
@@ -43,7 +43,14 @@ const props = {
   sumText: String,
   summaryMethod: Function,
   cellClassName: [String, Function],
-  // 自定义配置
+  /**
+   * table自定义配置项
+   **/
+  // selection表格数据的唯一key
+  selectionKey: {
+    type: String,
+    default: 'id'
+  },
 
   // axios url
   url: {
