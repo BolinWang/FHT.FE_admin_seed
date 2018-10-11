@@ -35,7 +35,9 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 
 **多环境资源打包请前往分支`build_env`查看相关配置代码[查看](https://github.com/BolinWang/FHT.FE_admin_seed/commit/658426bc8b9edcc19f85cd3c67308f5f9b15ea7b)**
 
-[table组件props](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/src/components/GridUnit/props.js)
+[table组件支持props](https://github.com/BolinWang/FHT.FE_admin_seed/blob/master/src/components/GridUnit/props.js)
+
+[table组件扩展：分页保留已选择数据](https://github.com/BolinWang/FHT.FE_admin_seed/commit/329fe7fdc283c7f8a756e35d0faf2a073e59d757)
 
 [element table配置参考](http://element-cn.eleme.io/#/zh-CN/component/table)
 
