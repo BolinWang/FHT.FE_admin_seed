@@ -1,11 +1,13 @@
 {
-  "name": "ota",
+  "name": "admin_seed",
   "version": "1.0.0",
   "license": "MIT",
-  "description": "FHT.OTA",
+  "description": "FHT.admin_seed",
   "author": "bolin",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "build:dev": "cross-env NODE_ENV=production env_config=dev node build/build.js",
+    "build:dev-preview": "cross-env NODE_ENV=production env_config=dev npm_config_report=true node build/build.js",
     "build:sit": "cross-env NODE_ENV=production env_config=sit node build/build.js",
     "build:sit-preview": "cross-env NODE_ENV=production env_config=sit npm_config_report=true node build/build.js",
     "build:prod": "cross-env NODE_ENV=production env_config=prod node build/build.js",
@@ -41,7 +43,6 @@
     "babel-preset-env": "1.7.0",
     "babel-preset-stage-2": "6.24.1",
     "chalk": "2.4.1",
-    "compression-webpack-plugin": "1.1.12",
     "copy-webpack-plugin": "4.5.2",
     "cross-env": "^5.2.0",
     "css-loader": "1.0.0",
