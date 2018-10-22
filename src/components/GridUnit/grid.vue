@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:47:22
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-10-11 15:29:06
+ * @Last Modified time: 2018-10-22 16:46:32
  */
 <template>
   <div class="model-table-pagenation">
@@ -233,13 +233,13 @@ export default {
     /* changeSize */
     handleSizeChange (size) {
       this.pagination.pageSize = size
-      this.fetchHandler()
+      this.fetchHandler('selection')
     },
     /* change pageNo */
     handleCurrentChange (pageNo) {
       this.pagination.pageNo = pageNo
       this.changePageHoldSelection()
-      this.fetchHandler()
+      this.fetchHandler('selection')
     },
     // 数据查询
     searchHandler (options) {
@@ -250,7 +250,7 @@ export default {
       this.fetchHandler()
     },
     // 请求数据
-    fetchHandler () {
+    fetchHandler (fetchType) {
       this.loading = true
       let params
       const {
@@ -312,9 +312,14 @@ export default {
         }
         this.total = totalValue
         this.loading = false
-        setTimeout(() => {
-          this.setSelectRow()
-        }, 0)
+        if (fetchType === 'selection') {
+          setTimeout(() => {
+            this.setSelectRow()
+          }, 0)
+        } else {
+          this.multipleSelection = []
+          this.multipleSelectionAll = []
+        }
       }).catch(error => {
         console.log(error)
         this.loading = false
