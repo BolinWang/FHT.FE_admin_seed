@@ -2,12 +2,12 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:10:36
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-13 11:11:19
+ * @Last Modified time: 2018-10-31 11:35:10
  */
 
-/* 是否是公司邮箱 */
-export function isWscnEmail (str) {
-  const reg = /^[a-z0-9](?:[-_.+]?[a-z0-9]+)*@wallstreetcn\.com$/i
+/* 是否是邮箱 */
+export function isEmail (str) {
+  const reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/i
   return reg.test(str.trim())
 }
 
