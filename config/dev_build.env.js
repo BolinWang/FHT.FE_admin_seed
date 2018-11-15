@@ -2,13 +2,13 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:31:45
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-11-15 14:17:00
+ * @Last Modified time: 2018-11-15 14:16:03
  */
 
 module.exports = {
   NODE_ENV: '"production"',
-  ENV_CONFIG: '"sit"',
+  ENV_CONFIG: '"dev_build"',
   NPM_CONFIG_REPORT: '"true"',
-  /* 云测环境API地址 */
-  BASE_API: '"http://test1.mdguanjia.com/example/"'
+  /* dev环境API地址 */
+  BASE_API: '"http://dev.mdguanjia.com/example/"'
 }
