@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:07:11
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-11-20 10:22:25
+ * @Last Modified time: 2018-11-20 16:22:54
  */
 
 import Vue from 'vue'
@@ -68,6 +68,10 @@ export const asyncRouterMap = [
       path: 'grid',
       component: _import('example/tablePagenation'),
       name: '表格组件'
+    }, {
+      path: 'areaSelect',
+      component: _import('example/areaSelect'),
+      name: '省市区联动'
     }, {
       path: 'dragDialog',
       component: _import('example/dragDialog'),
