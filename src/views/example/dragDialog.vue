@@ -8,7 +8,7 @@
       :visible.sync="dialogTableVisible"
       title="拖拽弹窗试试吧"
       @dragDialog="handleDrag">
-      拖拽弹窗试试吧
+      请在header区域进行拖拽哦~
     </el-dialog>
   </div>
 </template>
