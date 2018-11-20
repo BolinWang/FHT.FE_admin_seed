@@ -6,8 +6,8 @@
     <input
       id="uploadImages"
       :accept="accept"
+      :multiple="multiple"
       type="file"
-      multiple
       @change="uploadImg($event)"
     >
   </div>
@@ -27,6 +27,12 @@ export default {
       type: Function,
       default () {
         return () => {}
+      }
+    },
+    multiple: {
+      type: Boolean,
+      default () {
+        return false
       }
     }
   },

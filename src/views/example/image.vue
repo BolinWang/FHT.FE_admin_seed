@@ -2,13 +2,14 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:11:13
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-11-20 14:26:27
+ * @Last Modified time: 2018-11-20 16:02:38
  */
 
 <template>
   <div class="layout-container">
     <!-- 图片上传 -->
     <upload-image
+      :multiple="true"
       :on-success="handleSuccess"
       :before-upload="beforeUpload"/>
     <!-- 图片预览排序 -->
