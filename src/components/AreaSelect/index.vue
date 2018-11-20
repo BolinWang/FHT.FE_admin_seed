@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import areaData from './cityData'
+import options from './cityData'
 import { deepClone } from '@/utils'
 export default {
   name: 'AreaSelect',
@@ -24,6 +24,10 @@ export default {
       default () {
         return []
       }
+    },
+    type: {
+      type: String,
+      default: 'keyValue'
     },
     placeholder: {
       type: String,
@@ -57,7 +61,7 @@ export default {
   },
   data () {
     return {
-      options: areaData,
+      options,
       selectedOptions: []
     }
   },
@@ -68,22 +72,30 @@ export default {
   },
   created () {
     if (Array.isArray(this.value)) {
-      this.selectedOptions = this.value.map(key => { return parseInt(key) })
+      this.selectedOptions = this.value.map(key => key * 1)
     }
 
     if (this.level === 0) {
-      let data = deepClone(areaData)
-      data.forEach((item, index) => {
-        item.children.forEach((v, i) => {
-          delete v.children
-        })
+      this.options = deepClone(options).map(item => {
+        return {
+          value: item.value,
+          parentvalue: item.parentvalue,
+          label: item.label,
+          children: [
+            ...item.children.map(child => {
+              return {
+                ...child,
+                children: null
+              }
+            })
+          ]
+        }
       })
-      this.options = data
     }
   },
   methods: {
     handleChange (selected) {
-      this.$emit('input', selected)
+      this.$emit('onChanged', selected)
     }
   }
 }

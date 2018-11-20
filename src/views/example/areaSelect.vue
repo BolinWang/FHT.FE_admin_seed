@@ -4,7 +4,9 @@
       <area-select
         ref="areaSelect"
         v-model="areaCode"
-        :level="1"/>
+        :level="1"
+        :type="`keyValue`"
+        @onChanged="onChanged"/>
     </div>
   </div>
 </template>
@@ -23,7 +25,9 @@ export default {
     }
   },
   methods: {
-
+    onChanged (data) {
+      console.log(data)
+    }
   }
 }
 </script>
