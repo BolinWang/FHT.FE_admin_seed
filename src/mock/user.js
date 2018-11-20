@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-09-17 14:01:13
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-17 17:02:09
+ * @Last Modified time: 2018-11-20 11:19:40
  */
 
 const mockData_user = {
@@ -45,7 +45,7 @@ const mockData_user = {
       'qq': null,
       'type': 3,
       'status': 1,
-      'isAdmin': 0,
+      'isAdmin': 1,
       'sessionId': '0',
       'parentId': null,
       'lastDevId': null,
