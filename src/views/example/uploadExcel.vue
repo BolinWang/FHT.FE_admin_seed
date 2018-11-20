@@ -1,6 +1,6 @@
 <template>
   <div class="components-container">
-    <upload-excel-component
+    <upload-excel
       :on-success="handleSuccess"
       :before-upload="beforeUpload"/>
     <el-table
@@ -17,12 +17,12 @@
 </template>
 
 <script>
-import UploadExcelComponent from '@/components/UploadExcel'
+import UploadExcel from '@/components/Upload/excel'
 
 export default {
-  name: 'UploadExcel',
+  name: 'ExampleUploadExcel',
   components: {
-    UploadExcelComponent
+    UploadExcel
   },
   data () {
     return {

@@ -13,7 +13,7 @@
 import { exampleApi } from '@/api/example'
 
 export default {
-  name: 'DownloadExcel',
+  name: 'ExamoleDownloadExcel',
   data () {
     return {
       downloadLoading: false,

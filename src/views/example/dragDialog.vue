@@ -17,7 +17,7 @@
 import dragDialog from '@/directive/dragDialog'
 
 export default {
-  name: 'DragDialog',
+  name: 'ExampleDragDialog',
   directives: {
     dragDialog
   },
