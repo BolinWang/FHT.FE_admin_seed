@@ -5,7 +5,6 @@
       :before-upload="beforeUpload"/>
     <el-table
       :data="tableData"
-      border
       highlight-current-row
       style="width: 100%;margin-top:20px;">
       <el-table-column
@@ -22,7 +21,9 @@ import UploadExcelComponent from '@/components/UploadExcel'
 
 export default {
   name: 'UploadExcel',
-  components: { UploadExcelComponent },
+  components: {
+    UploadExcelComponent
+  },
   data () {
     return {
       tableData: [],
@@ -39,6 +40,7 @@ export default {
       return true
     },
     handleSuccess ({ results, header }) {
+      this.$message.success('上传成功')
       this.tableData = results
       this.tableHeader = header
     }
