@@ -2,7 +2,7 @@
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:07:11
  * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-11-15 17:30:32
+ * @Last Modified time: 2018-11-20 10:22:25
  */
 
 import Vue from 'vue'
@@ -72,6 +72,14 @@ export const asyncRouterMap = [
       path: 'dragDialog',
       component: _import('example/dragDialog'),
       name: '拖拽dialog'
+    }, {
+      path: 'downloadExcel',
+      component: _import('example/downloadExcel'),
+      name: '下载Excel'
+    }, {
+      path: 'uploadExcel',
+      component: _import('example/uploadExcel'),
+      name: '上传Excel'
     }]
   },
   {
