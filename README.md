@@ -24,10 +24,11 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 - 打包资源可视化： prod、sit
 - 动态路由： 权限控制addRouters
 - 全屏、面包屑、换肤、快捷导航(tagsView)
-- 图片组件（upload上传、cropper裁剪、drag排序、preview预览查看，可扩展加水印组件）
+- 图片组件（upload上传、cropper裁剪、drag排序、preview预览查看，添加水印组件）
 - 表格组件：基于elementUI table/pagenation 二次封装 支持所有配置
-- 导出excel
+- 导出/上传Excel
 - 拖拽排序
+- dialog拖拽指令
 - mock数据
 - more...
 
@@ -50,7 +51,7 @@ vue + vue-router + vuex + axios + elementUI （es6 + eslint：vscode自动纠正
 
 **4、3中拦截的`url`，可以分成两类：**
 ```
-- 目前公司API大部分都是`url+method`的请求体形式，针对这类规范，`@/src/mock/index.js`中的`正则匹配url`须是api请求的`${url}${method}`字段拼接
+- 目前API大部分都是`url+method`的请求体形式，针对这类规范，`@/src/mock/index.js`中的`正则匹配url`须是api请求的`${url}${method}`字段拼接
 
 - 如果API请求体没有`method`，`@/src/mock/index.js`中的`正则匹配url`须是api请求的`${url}isMock`字段拼接
 ```
