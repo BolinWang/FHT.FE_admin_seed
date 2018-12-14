@@ -1,8 +1,8 @@
 /*
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 16:30:55
- * @Last Modified by: chudequan
- * @Last Modified time: 2018-09-17 16:15:25
+ * @Last Modified by: FE.Bolin
+ * @Last Modified time: 2018-12-13 14:35:12
  */
 
 'use strict'
@@ -30,7 +30,10 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: [
+      'babel-polyfill',
+      './src/main.js'
+    ]
   },
   output: {
     path: config.build.assetsRoot,
@@ -61,7 +64,11 @@ module.exports = {
         include: [
           resolve('src'),
           resolve('test'),
-          resolve('node_modules/webpack-dev-server/client')
+          resolve('node_modules/webpack-dev-server/client'),
+          resolve('node_modules/element-ui/src'),
+          resolve('node_modules/element-ui/packages'),
+          resolve('node_modules/_element-ui@2.4.6@element-ui/src'),
+          resolve('node_modules/_element-ui@2.4.6@element-ui/packages')
         ]
       },
       {

@@ -31,7 +31,8 @@
     "vue-cropper": "^0.2.9",
     "vue-lazyload": "^1.1.4",
     "vuedraggable": "2.15.0",
-    "photoswipe": "^4.1.1"
+    "photoswipe": "^4.1.1",
+    "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {
     "autoprefixer": "8.5.0",

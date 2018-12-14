@@ -1,10 +1,11 @@
 /*
  * @Author: FT.FE.Bolin
  * @Date: 2018-04-11 17:24:18
- * @Last Modified by: FT.FE.Bolin
- * @Last Modified time: 2018-09-18 14:09:52
+ * @Last Modified by: FE.Bolin
+ * @Last Modified time: 2018-12-13 13:31:40
  */
-
+// 兼容IE
+import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
